@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="415.0" prefWidth="343.0" style="-fx-background-color: #8FBC8F;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#65a66500" height="57.0" layoutX="75.0" layoutY="34.0" stroke="#65a665" strokeType="INSIDE" width="192.0" />
+      <Label layoutX="104.0" layoutY="45.0" text="Game Details">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Label>
+      <Label layoutX="36.0" layoutY="115.0" text="Winner ">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
+      <Label layoutX="36.0" layoutY="153.0" text="Number Of Players">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
+      <Label layoutX="36.0" layoutY="194.0" text="Total Time">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
+      <Label layoutX="36.0" layoutY="232.0" text="Players">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
+      <ComboBox layoutX="131.0" layoutY="232.0" prefHeight="26.0" prefWidth="182.0" style="-fx-background-color: #65a665;" />
+      <TextField layoutX="112.0" layoutY="117.0" prefHeight="26.0" prefWidth="202.0" />
+      <TextField layoutX="204.0" layoutY="154.0" prefHeight="26.0" prefWidth="110.0" />
+      <TextField layoutX="133.0" layoutY="194.0" prefHeight="26.0" prefWidth="181.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#65a66500" height="122.0" layoutX="22.0" layoutY="275.0" stroke="#65a665" strokeType="INSIDE" width="302.0" />
+   </children>
+</AnchorPane>
