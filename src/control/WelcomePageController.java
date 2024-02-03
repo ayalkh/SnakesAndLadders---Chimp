@@ -17,7 +17,7 @@ public class WelcomePageController extends Application {
 			WelcomePageController controller = loader.getController();
 			// You can perform additional setup on the controller if needed
 
-			Scene scene = new Scene(root, 749, 400);
+			Scene scene = new Scene(root, 750, 400);
 			primaryStage.setScene(scene);
 			primaryStage.show();
 		} catch (Exception e) {
