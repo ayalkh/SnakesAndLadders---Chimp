@@ -15,14 +15,16 @@ public class Question {
 	private int level;
 	private String team;
 
-	public Question(String question, List<String> answers, int correctAnswer, int level, String team) {
-		super();
-		this.question = question;
-		this.answers = answers;
-		this.correctAnswer = correctAnswer;
-		this.level = level;
-		this.team = team;
+	public Question(int questionID, String question, List<String> answers, int correctAnswer, int level, String team) {
+	    super();
+	    this.questionID = questionID;
+	    this.question = question;
+	    this.answers = answers;
+	    this.correctAnswer = correctAnswer;
+	    this.level = level;
+	    this.team = team;
 	}
+
 
 	public Question(JSONObject jsonObject) {
 		try {
@@ -35,6 +37,7 @@ public class Question {
 
 
 	public void fromJSON(JSONObject jsonObject) {
+	    this.questionID = ((Long) jsonObject.get("questionID")).intValue();
 		this.question = (String) jsonObject.get("question");
 
 		try {

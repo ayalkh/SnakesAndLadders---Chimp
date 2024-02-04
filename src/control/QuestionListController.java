@@ -18,13 +18,14 @@ import java.util.List;
 public class QuestionListController {
 
     @FXML
-    private ListView<String> questionListView;
+    private ListView<String> questionsListView;
 
     private List<Question> questions;
 
     @FXML
     public void initialize() {
         loadQuestions();
+
         populateListView();
     }
 
@@ -32,7 +33,7 @@ public class QuestionListController {
         questions = new ArrayList<>();
         JSONParser parser = new JSONParser();
 
-        try (FileReader reader = new FileReader("Question.json")) {
+        try (FileReader reader = new FileReader("Questions.json")) {
             JSONObject jsonObject = (JSONObject) parser.parse(reader);
             JSONArray jsonQuestions = (JSONArray) jsonObject.get("questions");
 
@@ -48,33 +49,42 @@ public class QuestionListController {
 
     private void populateListView() {
         for (Question q : questions) {
-            questionListView.getItems().add(q.getQuestion());
+            questionsListView.getItems().add(q.getQuestionID() + ": " + q.getQuestion());
         }
 
-        questionListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            openQuestionView(newValue);
+        questionsListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            String selectedIdStr = newValue.split(":")[0].trim(); // Extract ID
+            int selectedId = Integer.parseInt(selectedIdStr);
+            openQuestionView(selectedId);
         });
     }
 
-    private void openQuestionView(String questionTitle) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/QuestionView.fxml"));
-            Parent root = loader.load();
+    private void openQuestionView(int questionId) {
+        Question selectedQuestion = getQuestionById(questionId);
+        if (selectedQuestion != null) {
 
-            QuestionViewControl controller = loader.getController();
-            controller.setQuestion(getQuestionByTitle(questionTitle));
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/QuestionView.fxml"));
+                Parent root = loader.load();
 
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
+                QuestionViewControl controller = loader.getController();
+
+                controller.setQuestion(selectedQuestion);
+
+                Stage stage = new Stage();
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("Question not found with ID: " + questionId);
         }
     }
 
-    private Question getQuestionByTitle(String title) {
+    private Question getQuestionById(int id) {
         for (Question q : questions) {
-            if (q.getQuestion().equals(title)) {
+            if (q.getQuestionID() == id) {
                 return q;
             }
         }

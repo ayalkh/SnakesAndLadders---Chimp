@@ -9,7 +9,7 @@ import javafx.scene.control.TextField;
 public class QuestionViewControl {
 
     @FXML
-    private Label questionLabel;
+    private TextField questionText;
 
     @FXML
     private TextField answer1Tex; 
@@ -24,14 +24,14 @@ public class QuestionViewControl {
     private TextField answer4Tex;
 
     @FXML
-    private Label difficultyLabel; // Add this
+    private TextField difficultyLabel; // Add this
 
     @FXML
-    private Label teamLabel; // Add this
+    private TextField teamLabel; // Add this
 
     // Method to set the question and its details
     public void setQuestion(Question question) {
-        questionLabel.setText(question.getQuestion());
+    	questionText.setText(question.getQuestion());
         List<String> answers = question.getAnswers();
 
         answer1Tex.setText(answers.size() > 0 ? answers.get(0) : "");
