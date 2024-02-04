@@ -11,7 +11,7 @@ public class WelcomePageController extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("WelcomePage.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("view/WelcomePage.fxml"));
 			Parent root = loader.load();
 
 			WelcomePageController controller = loader.getController();
