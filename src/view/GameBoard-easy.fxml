@@ -101,12 +101,12 @@
          </children>
       </HBox>
       <TextField layoutX="562.0" layoutY="69.0" prefHeight="26.0" prefWidth="133.0" />
-      <ImageView fitHeight="46.0" fitWidth="38.0" layoutX="432.0" layoutY="171.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="46.0" fitWidth="38.0" layoutX="610.0" layoutY="142.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/stopwatch%20(1).png" />
          </image>
       </ImageView>
-      <Label layoutX="421.0" layoutY="208.0" text="00:29">
+      <Label layoutX="600.0" layoutY="222.0" text="00:29">
          <font>
             <Font size="25.0" />
          </font>
