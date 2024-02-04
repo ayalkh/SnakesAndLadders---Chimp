@@ -10,7 +10,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="399.0" prefWidth="750.0" style="-fx-background-color: #8FBC8F;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="399.0" prefWidth="750.0" style="-fx-background-color: #8FBC8F;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#51a651" height="400.0" layoutX="509.0" stroke="#51a651" strokeType="INSIDE" width="241.0" />
       <Label layoutX="541.0" layoutY="30.0" text="Turn Of Player : ">
@@ -101,12 +101,12 @@
          </children>
       </HBox>
       <TextField layoutX="562.0" layoutY="69.0" prefHeight="26.0" prefWidth="133.0" />
-      <ImageView fitHeight="46.0" fitWidth="38.0" layoutX="432.0" layoutY="171.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="46.0" fitWidth="38.0" layoutX="610.0" layoutY="142.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/stopwatch%20(1).png" />
          </image>
       </ImageView>
-      <Label layoutX="421.0" layoutY="208.0" text="00:29">
+      <Label layoutX="600.0" layoutY="222.0" text="00:29">
          <font>
             <Font size="25.0" />
          </font>
