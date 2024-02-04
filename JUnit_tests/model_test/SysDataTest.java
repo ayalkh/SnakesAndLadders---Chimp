@@ -18,38 +18,91 @@ public class SysDataTest {
 
     @BeforeEach
     public void setUp() {
-        sysData = SysData.getInstance(); // Assuming SysData is a singleton
-        sysData.setQuestionsList(new ArrayList<>()); // Assuming there's a method to set the question list
+        sysData = SysData.getInstance(); 
+        sysData.setQuestionsList(new ArrayList<>()); 
     }
-
+//***************Adding TEST*******************
     @Test
     public void testAddQuestion() {
-        List<String> answers = Arrays.asList("Answer1", "Answer2", "Answer3", "Answer4");
-        Question question = new Question("What is the capital of France?", answers, 2, 1, "Geography");
-        sysData.addQuestion(question); // Assuming SysData has a method to add questions
-        Assertions.assertFalse(sysData.getQuestionsList().isEmpty(), "The questions list should not be empty after adding a question.");
-        // Assume Question class has an overridden equals() method
-        Assertions.assertTrue(sysData.getQuestionsList().contains(question), "The question should be present in the questions list.");
+    	 List<String> answers = Arrays.asList(
+    		        "Delivering working software frequently.",
+    		        "Performing unit testing as part of the development process.",
+    		        "Dividing the development process into a series of short iterations, where each iteration focuses on a specific set of features or requirements.",
+    		        "Lack of collaboration with the customer"
+    		    );
+    		    Question agileQuestion = new Question(
+    		        "Which of the following is not an agile best practice",
+    		        answers,
+    		        4, 
+    		        1, // Difficulty level
+    		        "Software Development"
+    		    );
+    		    sysData.addQuestion(agileQuestion);
+    		    Assertions.assertFalse(sysData.getQuestionsList().isEmpty(), "The questions list should not be empty after adding a question.");
+    		    Assertions.assertTrue(sysData.getQuestionsList().contains(agileQuestion), "The agile question should be present in the questions list.");
     }
+  //***************DELETE TEST*******************
 
     @Test
     public void testDeleteQuestion() {
-        List<String> answers = Arrays.asList("a", "b", "c", "d");
-        Question question = new Question("Dummy question", answers, 1, 1, "Dummy");
+        List<String> answers = Arrays.asList(
+            "Delivering working software frequently.",
+            "Performing unit testing as part of the development process.",
+            "Dividing the development process into a series of short iterations.",
+            "Lack of collaboration with the customer"
+        );
+        Question question = new Question(
+            "Which of the following is not an agile best practice",
+            answers,
+            4, // Correct answer index 
+            1,  // Difficulty level
+            "Software Development" // Category
+        );
+
         sysData.addQuestion(question);
         int questionId = question.getQuestionID(); // Get the actual ID after adding the question
-        sysData.deleteQuestion(questionId); // Assuming SysData has a method to delete questions by ID
-        Assertions.assertNull(sysData.getQuestionByID(questionId), "The question should be deleted."); // Assuming SysData has a method to retrieve a question by ID
+        sysData.deleteQuestion(questionId); // Delete the question
+
+        Assertions.assertNull(sysData.getQuestionByID(questionId), 
+            "The question should be deleted."); // Check if the question is deleted
     }
+
+  //***************UPDATE TEST*******************
 
     @Test
     public void testUpdateQuestion() {
-        List<String> answers = Arrays.asList("Answer1", "Answer2", "Answer3", "Answer4");
-        Question originalQuestion = new Question("Original Question?", answers, 1, 1, "Category");
+
+        List<String> originalAnswers = Arrays.asList(
+            "Tasks to be done for the day",
+            "Current obstacles",
+            "Planning for the iteration",
+            "Recently completed tasks"
+        );
+        Question originalQuestion = new Question(
+            "Which of the following is not supposed to be discussed during the daily stand-up meetings (daily scrum meetings):",
+            originalAnswers,
+            3,  // Correct answer index
+            2,  // Difficulty level
+            "Scrum Practices" // Category
+        );
         sysData.addQuestion(originalQuestion);
 
         int questionId = originalQuestion.getQuestionID();
-        Question updatedQuestion = new Question("Updated Question?", answers, 1, 1, "Category");
+
+        // Updated question with new content
+        List<String> updatedAnswers = Arrays.asList(
+            "Delivering working software frequently.",
+            "Performing unit testing as part of the development process.",
+            "Dividing the development process into a series of short iterations.",
+            "Lack of collaboration with the customer"
+        );
+        Question updatedQuestion = new Question(
+            "Which of the following is not an agile best practice",
+            updatedAnswers,
+            4,  // New correct answer index
+            1,  // New difficulty level
+            "Agile Methodologies" // New category
+        );
         updatedQuestion.setQuestionID(questionId); // Set the same ID for the updated question
 
         // Update the question and assert the operation was successful

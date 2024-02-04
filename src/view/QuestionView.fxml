@@ -13,8 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="559.0" prefWidth="1007.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="559.0" prefWidth="1007.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.QuestionViewControl">
    <top>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
@@ -34,7 +33,7 @@
    <center>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <TextField prefHeight="74.0" prefWidth="953.0">
+            <TextField fx:id="questionText" prefHeight="74.0" prefWidth="953.0">
                <font>
                   <Font name="Bell MT" size="12.0" />
                </font>
@@ -55,7 +54,7 @@
                <children>
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <TextField prefHeight="87.0" prefWidth="462.0" promptText="Answer 1" HBox.hgrow="ALWAYS">
+                        <TextField fx:id="answer1Tex" prefHeight="87.0" prefWidth="462.0" promptText="Answer 1" HBox.hgrow="ALWAYS">
                            <HBox.margin>
                               <Insets right="5.0" />
                            </HBox.margin>
@@ -72,7 +71,7 @@
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
                      <children>
-                        <TextField prefHeight="87.0" prefWidth="462.0" promptText="Answer 3">
+                        <TextField fx:id="answer3Tex" prefHeight="87.0" prefWidth="462.0" promptText="Answer 3">
                            <font>
                               <Font name="Bell MT" size="12.0" />
                            </font>
@@ -89,7 +88,7 @@
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS">
                      <children>
-                        <TextField prefHeight="87.0" prefWidth="462.0" promptText="Answer 2" HBox.hgrow="ALWAYS">
+                        <TextField fx:id="answer2Tex" prefHeight="87.0" prefWidth="462.0" promptText="Answer 2" HBox.hgrow="ALWAYS">
                            <font>
                               <Font name="Bell MT" size="12.0" />
                            </font>
@@ -106,7 +105,7 @@
                   </HBox>
                   <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
                      <children>
-                        <TextField prefHeight="87.0" prefWidth="462.0" promptText="Answer 2">
+                        <TextField fx:id="answer4Tex" prefHeight="87.0" prefWidth="462.0" promptText="Answer 4">
                            <font>
                               <Font name="Bell MT" size="12.0" />
                            </font>
@@ -132,30 +131,17 @@
                      <children>
                         <VBox alignment="CENTER_LEFT" prefHeight="97.0" prefWidth="218.0">
                            <children>
-                              <Label alignment="TOP_LEFT" contentDisplay="CENTER" nodeOrientation="LEFT_TO_RIGHT" text="Question's Difficulty">
+                              <Label fx:id="difficultyLabel" alignment="TOP_LEFT" contentDisplay="CENTER" nodeOrientation="LEFT_TO_RIGHT" text="Question's Difficulty">
                                  <VBox.margin>
                                     <Insets bottom="10.0" />
                                  </VBox.margin>
                               </Label>
-                              <Label prefHeight="35.0" prefWidth="193.0" text="Difficulty" />
+                              <Label fx:id="teamLabel" prefHeight="35.0" prefWidth="193.0" text="Team" />
                            </children>
                         </VBox>
                      </children>
                   </HBox>
-                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <VBox alignment="CENTER_LEFT" prefHeight="97.0" prefWidth="191.0">
-                           <children>
-                              <Label text="Team ">
-                                 <padding>
-                                    <Insets bottom="10.0" />
-                                 </padding>
-                              </Label>
-                              <Label prefHeight="35.0" prefWidth="193.0" text="Team" />
-                           </children>
-                        </VBox>
-                     </children>
-                  </HBox>
+                  <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" />
                </children>
             </HBox>
          </children>
