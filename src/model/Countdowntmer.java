@@ -1,4 +1,4 @@
-package control;
+package model;
 
 public class Countdowntmer {
 	private int secondsRemaining;

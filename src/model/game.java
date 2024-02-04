@@ -1,28 +1,27 @@
-package control;
+package model;
 import java.util.ArrayList;
-
 	import java.util.List;
 import java.util.Random;
 
-import application.CountdownTmer;
-import application.Dice;
-import application.GameBoard;
-import application.Player;
+
+import model.Countdowntmer;
+import model.Player;
 public class game {
 
-private GameBoard gameBoard;
+private int size;
 private Player currentPlayer;
 private ArrayList<Player> players;
-private CountdownTmer countdowntimer;
+private Countdowntmer countdowntimer;
 private Dice dice;
 
 
 
 
+
 	    // Constructor
-	    public game(ArrayList<Player> players, GameBoard gameBoard,CountdownTmer countdowntimer,Dice dice) {
+	    public game(ArrayList<Player> players, int size,Countdowntmer countdowntimer,Dice dice) {
 	        this.players = players;
-	        this.gameBoard = gameBoard;
+	        this.size = size;
 	        this.countdowntimer=countdowntimer;
 	        Random random = new Random();
 	        this.currentPlayer = players.get(random.nextInt(players.size()));//random number related to the dice's size//);
@@ -30,13 +29,13 @@ private Dice dice;
 	    }
 	    
 
-	    public GameBoard getGameBoard() {
-			return gameBoard;
+	    public int getsize() {
+			return this.size;
 		}
 
 
-		public void setGameBoard(GameBoard gameBoard) {
-			this.gameBoard = gameBoard;
+		public void setsize(int size) {
+			this.size = size;
 		}
 
 
@@ -80,17 +79,17 @@ private Dice dice;
 	    public void playTurn() {
 	    
 
-	      while(!countdowntimer.startCountdown()) { //while the time is not over
-	        int diceResult = this.dice.rollDice();
+	     
+				while(!this.countdowntimer.startCountdown()) { //while the time is not over
+				    int diceResult = this.dice.rollDice();
 
-	        // Move the player on the game board
-	        this.currentPlayer.move(diceResult);
-	        if(this.currentPlayer.getPosition()>=this.gameBoard.getSize()) {
-	        	endGame();
-	        }
-	      }
-	        //player played or time is over
-
+				    // Move the player on the game board
+				    this.currentPlayer.move(diceResult);
+				    if(this.currentPlayer.getPosition()>=this.getsize()) {
+				    	endGame();
+				    }
+		   //player played or time is over
+				}
 	        // Switch to the next player
 	        switchToNextPlayer();
 	    }
@@ -109,8 +108,9 @@ private Dice dice;
 	    }
 
 	    // Method to end the game
-	    public void endGame() {
+	    public Player endGame() {
 	    	Player winner=this.currentPlayer;
+			return winner;
 	    }
 	       
 	    }

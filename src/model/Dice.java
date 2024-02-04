@@ -1,4 +1,5 @@
-package control;
+package model;
+
 import java.util.Random;
 
 public class Dice {
@@ -23,4 +24,3 @@ public class Dice {
         return currentRollResult;
     }
 }
-
