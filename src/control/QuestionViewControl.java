@@ -24,10 +24,10 @@ public class QuestionViewControl {
     private TextField answer4Tex;
 
     @FXML
-    private TextField difficultyLabel; // Add this
+    private Label difficultyLabel; 
 
     @FXML
-    private TextField teamLabel; // Add this
+    private Label teamLabel; 
 
     // Method to set the question and its details
     public void setQuestion(Question question) {

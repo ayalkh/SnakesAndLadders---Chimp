@@ -60,20 +60,21 @@ public class Question {
 
 	@SuppressWarnings("unchecked")
 	public JSONObject toJSON() {
-		JSONObject question = new JSONObject();
-		JSONArray jsonArray = new JSONArray();
+	    JSONObject questionObj = new JSONObject();
+	    JSONArray jsonArray = new JSONArray();
 
-		question.put("question", this.question);
-		for (int i = 0; i < answers.size(); i++) {
-			jsonArray.add(answers.get(i));
-		}
-		question.put("answers", jsonArray);
-		question.put("correctAnswer", this.correctAnswer);
-		question.put("level", this.level);
-		question.put("team", this.team);
-		return question;
-
+	    questionObj.put("questionID", this.questionID); // This line was missing
+	    questionObj.put("question", this.question);
+	    for (String answer : answers) {
+	        jsonArray.add(answer);
+	    }
+	    questionObj.put("answers", jsonArray);
+	    questionObj.put("correctAnswer", this.correctAnswer);
+	    questionObj.put("level", this.level);
+	    questionObj.put("team", this.team);
+	    return questionObj;
 	}
+
 
 	public int getQuestionID() {
 		return questionID;

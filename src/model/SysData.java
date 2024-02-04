@@ -23,10 +23,10 @@ public class SysData {
 	static final String QUESTIONS_SUGGESTIONS_JSONOBJECT = "qSuggestions";
 	static final String QUESTIONS_HISTORY_JSONOBJECT = "qHistory";
 	static final int MAX_CAPACITY_USERPREFS = 10;
+    private static int questionID = 0;  // Static variable to hold the next question ID
 
 	private static SysData instance;
 	private List<Question> questionsList;
-	private static int questionID = 0;
 	private JSONArray questionsListJson;
 	private List<String> suggestionsList;
 	private List<String> historyList;
@@ -72,6 +72,7 @@ public class SysData {
 	    try (FileReader reader = new FileReader(fileName)) {
 	        JSONParser parser = new JSONParser();
 	        JSONObject jsonObject = (JSONObject) parser.parse(reader);
+
 	        return (JSONArray) jsonObject.get(QUESTIONS_JSONOBJECT);
 	    } catch (FileNotFoundException e) {
 	        // If the file is not found, create a new empty JSON array and write it back
@@ -85,8 +86,7 @@ public class SysData {
 	}
 
 
-	// --------------------------------------------------- Question Functions
-	// ---------------------------------------------------
+	// --------------------------------------------------- Question Functions ---------------------------------------------------
 
 	public List<Question> getQuestionsList() {
 		return questionsList;
@@ -104,23 +104,28 @@ public class SysData {
 	 * questionsList
 	 * 
 	 */
-	public void readQuestions() {
-		questionsList = new ArrayList<Question>();
-		questionsListJson = readJsonFile(QUESTIONS_JSONOBJECT);
-		if (questionsListJson == null) {
-			this.questionsListJson = new JSONArray();
-			return;
-		}
-		Question q;
-		for (int i = 0; i < this.questionsListJson.size(); i++) {
-			JSONObject exploreObject = (JSONObject) this.questionsListJson.get(i);
-			q = new Question(exploreObject);
-			q.setQuestionID(SysData.questionID++);
-			questionsList.add(q);
-		}
-//		System.out.println("Question List ");
-//		System.out.println(questionsList);
-	}
+	   public void readQuestions() {
+	        questionsList = new ArrayList<>();
+	        questionsListJson = readJsonFile(QUESTIONS_FILENAME);
+	        if (questionsListJson == null) {
+
+	            this.questionsListJson = new JSONArray();
+	            // If no questions are present, initialize questionID to 1
+	            SysData.questionID = 1; 
+	        } else {
+
+	            Question q;
+	            int maxId = 0; // Variable to track the highest ID
+	            for (Object o : this.questionsListJson) {
+	                JSONObject exploreObject = (JSONObject) o;
+	                q = new Question(exploreObject);
+	                questionsList.add(q);
+	                maxId = Math.max(maxId, q.getQuestionID()); // Update maxId if necessary
+	            }
+	            // Set the next ID to be the max ID found plus one
+	            SysData.questionID = maxId + 1; 
+	        }
+	    }
 
 	/**
 	 * Gets a question and adds it to questionsList, and then writes it to questions
@@ -129,23 +134,23 @@ public class SysData {
 	 * @param question
 	 * @return 
 	 */
-	@SuppressWarnings("unchecked")
-	public boolean addQuestion(Question question) {
-		if (this.questionsList.size() >= MAX_CAPACITY_QUESTIONS) {
-			this.questionsList.remove(0);
-			this.questionsListJson.remove(0);
+	   public boolean addQuestion(Question question) {
+		    if (this.questionsList.size() >= MAX_CAPACITY_QUESTIONS) {
+		        this.questionsList.remove(0);
+		        this.questionsListJson.remove(0);
+		    }
+		        
+		    question.setQuestionID(SysData.getNextQuestionID());
+		    this.questionsListJson.add(question.toJSON());
+		    this.questionsList.add(question);
+		    try {
+		        writeJsonFile(this.questionsListJson, QUESTIONS_JSONOBJECT, QUESTIONS_FILENAME);
+		        SysData.incrementQuestionID(); 
+		        return true;
+		    } catch (Exception e) {
+		        return false;
+		    }
 		}
-			
-		question.setQuestionID(SysData.questionID++);
-		this.questionsListJson.add(question.toJSON());
-		this.questionsList.add(question);
-        try {
-            writeJsonFile(this.questionsListJson, QUESTIONS_JSONOBJECT, QUESTIONS_FILENAME);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    	}
 
 	/**
 	 * Gets a question ID and updates the question after getting its index in the
@@ -185,16 +190,39 @@ public class SysData {
 	 * @return
 	 */
 	public boolean deleteQuestion(int questionID) {
-		Question toBeDeleted = this.getQuestionByID(questionID);
-		if (toBeDeleted == null)
-			return false;
-		else {
-			this.questionsList.remove(toBeDeleted);
-			updateQuestionsJsonList();
-			writeJsonFile(this.questionsListJson, QUESTIONS_JSONOBJECT, QUESTIONS_FILENAME);
-			return true;
-		}
+	    Question toBeDeleted = getQuestionByID(questionID);
+	    if (toBeDeleted == null) {
+	        return false; // If the question with the given ID is not found, return false
+	    } else {
+	        // Remove from the list of Question objects
+	        this.questionsList.remove(toBeDeleted);
+
+	        // Find the index of the JSONObject in questionsListJson with the same questionID
+	        int indexToRemove = -1;
+	        for (int i = 0; i < this.questionsListJson.size(); i++) {
+	            JSONObject questionObject = (JSONObject) this.questionsListJson.get(i);
+	            if (questionObject != null && questionObject.get("questionID") != null) {
+	                int id = ((Number) questionObject.get("questionID")).intValue();
+	                if (id == questionID) {
+	                    indexToRemove = i;
+	                    break;
+	                }
+	            }
+	        }
+
+	        // If a matching index was found, remove the object from the JSON array
+	        if (indexToRemove != -1) {
+	            this.questionsListJson.remove(indexToRemove);
+	        } else {
+	            return false; // If no matching JSONObject was found, return false
+	        }
+
+	        // Write the updated JSON array back to the file
+	        writeJsonFile(this.questionsListJson, QUESTIONS_JSONOBJECT, QUESTIONS_FILENAME);
+	        return true;
+	    }
 	}
+
 
 	public Question getQuestionByID(int questionID) {
 		for (Question q : this.questionsList) {
@@ -224,7 +252,18 @@ public class SysData {
 	public boolean isDuplicateQuestion(String questionBody) {
 		return this.questionsList.stream().filter(o -> o.getQuestion().equals(questionBody)).findFirst().isPresent();
 	}
+	   /**
+     * Gets the next unique question ID.
+     * 
+     * @return The next question ID.
+     */
+	public static int getNextQuestionID() {
+	    return questionID; 
+	}
 
+	public static void incrementQuestionID() {
+	    questionID++; // Call this method only when a new question is successfully added
+	}
 	// --------------------------------------------------- Question search Functions
 	// ---------------------------------------------------
 

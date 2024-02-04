@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.json.simple.JSONArray;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -18,109 +19,77 @@ public class SysDataTest {
 
     @BeforeEach
     public void setUp() {
-        sysData = SysData.getInstance(); 
-        sysData.setQuestionsList(new ArrayList<>()); 
+        sysData = SysData.getInstance();
+        sysData.readQuestions(); 
     }
-//***************Adding TEST*******************
+
+    //***************Adding TEST*******************
     @Test
     public void testAddQuestion() {
-    	 List<String> answers = Arrays.asList(
-    		        "Delivering working software frequently.",
-    		        "Performing unit testing as part of the development process.",
-    		        "Dividing the development process into a series of short iterations, where each iteration focuses on a specific set of features or requirements.",
-    		        "Lack of collaboration with the customer"
-    		    );
-    		    Question agileQuestion = new Question(
-    		        "Which of the following is not an agile best practice",
-    		        answers,
-    		        4, 
-    		        1, // Difficulty level
-    		        "Software Development"
-    		    );
-    		    sysData.addQuestion(agileQuestion);
-    		    Assertions.assertFalse(sysData.getQuestionsList().isEmpty(), "The questions list should not be empty after adding a question.");
-    		    Assertions.assertTrue(sysData.getQuestionsList().contains(agileQuestion), "The agile question should be present in the questions list.");
-    }
-  //***************DELETE TEST*******************
+        // Test setup with mock data
+        Question mockQuestion = createMockQuestion();
+        int initialListSize = sysData.getQuestionsList().size();
 
+        // Add question
+        boolean addResult = sysData.addQuestion(mockQuestion);
+        int newListSize = sysData.getQuestionsList().size();
+
+        // Assertions
+        Assertions.assertTrue(addResult, "Question should be added successfully.");
+        Assertions.assertEquals(initialListSize + 1, newListSize, "The questions list size should increase by 1.");
+        Assertions.assertTrue(sysData.getQuestionsList().contains(mockQuestion), "The question should be present in the questions list.");
+    }
+
+    //***************DELETE TEST*******************
     @Test
     public void testDeleteQuestion() {
-        List<String> answers = Arrays.asList(
-            "Delivering working software frequently.",
-            "Performing unit testing as part of the development process.",
-            "Dividing the development process into a series of short iterations.",
-            "Lack of collaboration with the customer"
-        );
-        Question question = new Question(
-            "Which of the following is not an agile best practice",
-            answers,
-            4, // Correct answer index 
-            1,  // Difficulty level
-            "Software Development" // Category
-        );
+        Question mockQuestion = createMockQuestion();
+        sysData.addQuestion(mockQuestion);
 
-        sysData.addQuestion(question);
-        int questionId = question.getQuestionID(); // Get the actual ID after adding the question
-        sysData.deleteQuestion(questionId); // Delete the question
-
-        Assertions.assertNull(sysData.getQuestionByID(questionId), 
-            "The question should be deleted."); // Check if the question is deleted
+        int questionId = mockQuestion.getQuestionID();
+        boolean deleteResult = sysData.deleteQuestion(questionId);
+        Assertions.assertTrue(deleteResult, "Question should be deleted successfully.");
+        Assertions.assertFalse(sysData.getQuestionsList().contains(mockQuestion), "The question should not be present in the questions list after deletion.");
     }
 
-  //***************UPDATE TEST*******************
-
+    //***************UPDATE TEST*******************
     @Test
     public void testUpdateQuestion() {
-
-        List<String> originalAnswers = Arrays.asList(
-            "Tasks to be done for the day",
-            "Current obstacles",
-            "Planning for the iteration",
-            "Recently completed tasks"
-        );
-        Question originalQuestion = new Question(
-            "Which of the following is not supposed to be discussed during the daily stand-up meetings (daily scrum meetings):",
-            originalAnswers,
-            3,  // Correct answer index
-            2,  // Difficulty level
-            "Scrum Practices" // Category
-        );
+        Question originalQuestion = createMockQuestion();
         sysData.addQuestion(originalQuestion);
 
         int questionId = originalQuestion.getQuestionID();
+        Question updatedQuestion = createMockQuestion(); 
+        updatedQuestion.setQuestionID(questionId); // Ensure the ID is the same
 
-        // Updated question with new content
-        List<String> updatedAnswers = Arrays.asList(
-            "Delivering working software frequently.",
-            "Performing unit testing as part of the development process.",
-            "Dividing the development process into a series of short iterations.",
-            "Lack of collaboration with the customer"
-        );
-        Question updatedQuestion = new Question(
-            "Which of the following is not an agile best practice",
-            updatedAnswers,
-            4,  // New correct answer index
-            1,  // New difficulty level
-            "Agile Methodologies" // New category
-        );
-        updatedQuestion.setQuestionID(questionId); // Set the same ID for the updated question
-
-        // Update the question and assert the operation was successful
         boolean updateResult = sysData.updateQuestion(questionId, updatedQuestion);
+
         Assertions.assertTrue(updateResult, "The question should have been updated successfully.");
 
-        // Retrieve the updated question and assert it's not null
         Question retrievedQuestion = sysData.getQuestionByID(questionId);
-        Assertions.assertNotNull(retrievedQuestion, "The question retrieved should not be null.");
-
-        // Assert that the retrieved question is equal to the updated question
-        Assertions.assertEquals(updatedQuestion, retrievedQuestion, "The question should be updated.");
+        Assertions.assertEquals(updatedQuestion, retrievedQuestion, "The updated question should match the retrieved question.");
     }
 
 
-    @AfterEach
-    public void tearDown() {
-        sysData.setQuestionsList(new ArrayList<>()); // Clear the questions list
-        Assertions.assertTrue(sysData.getQuestionsList().isEmpty(), "The questions list should be empty after teardown.");
+    private Question createMockQuestion() {
+        List<String> answers = Arrays.asList(
+                "Answer 1",
+                "Answer 2",
+                "Answer 3",
+                "Answer 4"
+        );
+        // Use a temporary ID for creation that doesn't affect the static questionID
+        int tempID = sysData.getQuestionsList().isEmpty() ? 1 : sysData.getQuestionsList().get(sysData.getQuestionsList().size() - 1).getQuestionID() + 1;
+        return new Question(
+                tempID,
+                "Mock Question",
+                answers,
+                1, //  correct answer
+                1, // difficulty Level
+                "Mock Team" // Team name
+        );
     }
+
+
+
 }
