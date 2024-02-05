@@ -35,8 +35,6 @@ public class WelcomePageController extends Application {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/WelcomePage.fxml"));
 			Parent root = loader.load();
 
-			WelcomePageController controller = loader.getController();
-			// You can perform additional setup on the controller if needed
 
 			Scene scene = new Scene(root, 750, 400);
 			primaryStage.setScene(scene);

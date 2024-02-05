@@ -1,11 +1,10 @@
 package model;
 import java.util.ArrayList;
-	import java.util.List;
+
 import java.util.Random;
 
 
-import model.Countdowntmer;
-import model.Player;
+
 public class game {
 
 private int size;
@@ -99,7 +98,7 @@ private Dice dice;
 	    // Method to move the player on the game board
 
 
-	    // Method to switch to the next player after playing or after countdown//
+	    // Method to switch to the next player after playing or after countdown
 	    private void switchToNextPlayer() {
 	        int currentIndex = players.indexOf(currentPlayer);
 	        int nextIndex = (currentIndex + 1) % players.size();

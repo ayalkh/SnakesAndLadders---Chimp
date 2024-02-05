@@ -134,23 +134,35 @@ public class SysData {
 	 * @param question
 	 * @return 
 	 */
-	   public boolean addQuestion(Question question) {
+	   @SuppressWarnings("unchecked")
+	public boolean addQuestion(Question question) {
+		    // Load existing questions from the JSON file first
+		    this.questionsListJson = readJsonFile(QUESTIONS_FILENAME);
+
+		    // Check if the maximum capacity is reached
 		    if (this.questionsList.size() >= MAX_CAPACITY_QUESTIONS) {
 		        this.questionsList.remove(0);
-		        this.questionsListJson.remove(0);
+		        this.questionsListJson.remove(0); // Ensure to remove from JSON array as well
 		    }
-		        
+		    
+		    readQuestions();
+
+		    // Set ID and add the new question to the list and JSON array
 		    question.setQuestionID(SysData.getNextQuestionID());
-		    this.questionsListJson.add(question.toJSON());
+		    System.out.println(SysData.getNextQuestionID());
 		    this.questionsList.add(question);
+		    this.questionsListJson.add(question.toJSON());
+		    // Write the updated JSON array (with the new question) back to the file
 		    try {
 		        writeJsonFile(this.questionsListJson, QUESTIONS_JSONOBJECT, QUESTIONS_FILENAME);
-		        SysData.incrementQuestionID(); 
+		        SysData.incrementQuestionID();
 		        return true;
 		    } catch (Exception e) {
+		        e.printStackTrace();
 		        return false;
 		    }
 		}
+
 
 	/**
 	 * Gets a question ID and updates the question after getting its index in the
@@ -159,6 +171,7 @@ public class SysData {
 	 * @param qID
 	 * @param question
 	 */
+	@SuppressWarnings("unchecked")
 	public boolean updateQuestion(int qID, Question question) {
 	    int index = getQuestionIndexByID(qID);
 	    if (index != -1) {
@@ -192,12 +205,9 @@ public class SysData {
 	public boolean deleteQuestion(int questionID) {
 	    Question toBeDeleted = getQuestionByID(questionID);
 	    if (toBeDeleted == null) {
-	        return false; // If the question with the given ID is not found, return false
+	        System.out.println("Question not found with ID: " + questionID);
+	        return false;
 	    } else {
-	        // Remove from the list of Question objects
-	        this.questionsList.remove(toBeDeleted);
-
-	        // Find the index of the JSONObject in questionsListJson with the same questionID
 	        int indexToRemove = -1;
 	        for (int i = 0; i < this.questionsListJson.size(); i++) {
 	            JSONObject questionObject = (JSONObject) this.questionsListJson.get(i);
@@ -210,25 +220,35 @@ public class SysData {
 	            }
 	        }
 
-	        // If a matching index was found, remove the object from the JSON array
 	        if (indexToRemove != -1) {
+	            this.questionsList.remove(toBeDeleted);
 	            this.questionsListJson.remove(indexToRemove);
+	            try {
+	                writeJsonFile(this.questionsListJson, QUESTIONS_JSONOBJECT, QUESTIONS_FILENAME);
+	                System.out.println("Question with ID " + questionID + " deleted successfully.");
+	                return true;
+	            } catch (Exception e) {
+	                e.printStackTrace();
+	            }
 	        } else {
-	            return false; // If no matching JSONObject was found, return false
+	            System.out.println("Matching JSONObject not found for deletion.");
+	            return false;
 	        }
-
-	        // Write the updated JSON array back to the file
-	        writeJsonFile(this.questionsListJson, QUESTIONS_JSONOBJECT, QUESTIONS_FILENAME);
-	        return true;
 	    }
+	    System.out.println("Failed to delete the question with ID: " + questionID);
+	    return false;
 	}
 
 
 	public Question getQuestionByID(int questionID) {
+		readQuestions();
+		System.out.println(this.questionsList);
+
 		for (Question q : this.questionsList) {
 			if (q.getQuestionID() == questionID)
 				return q;
 		}
+
 		return null;
 	}
 
@@ -241,7 +261,7 @@ public class SysData {
 		return -1;
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "unused" })
 	private void updateQuestionsJsonList() {
 		this.questionsListJson = new JSONArray();
 		for (Question q : this.questionsList) {
@@ -275,6 +295,7 @@ public class SysData {
 		return new HashSet<>(this.suggestionsList);
 	}
 
+	@SuppressWarnings("unchecked")
 	public void addHistory(String str) {
 		if (this.historyList.size() >= MAX_CAPACITY_USERPREFS) {
 			historyList.remove(0);

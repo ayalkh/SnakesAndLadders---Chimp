@@ -14,8 +14,6 @@ public class NumberOfPlayersController extends Application {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/popUpMessages/NumberOfPlayers.fxml"));
 			Parent root = loader.load();
 
-			WelcomePageController controller = loader.getController();
-			// You can perform additional setup on the controller if needed
 
 			Scene scene = new Scene(root, 480, 320);
 			primaryStage.setScene(scene);

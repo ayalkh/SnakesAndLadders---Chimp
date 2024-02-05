@@ -14,8 +14,6 @@ public class HistoryBoardController extends Application {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/HistoryBoard.fxml"));
 			Parent root = loader.load();
 
-			WelcomePageController controller = loader.getController();
-			// You can perform additional setup on the controller if needed
 
 			Scene scene = new Scene(root, 700, 400);
 			primaryStage.setScene(scene);

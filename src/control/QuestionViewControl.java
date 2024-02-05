@@ -1,10 +1,20 @@
 package control;
 
 import model.Question;
+
+
+import java.io.IOException;
 import java.util.List;
+
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 public class QuestionViewControl {
 
@@ -28,6 +38,8 @@ public class QuestionViewControl {
 
     @FXML
     private Label teamLabel; 
+    @FXML
+    private Button back;
 
     // Method to set the question and its details
     public void setQuestion(Question question) {
@@ -41,6 +53,28 @@ public class QuestionViewControl {
 
         difficultyLabel.setText("Difficulty: " + question.getLevel()); // Set difficulty
         teamLabel.setText("Team: " + question.getTeam()); // Set team
+        
+ 
+    }
+    @FXML
+    void handleBack(ActionEvent event) {
+        try {
+            // Load QuestionsList.fxml
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/QuestionsList.fxml")); // Adjust the path to your FXML file if necessary
+            Parent root = loader.load();
+
+            // Get the current stage (window)
+            Stage stage = (Stage) back.getScene().getWindow(); // 'back' is the fx:id of the back button
+
+            // Set the new scene to the stage
+            stage.setScene(new Scene(root));
+            stage.setTitle("Questions List"); // Optionally set a title for the window
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Error loading QuestionsList.fxml: " + e.getMessage());
+        }
     }
 
-}
+   
+  }
