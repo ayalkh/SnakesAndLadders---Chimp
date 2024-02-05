@@ -78,8 +78,9 @@ public class addQuestiosPageController {
 	        }
 	        
 	    }
+	
 	    @FXML
-	    void handleBack(ActionEvent event) {
+	    void backHandle(ActionEvent event) {
 	        try {
 	            // Load QuestionsList.fxml
 	            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/QuestionsList.fxml")); // Adjust the path to your FXML file if necessary
