@@ -60,16 +60,13 @@ public class QuestionViewControl {
     void handleBack(ActionEvent event) {
         try {
             // Load QuestionsList.fxml
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/QuestionsList.fxml")); // Adjust the path to your FXML file if necessary
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/QuestionsList.fxml"));
             Parent root = loader.load();
 
-            // Get the current stage (window)
-            Stage stage = (Stage) back.getScene().getWindow(); // 'back' is the fx:id of the back button
-
-            // Set the new scene to the stage
+            // Reuse the existing stage
+            Stage stage = (Stage) back.getScene().getWindow();
             stage.setScene(new Scene(root));
-            stage.setTitle("Questions List"); // Optionally set a title for the window
-            stage.show();
+            stage.setTitle("Questions List");
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Error loading QuestionsList.fxml: " + e.getMessage());

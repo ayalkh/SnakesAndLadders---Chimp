@@ -38,6 +38,17 @@ public class addQuestiosPageController {
 	    private TextField CorrAnswer;
 	    @FXML
 	    private Button back;
+	 // At the top of the addQuestiosPageController file
+	    @FunctionalInterface
+	    interface QuestionAddedCallback {
+	        void onQuestionAdded(Question question);
+	    }
+	 // Inside addQuestiosPageController class
+	    private QuestionAddedCallback questionAddedCallback;
+
+	    public void setQuestionAddedCallback(QuestionAddedCallback callback) {
+	        this.questionAddedCallback = callback;
+	    }
 
 	    @FXML
 	    void handleAdd(ActionEvent event) {
@@ -64,10 +75,12 @@ public class addQuestiosPageController {
 
 	            // Add the new question to SysData
 	            if (SysData.getInstance().addQuestion(newQuestion)) {
-	              System.out.println("added successfuly");
+	                System.out.println("added successfully");
+	                if (questionAddedCallback != null) {
+	                    questionAddedCallback.onQuestionAdded(newQuestion);
+	                }
 	            } else {
-		              System.out.println("add failed");
-
+	                System.out.println("add failed");
 	            }
 
 	            // Close the window after adding the question
@@ -78,21 +91,35 @@ public class addQuestiosPageController {
 	        }
 	        
 	    }
-	
+	    private Stage currentStage;
+
+	    public void setCurrentStage(Stage stage) {
+	        this.currentStage = stage;
+	    }
+
 	    @FXML
-	    void backHandle(ActionEvent event) {
+	    void handleBack(ActionEvent event) {
 	        try {
+	            // Check if the currentStage is set
+	            if (currentStage == null) {
+	                System.out.println("Current stage is not set.");
+	                return;
+	            }
+	         
 	            // Load QuestionsList.fxml
-	            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/QuestionsList.fxml")); // Adjust the path to your FXML file if necessary
+	            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/QuestionsList.fxml"));
 	            Parent root = loader.load();
 
-	            // Get the current stage (window)
-	            Stage stage = (Stage) back.getScene().getWindow(); // 'back' is the fx:id of the back button
-
-	            // Set the new scene to the stage
-	            stage.setScene(new Scene(root));
-	            stage.setTitle("Questions List"); // Optionally set a title for the window
-	            stage.show();
+	            // Set the new scene to the current stage
+	            if (currentStage != null) {
+	                currentStage.setScene(new Scene(root));
+	                currentStage.setTitle("Questions List");
+	            } else {
+	                System.out.println("Current stage is null.");
+	            }
+	            currentStage.show();
+	            Stage stage = (Stage) back.getScene().getWindow();
+	            stage.close();
 	        } catch (IOException e) {
 	            e.printStackTrace();
 	            System.out.println("Error loading QuestionsList.fxml: " + e.getMessage());

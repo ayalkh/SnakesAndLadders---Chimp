@@ -1,14 +1,11 @@
 package control;
 
-import java.util.Arrays;
-import java.util.List;
+
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import model.Question;
-import model.SysData;
 
 public class UpdateQuestionController {
 
@@ -41,13 +38,12 @@ public class UpdateQuestionController {
     @FXML
     private TextField team;
 
-    private Question currentQuestion;  // Declare the currentQuestion
 
     // Other methods...
 
     @FXML
     void handleEdit(ActionEvent event) {
-        try {
+       /* try {
             // Validate inputs here if needed
 
             // Update the currentQuestion object with new values
@@ -94,5 +90,6 @@ public class UpdateQuestionController {
     @FXML
     void handleBack(ActionEvent event) {
 
-    }
+    }*/
+}
 }

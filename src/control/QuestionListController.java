@@ -33,7 +33,8 @@ public class QuestionListController {
 
     @FXML
     private Button deleteButton;
-
+    @FXML
+    private Button back;
     
     @FXML
     public void initialize() {
@@ -85,11 +86,10 @@ public class QuestionListController {
                 QuestionViewControl controller = loader.getController();
                 controller.setQuestion(selectedQuestion);
 
-                // Open the question view in a new stage
-                Stage stage = new Stage();
-                stage.setTitle("Question Details");
-                stage.setScene(new Scene(root));
-                stage.show();
+                // Use the existing stage instead of creating a new one
+                Stage currentStage = (Stage) questionsListView.getScene().getWindow();
+                currentStage.setTitle("Question Details");
+                currentStage.setScene(new Scene(root));
             } catch (Exception e) {
                 e.printStackTrace();
                 System.out.println("Error opening question view: " + e.getMessage());
@@ -98,7 +98,6 @@ public class QuestionListController {
             System.out.println("Question not found with ID: " + questionId);
         }
     }
-
 
     private Question getQuestionById(int id) {
         for (Question q : questions) {
@@ -134,7 +133,7 @@ public class QuestionListController {
         }
     }
 
-
+/*
     @FXML
     void handleUpdateQuestion(ActionEvent event) {
         String selectedItem = questionsListView.getSelectionModel().getSelectedItem();
@@ -170,20 +169,52 @@ public class QuestionListController {
         }
     }
 
-
+*/
     @FXML
     private void handleAddQuestion(ActionEvent event) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/AddQuestionPage.fxml")); // Adjust the path if necessary
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/addQuestionPage.fxml"));
             Parent root = loader.load();
 
+            addQuestiosPageController controller = loader.getController();
+            if (controller != null) {
+                controller.setQuestionAddedCallback(this::onQuestionAdded);
 
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Add Question");
-            stage.show();
+                // Pass the current stage to the addQuestionsPageController
+                Stage currentStage = (Stage) addButton.getScene().getWindow();
+                controller.setCurrentStage(currentStage);
+            }
+
+            Stage addQuestionStage = new Stage();
+            addQuestionStage.setScene(new Scene(root));
+            addQuestionStage.setTitle("Add Question");
+            addQuestionStage.show();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    private void onQuestionAdded(Question question) {
+        // Add the question to the local list and update the ListView
+        questions.add(question);
+        populateListView();
+    }
+    
+    
+    @FXML
+    void handleBack(ActionEvent event) {
+        try {
+            // Load the WelcomePage FXML file
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/WelcomePage.fxml"));
+            Parent root = loader.load();
+
+            // Use the existing stage instead of creating a new one
+            Stage currentStage = (Stage) back.getScene().getWindow();
+            currentStage.setTitle("Welcome Page");
+            currentStage.setScene(new Scene(root));
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error loading WelcomePage.fxml: " + e.getMessage());
         }
     }
 
