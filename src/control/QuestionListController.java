@@ -1,6 +1,7 @@
 package control;
 
 import javafx.event.ActionEvent;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -54,6 +55,8 @@ public class QuestionListController {
             for (Object o : jsonQuestions) {
                 JSONObject jsonQuestion = (JSONObject) o;
                 Question question = new Question(jsonQuestion);
+                
+                
                 questions.add(question);
             }
         } catch (Exception e) {
