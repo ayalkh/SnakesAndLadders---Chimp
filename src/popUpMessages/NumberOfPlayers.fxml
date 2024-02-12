@@ -8,7 +8,6 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="295.0" prefWidth="479.0" style="-fx-background-color: #5F9EA0;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label layoutX="110.0" layoutY="40.0" text="Select Number Of Players">
@@ -43,102 +42,102 @@
       </Circle>
       <ImageView fitHeight="41.0" fitWidth="41.0" layoutX="141.0" layoutY="104.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@chessYellow.png" />
+            <Image url="@../images/chessBlue.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="41.0" fitWidth="44.0" layoutX="174.0" layoutY="104.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@chessRed.png" />
+            <Image url="@../images/chessYellow.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="55.0" fitWidth="41.0" layoutX="302.0" layoutY="104.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@chessPurple.png" />
+            <Image url="@../images/chessRed.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="41.0" fitWidth="41.0" layoutX="274.0" layoutY="104.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@chessYellow.png" />
+            <Image url="@../images/chessBlue.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="41.0" fitWidth="44.0" layoutX="289.0" layoutY="121.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@chessRed.png" />
+            <Image url="@../images/chessYellow.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="41.0" fitWidth="41.0" layoutX="69.0" layoutY="181.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@chessYellow.png" />
+            <Image url="@../images/chessBlue.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="55.0" fitWidth="41.0" layoutX="100.0" layoutY="182.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@chessPurple.png" />
+            <Image url="@../images/chessYellow.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="41.0" fitWidth="44.0" layoutX="62.0" layoutY="207.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@chessRed.png" />
+            <Image url="@../images/chessGreen.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="41.0" fitWidth="41.0" layoutX="90.0" layoutY="207.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@chessGreen.png" />
+            <Image url="@../images/chessRed.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="41.0" fitWidth="41.0" layoutX="205.0" layoutY="176.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@chessYellow.png" />
+            <Image url="@../images/chessBlue.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="55.0" fitWidth="41.0" layoutX="233.0" layoutY="176.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@chessPurple.png" />
+            <Image url="@../images/chessYellow.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="41.0" fitWidth="44.0" layoutX="195.0" layoutY="204.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@chessRed.png" />
+            <Image url="@../images/chessGreen.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="41.0" fitWidth="41.0" layoutX="242.0" layoutY="201.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@chessGreen.png" />
+            <Image url="@../images/chessRed.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="41.0" fitWidth="41.0" layoutX="220.0" layoutY="215.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@chessBlue.png" />
+            <Image url="@../images/chessGrey.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="41.0" fitWidth="41.0" layoutX="335.0" layoutY="184.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@chessYellow.png" />
+            <Image url="@../images/chessBlue.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="55.0" fitWidth="41.0" layoutX="356.0" layoutY="176.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@chessPurple.png" />
+            <Image url="@../images/chessYellow.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="41.0" fitWidth="41.0" layoutX="377.0" layoutY="184.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@chessGreen.png" />
+            <Image url="@../images/chessGreen.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="41.0" fitWidth="44.0" layoutX="377.0" layoutY="202.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@chessRed.png" />
+            <Image url="@../images/chessPurple.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="41.0" fitWidth="41.0" layoutX="334.0" layoutY="203.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@chessBlue.png" />
+            <Image url="@../images/chessRed.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="41.0" fitWidth="41.0" layoutX="355.0" layoutY="214.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@chessGrey.png" />
+            <Image url="@../images/chessGrey.png" />
          </image>
       </ImageView>
    </children>
