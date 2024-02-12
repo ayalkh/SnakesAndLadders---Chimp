@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.gluonhq.charm.glisten.control.AutoCompleteTextField?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="366.0" prefWidth="301.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171">
+   <children>
+      <ImageView fitHeight="367.0" fitWidth="306.0">
+         <image>
+            <Image url="@../../../../../תמונות/צילומי%20מסך/GameDetails.png" />
+         </image>
+      </ImageView>
+      <AutoCompleteTextField layoutX="157.0" layoutY="101.0" prefHeight="25.0" prefWidth="128.0" />
+      <AutoCompleteTextField layoutX="197.0" layoutY="133.0" prefHeight="25.0" prefWidth="95.0" />
+      <AutoCompleteTextField layoutX="157.0" layoutY="159.0" prefHeight="25.0" prefWidth="128.0" />
+      <MenuButton layoutX="164.0" layoutY="191.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="122.0" text="All Players">
+        <items>
+          <MenuItem mnemonicParsing="false" text="Action 1" />
+          <MenuItem mnemonicParsing="false" text="Action 2" />
+        </items>
+      </MenuButton>
+   </children>
+</AnchorPane>
