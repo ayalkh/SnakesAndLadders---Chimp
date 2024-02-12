@@ -18,7 +18,7 @@ public class GameBoardEasyController {
 	@FXML
 	private Label timerLabel;
 
-	// 47 buttons
+	// 49 buttons
 	@FXML
 	private Button i0j0, i0j1, i0j2, i0j3, i0j4, i0j5, i0j6, i1j0, i1j1, i1j2, i1j3, i1j4, i1j5, i1j6, i2j0, i2j1, i2j2,
 			i2j3, i2j4, i2j5, i2j6, i3j0, i3j1, i3j2, i3j3, i3j4, i3j5, i3j6, i4j0, i4j1, i4j2, i4j3, i4j4, i4j5, i4j6,

@@ -37,14 +37,14 @@ public class WelcomePageController {
 	void handlestartGame(ActionEvent event) {
 		try {
 			// Load the QuestionsList view
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/GameBoard-easy.fxml"));
-			Parent gameBoardEasy = loader.load();
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/popUpMessages/NumberOfPlayers.fxml"));
+			Parent players = loader.load();
 
 			// Get the current stage using the event's source
 			Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
 
 			// Set the scene to the questionsList view
-			stage.setScene(new Scene(gameBoardEasy));
+			stage.setScene(new Scene(players));
 			stage.show();
 		} catch (Exception e) {
 			e.printStackTrace();

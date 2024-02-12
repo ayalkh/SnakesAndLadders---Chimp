@@ -1,29 +1,23 @@
 package control;
 
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
+import java.security.acl.Group;
 
-public class NumberOfPlayersController extends Application {
+import javafx.fxml.FXML;
 
-	@Override
-	public void start(Stage primaryStage) {
-		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/popUpMessages/NumberOfPlayers.fxml"));
-			Parent root = loader.load();
+public class NumberOfPlayersController {
+	@FXML
+	private Group group1;
 
+	@FXML
+	private Group group2;
 
-			Scene scene = new Scene(root, 480, 320);
-			primaryStage.setScene(scene);
-			primaryStage.show();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+	@FXML
+	private Group group3;
 
-	public static void main(String[] args) {
-		launch(args);
-	}
+	@FXML
+	private Group group4;
+
+	@FXML
+	private Group group5;
+
 }
