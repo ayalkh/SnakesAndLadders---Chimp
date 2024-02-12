@@ -4,7 +4,7 @@ import java.util.Objects;
 
 public class Tile {
 
-	private static int idCounter=1 ;
+	
 	private int id;
 
 	Position pos;
@@ -12,7 +12,7 @@ public class Tile {
 	// Constructors
 	public Tile() {
 		super();
-		this.id = idCounter++;
+		this.id = id;
 	}
 	public Tile(int id) {
 		super();
@@ -45,12 +45,7 @@ public class Tile {
 	}
 
 	
-	public static int getIdCounter() {
-		return idCounter;
-	}
-	public static void setIdCounter(int idCounter) {
-		Tile.idCounter = idCounter;
-	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id, pos);

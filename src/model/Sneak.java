@@ -13,7 +13,12 @@ private int startPosition;
 		this.endPosition = endPosition;
 		this.color = color;
 		this.length = length;
+		
 	}
+	
+	
+
+	
 	public int getStartPosition() {
 		return startPosition;
 	}

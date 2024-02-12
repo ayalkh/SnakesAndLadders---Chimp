@@ -13,12 +13,14 @@ public class Ladder extends Tile {
 			this.endPosition = endPosition;
 			this.length = length;
 		}
+		
 		public int getStartPosition() {
 			return startPosition;
 		}
-		public void setStartPosition(int startPosition) {
-			this.startPosition = startPosition;
-		}
+		   public void setStartPosition(int startPosition) {
+		        this.startPosition = startPosition;
+		        this.endPosition = startPosition + length; // Recalculate endPosition
+		    }
 		public int getEndPosition() {
 			return endPosition;
 		}
@@ -28,9 +30,10 @@ public class Ladder extends Tile {
 		public int getLength() {
 			return length;
 		}
-		public void setLength(int length) {
-			this.length = length;
-		}
+		 public void setLength(int length) {
+		        this.length = length;
+		        this.endPosition = startPosition + length; // Recalculate endPosition
+		    }
 		@Override
 		public int hashCode() {
 			return Objects.hash(endPosition, length, startPosition);
