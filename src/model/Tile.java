@@ -1,12 +1,12 @@
 package model;
 
+import java.util.Objects;
+
 public class Tile {
 
 	private static int idCounter=1 ;
 	private int id;
-	private Boolean visited=false;
-	private Tile parent;
-	private int score;
+
 	Position pos;
 
 	// Constructors
@@ -22,14 +22,9 @@ public class Tile {
 	public Tile( int x, int y, Tile parent,Boolean visited) {
 		super();
 		pos=new Position(x, y);
-		this.setParent(parent);
-		this.visited = visited;
+	;
 	}
-	public Tile( int x, int y, Tile parent) {
-		super();
-		pos=new Position(x, y);
-		this.setParent(parent);
-	}
+
 	public Tile( int x, int y) {
 		super();
 		pos=new Position(x, y);
@@ -48,12 +43,7 @@ public class Tile {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public Boolean getVisited() {
-		return visited;
-	}
-	public void setVisited(Boolean visited) {
-		this.visited = visited;
-	}
+
 	
 	public static int getIdCounter() {
 		return idCounter;
@@ -61,21 +51,23 @@ public class Tile {
 	public static void setIdCounter(int idCounter) {
 		Tile.idCounter = idCounter;
 	}
-	
-	public Tile getParent() {
-		return parent;
-	}
-	public void setParent(Tile parent) {
-		this.parent = parent;
+	@Override
+	public int hashCode() {
+		return Objects.hash(id, pos);
 	}
 	@Override
-	public String toString() {
-		return "Tile [id=" + id + ", Visited=" + visited + ", parent=" + parent + ", pos=" + pos + "]";
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Tile other = (Tile) obj;
+		return id == other.id && Objects.equals(pos, other.pos);
 	}
-	public int getScore() {
-		return score;
-	}
-	public void setScore(int score) {
-		this.score = score;
-	}
+	
+
+
+
 }
