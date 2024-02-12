@@ -9,7 +9,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="749.0" style="-fx-background-color: #5F9EA0;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.WelcomePageController">
    <children>
-      <Button layoutX="254.0" layoutY="225.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="241.0" text="Start Game" />
+      <Button fx:id="startGame" layoutX="254.0" layoutY="225.0" mnemonicParsing="false" onAction="#handlestartGame" prefHeight="46.0" prefWidth="241.0" text="Start Game" />
       <Button layoutX="254.0" layoutY="282.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="241.0" text="History" />
       <Button fx:id="viewQuestion" layoutX="254.0" layoutY="337.0" mnemonicParsing="false" onAction="#handleViewQuestionAction" prefHeight="46.0" prefWidth="241.0" text="View Questions" />
       <Label layoutX="176.0" layoutY="25.0" text="Welcome To Snakes &amp; Ladders">

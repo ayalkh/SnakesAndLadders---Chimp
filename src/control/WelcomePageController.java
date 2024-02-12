@@ -1,5 +1,4 @@
-package control; 
-
+package control;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,25 +8,47 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-public class WelcomePageController  {
-    @FXML
-    private Button viewQuestion;
-    @FXML
-    private void handleViewQuestionAction(ActionEvent event) {
-        try {
-            // Load the QuestionsList view
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/QuestionsList.fxml"));
-            Parent questionsListView = loader.load();
+//a
+public class WelcomePageController {
+	@FXML
+	private Button viewQuestion;
+	@FXML
+	private Button startGame;
 
-            // Get the current stage using the event's source
-            Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+	@FXML
+	private void handleViewQuestionAction(ActionEvent event) {
+		try {
+			// Load the QuestionsList view
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/QuestionsList.fxml"));
+			Parent questionsListView = loader.load();
 
-            // Set the scene to the questionsList view
-            stage.setScene(new Scene(questionsListView));
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+			// Get the current stage using the event's source
+			Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+
+			// Set the scene to the questionsList view
+			stage.setScene(new Scene(questionsListView));
+			stage.show();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@FXML
+	void handlestartGame(ActionEvent event) {
+		try {
+			// Load the QuestionsList view
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/popUpMessages/NumberOfPlayers.fxml"));
+			Parent players = loader.load();
+
+			// Get the current stage using the event's source
+			Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+
+			// Set the scene to the questionsList view
+			stage.setScene(new Scene(players));
+			stage.show();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 }

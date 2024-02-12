@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.gluonhq.charm.glisten.control.TextField?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="629.0" prefWidth="926.0" stylesheets="@boardButtons.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane layoutX="-16.0" layoutY="-12.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="641.0" prefWidth="941.0" style="-fx-background-color: #8FBC8F;" stylesheets="@boardButtons.css">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#51a651" height="629.0" layoutX="742.0" layoutY="12.0" stroke="#51a651" strokeType="INSIDE" width="197.0" />
+            <Label layoutX="752.0" layoutY="64.0" text="Turn Of Player : ">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="53.0" fitWidth="78.0" layoutX="814.0" layoutY="413.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/casino.png" />
+               </image>
+            </ImageView>
+            <HBox layoutX="28.0" layoutY="482.0" prefHeight="45.0" prefWidth="573.0">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="27" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="28" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="29" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="30" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="31" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="32" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="33" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="34" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="35" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="36" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="37" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="38" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="39" />
+               </children>
+            </HBox>
+            <TextField layoutX="768.0" layoutY="113.0" prefHeight="26.0" prefWidth="133.0" />
+            <ImageView fitHeight="46.0" fitWidth="38.0" layoutX="822.0" layoutY="173.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/stopwatch%20(1).png" />
+               </image>
+            </ImageView>
+            <Label layoutX="811.0" layoutY="241.0" text="00:29">
+               <font>
+                  <Font size="25.0" />
+               </font>
+            </Label>
+            <HBox layoutX="28.0" layoutY="437.0" prefHeight="45.0" prefWidth="573.0">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="40" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="41" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="42" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="43" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="44" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="45" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="46" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="47" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="48" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="49" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="50" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="51" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="52" />
+               </children>
+            </HBox>
+            <HBox layoutX="28.0" layoutY="394.0" prefHeight="45.0" prefWidth="573.0">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="53" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="54" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="55" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="56" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="57" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="58" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="59" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="60" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="61" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="62" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="63" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="64" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="65" />
+               </children>
+            </HBox>
+            <HBox layoutX="28.0" layoutY="349.0" prefHeight="45.0" prefWidth="573.0">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="66" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="67" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="68" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="69" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="70" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="71" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="72" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="73" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="74" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="75" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="76" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="77" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="78" />
+               </children>
+            </HBox>
+            <HBox layoutX="28.0" layoutY="304.0" prefHeight="45.0" prefWidth="573.0">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="79" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="80" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="81" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="82" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="83" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="84" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="85" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="86" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="87" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="88" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="89" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="90" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="91" />
+               </children>
+            </HBox>
+            <HBox layoutX="28.0" layoutY="259.0" prefHeight="45.0" prefWidth="573.0">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="92" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="93" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="94" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="95" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="96" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="97" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="98" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="99" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="100" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="101" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="102" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="103" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="104" />
+               </children>
+            </HBox>
+            <HBox layoutX="28.0" layoutY="214.0" prefHeight="45.0" prefWidth="573.0">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="105" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="106" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="107" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="108" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="109" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="110" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="111" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="112" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="113" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="114" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="115" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="116" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="117" />
+               </children>
+            </HBox>
+            <HBox layoutX="28.0" layoutY="169.0" prefHeight="45.0" prefWidth="573.0">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="118" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="119" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="120" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="121" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="122" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="123" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="124" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="125" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="126" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="127" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="128" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="129" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="130" />
+               </children>
+            </HBox>
+            <HBox layoutX="28.0" layoutY="124.0" prefHeight="45.0" prefWidth="573.0">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="131" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="132" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="133" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="134" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="135" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="136" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="137" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="138" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="139" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="140" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="141" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="142" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="143" />
+               </children>
+            </HBox>
+            <HBox layoutX="28.0" layoutY="82.0" prefHeight="45.0" prefWidth="573.0">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="144" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="145" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="146" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="147" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="148" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="149" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="150" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="151" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="152" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="153" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="154" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="155" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="156" />
+               </children>
+            </HBox>
+            <HBox layoutX="28.0" layoutY="37.0" prefHeight="45.0" prefWidth="573.0">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="157" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="158" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="159" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="160" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="161" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="162" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="163" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="164" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="165" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="166" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="167" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="168" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="169" />
+               </children>
+            </HBox>
+            <HBox layoutX="28.0" layoutY="527.0" prefHeight="45.0" prefWidth="573.0">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="14" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="15" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="16" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="17" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="18" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="19" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="20" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="21" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="22" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="23" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="24" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="25" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="26" />
+               </children>
+            </HBox>
+            <HBox layoutX="28.0" layoutY="572.0" prefHeight="45.0" prefWidth="702.0">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="1" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="2" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="3" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="4" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="5" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="6" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="7" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="8" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="9" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="10" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="11" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="12" />
+                  <Button mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="13" />
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
