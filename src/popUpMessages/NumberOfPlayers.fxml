@@ -9,14 +9,14 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="295.0" prefWidth="455.0" style="-fx-background-color: #5F9EA0;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.NumberOfPlayersController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="295.0" prefWidth="479.0" style="-fx-background-color: #5F9EA0;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label layoutX="106.0" layoutY="47.0" text="Select Number Of Players" textFill="#fffefe">
+      <Label layoutX="110.0" layoutY="40.0" text="Select Number Of Players">
          <font>
-            <Font name="Microsoft Sans Serif" size="23.0" />
+            <Font size="23.0" />
          </font>
       </Label>
-      <Group fx:id="group1" layoutX="166.0" layoutY="130.0" onMouseClicked="#choose2">
+      <Group id="group1" fx:id="group1" layoutX="166.0" layoutY="130.0">
          <children>
             <Circle fill="#e2fffb" radius="46.0" stroke="#e2fffb" strokeType="INSIDE">
                <effect>
@@ -35,7 +35,7 @@
             </ImageView>
          </children>
       </Group>
-      <Group fx:id="group2" layoutX="289.0" layoutY="105.0" onMouseClicked="#choose3">
+      <Group id="group2" fx:id="group2" layoutX="289.0" layoutY="105.0">
          <children>
             <Circle fill="#e2fffb" layoutX="21.0" layoutY="27.0" radius="46.0" stroke="#e2fffb" strokeType="INSIDE">
                <effect>
@@ -59,7 +59,7 @@
             </ImageView>
          </children>
       </Group>
-      <Group fx:id="group3" layoutX="94.0" layoutY="221.0" onMouseClicked="#choose4">
+      <Group id="group3" fx:id="group3" layoutX="94.0" layoutY="221.0">
          <children>
             <Circle fill="#e2fffb" radius="46.0" stroke="#e2fffb" strokeType="INSIDE">
                <effect>
@@ -88,7 +88,7 @@
             </ImageView>
          </children>
       </Group>
-      <Group fx:id="group4" layoutX="239.0" layoutY="225.0" onMouseClicked="#choose5">
+      <Group id="group4" fx:id="group4" layoutX="239.0" layoutY="225.0">
          <children>
             <Circle fill="#e2fffb" radius="46.0" stroke="#e2fffb" strokeType="INSIDE">
                <effect>
@@ -122,7 +122,7 @@
             </ImageView>
          </children>
       </Group>
-      <Group fx:id="group5" layoutX="382.0" layoutY="224.0" onMouseClicked="#choose6">
+      <Group id="group5" fx:id="group5" layoutX="382.0" layoutY="224.0">
          <children>
             <Circle fill="#e2fffb" radius="46.0" stroke="#e2fffb" strokeType="INSIDE">
                <effect>
