@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.gluonhq.charm.glisten.control.AutoCompleteTextField?>
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -8,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.PlayersInfoControl">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label layoutX="42.0" layoutY="34.0" prefHeight="35.0" prefWidth="241.0" text="Select Difficulty Level">
          <font>
@@ -63,6 +64,8 @@
             <Font size="13.0" />
          </font>
       </Label>
+      <AutoCompleteTextField layoutX="122.0" layoutY="228.0" prefHeight="25.0" prefWidth="110.0" />
+      <AutoCompleteTextField layoutX="122.0" layoutY="282.0" prefHeight="25.0" prefWidth="110.0" />
       <Label layoutX="255.0" layoutY="231.0" text="Name of Player 3">
          <font>
             <Font size="13.0" />
@@ -83,6 +86,10 @@
             <Font size="13.0" />
          </font>
       </Label>
+      <AutoCompleteTextField layoutX="369.0" layoutY="228.0" prefHeight="25.0" prefWidth="110.0" />
+      <AutoCompleteTextField layoutX="369.0" layoutY="282.0" prefHeight="25.0" prefWidth="110.0" />
+      <AutoCompleteTextField layoutX="593.0" layoutY="228.0" prefHeight="25.0" prefWidth="99.0" />
+      <AutoCompleteTextField layoutX="593.0" layoutY="283.0" prefHeight="25.0" prefWidth="99.0" />
    </children>
    
 </AnchorPane>
