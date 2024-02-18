@@ -1,7 +1,10 @@
 
 package control;
 
+import java.util.Random;
+
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -21,6 +24,13 @@ public class GameBoardEasyController {
 
 	private EasyGame easyGame; // The game logic
 	private Button[][] buttonMatrix;
+
+	@FXML
+	private ImageView object;
+	@FXML
+	private Button diceButton;
+	private int currentPlayerPosition = 0; // Starting at button 1
+	private Random random = new Random();
 	// 49buttons
 	@FXML
 	private Button i0j0, i0j1, i0j2, i0j3, i0j4, i0j5, i0j6, i1j0, i1j1, i1j2, i1j3, i1j4, i1j5, i1j6, i2j0, i2j1, i2j2,
@@ -35,6 +45,72 @@ public class GameBoardEasyController {
 				{ i5j0, i5j1, i5j2, i5j3, i5j4, i5j5, i5j6 }, { i6j0, i6j1, i6j2, i6j3, i6j4, i6j5, i6j6 } };
 		// updateBoardWithSnakes();
 	}
+
+	@FXML
+	private void rollDiceAndMove() {
+		// Roll the dice to get a number between 1 and 6
+		int diceRoll = random.nextInt(6) + 1;
+
+		// Move the player
+		movePlayer(diceRoll);
+	}
+
+	private void movePlayer(int steps) {
+		// Update the current player position
+		currentPlayerPosition += steps;
+
+		// If the player's position exceeds the number of buttons, set it to the last
+		// button
+		if (currentPlayerPosition >= 49) {
+			currentPlayerPosition = 48; // Zero-based index for 49th button
+			Alerts.alertBox(AlertType.INFORMATION, "Failed", "Invalid input", "Player has won !!");
+		}
+
+		// Convert the currentPlayerPosition to matrix indices
+		int row = currentPlayerPosition / 7; // Determine row number (0-indexed)
+		int col = currentPlayerPosition % 7; // Determine column number (0-indexed)
+
+		// Check the direction of the current row
+		if (row % 2 == 1) {
+			// For odd rows (0-indexed, which are even-numbered rows), the numbers increase
+			// from right to left
+			col = 6 - col;
+		}
+
+		// Clear the object from all buttons
+		for (Button[] buttonRow : buttonMatrix) {
+			for (Button button : buttonRow) {
+				button.setGraphic(null);
+			}
+		}
+
+		// Place the object on the new button
+		buttonMatrix[row][col].setGraphic(object);
+	}
+
+//	private void addImageToButton(Button button, ImageView object) {
+//		// Create a stack pane to hold the image and the text
+//		StackPane stack = new StackPane();
+//
+//		// Create a label with the button's text
+//		Label label = new Label(button.getText());
+//		label.setTextFill(Color.WHITE); // Set the text color to white (or any color that contrasts with your button)
+//		label.setAlignment(Pos.BOTTOM_LEFT); // Set the label's alignment to bottom left
+//
+//		// Set the properties for the image view
+//		object.setFitHeight(30); // Adjust this as needed
+//		object.setFitWidth(30); // Adjust this as needed
+//		object.setPreserveRatio(true);
+//
+//		// Add both the label and the image view to the stack pane
+//		stack.getChildren().addAll(object, label);
+//
+//		// Align the label to the bottom left of the stack pane
+//		StackPane.setAlignment(label, Pos.BOTTOM_LEFT);
+//
+//		// Set the stack pane as the button's graphic
+//		button.setGraphic(stack);
+//	}
 
 //	private void updateBoardWithSnakes() {
 //		for (int i = 0; i < easyGame.getSize(); i++) {

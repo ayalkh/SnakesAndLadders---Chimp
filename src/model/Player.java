@@ -2,10 +2,10 @@ package model;
 
 public class Player {
 	private String name;
-    private String color;
-    private int position;
+	private String color;
+	private int position;
 
-    public void setName(String name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 
@@ -14,7 +14,7 @@ public class Player {
 	}
 
 	public void setPosition(int position) {
-		this.position = position;
+		this.position += position;
 	}
 
 	public Player() {
@@ -22,44 +22,42 @@ public class Player {
 		// TODO Auto-generated constructor stub
 	}
 
+	public Player(String name, String color) {
+		this.name = name;
+		this.color = color;
+		this.position = 1; // המשחק מתחיל מהמשבצת 1
+	}
 
-    public Player(String name, String color) {
-        this.name = name;
-        this.color = color;
-        this.position = 1;  // המשחק מתחיל מהמשבצת 1
-    }
+	public String getName() {
+		return name;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getColor() {
+		return color;
+	}
 
-    public String getColor() {
-        return color;
-    }
+	public int getPosition() {
+		return position;
+	}
 
-    public int getPosition() {
-        return position;
-    }
+	public void move(int steps) {
+		if (steps > 0) {
+			position += steps;
+			System.out.println(name + " moved " + steps + " steps. New position: " + position);
+		} else {
+			System.out.println("Invalid number of steps. Please provide a positive number.");
+		}
+	}
 
-    public void move(int steps) {
-        if (steps > 0) {
-            position += steps;
-            System.out.println(name + " moved " + steps + " steps. New position: " + position);
-        } else {
-            System.out.println("Invalid number of steps. Please provide a positive number.");
-        }
-    }
+	public void answerQuestion() {
 
-    public void answerQuestion() {
-       
-        System.out.println(name + " is answering a question.");
-        
-    }
+		System.out.println(name + " is answering a question.");
 
-    public void displayPlayerInfo() {
-        System.out.println("Player: " + name);
-        System.out.println("Color: " + color);
-        System.out.println("Position: " + position);
-    }
+	}
+
+	public void displayPlayerInfo() {
+		System.out.println("Player: " + name);
+		System.out.println("Color: " + color);
+		System.out.println("Position: " + position);
+	}
 }
-
