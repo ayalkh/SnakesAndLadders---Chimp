@@ -2,6 +2,7 @@ package model;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
@@ -11,6 +12,7 @@ public class EasyGame {
     private final int size = 7; // Easy level board size is 7x7
     private final Random random = new Random();
     private Map<Integer, Snake> snakesMap = new HashMap<>();
+    private Map<Integer, Ladder> laddersMap = new HashMap<>(); 
 
     public EasyGame() {
         this.board = new Tile[size][size];
@@ -31,7 +33,32 @@ public class EasyGame {
 
 
     private void placeLadders() {
-        // Place ladders of lengths 1, 2, 3, and 4 on the board
+        laddersMap.clear();
+        int[] ladderLengths = {1, 2, 3, 4}; // Ladder lengths according to the number of rows they span
+
+        for (int length : ladderLengths) {
+            boolean placed = false;
+            while (!placed) {
+                // Generate a random start position that does not conflict with snakes
+                int startPosition = getRandomLadderStartPosition(length);
+                int endPosition = startPosition + (length * size); // Calculate the end position based on ladder length
+
+                // Check if the calculated end position is valid and does not conflict with snakes
+                if (endPosition <= size * size && !snakesMap.containsKey(startPosition) && !snakesMap.containsKey(endPosition)) {
+                    Ladder ladder = new Ladder(startPosition, endPosition, length);
+                    laddersMap.put(startPosition, ladder);
+                    placed = true;
+                }
+            }
+        }
+    }
+    private int getRandomLadderStartPosition(int ladderLength) {
+        int maxPosition = size * size - ladderLength * size; // Ensure the ladder doesn't go off the board
+        int startPosition;
+        do {
+            startPosition = random.nextInt(maxPosition) + 1;
+        } while (startPosition % size == 0); // Ensure not at the right edge of the board
+        return startPosition;
     }
 
     private void placeSpecialTiles() {
@@ -87,10 +114,29 @@ public class EasyGame {
         positions.put("blue", getRandomPosition(3*size, maxPosition, occupiedPositions));
         occupiedPositions.add(positions.get("blue"));
         
-        positions.put("red", getRandomPosition(1, maxPosition, occupiedPositions));
-        occupiedPositions.add(positions.get("red"));
+        // Generate a list of all possible positions
+        Set<Integer> allPositions = new HashSet<>();
+        for (int i = 2; i <= maxPosition; i++) { // Start from 2 to avoid the first position
+            allPositions.add(i);
+        }
+        
+        // Remove occupied positions
+        allPositions.removeAll(occupiedPositions);
+
+        // The red snake always starts from a random position that is not an occupied position
+        int redSnakePosition = getRandomPositionFromSet(allPositions);
+        positions.put("red", redSnakePosition);
+        occupiedPositions.add(redSnakePosition);
 
         return positions;
+    }
+    private int getRandomPositionFromSet(Set<Integer> availablePositions) {
+        int index = random.nextInt(availablePositions.size());
+        Iterator<Integer> iter = availablePositions.iterator();
+        for (int i = 0; i < index; i++) {
+            iter.next();
+        }
+        return iter.next();
     }
     private int getRandomPosition(int min, int max, Set<Integer> occupiedPositions) {
         int position;

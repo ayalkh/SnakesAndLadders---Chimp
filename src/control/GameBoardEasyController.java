@@ -52,30 +52,25 @@ public class GameBoardEasyController {
 	}
 
 	private void updateBoardWithSnakes() {
-		Overlay.getChildren().clear();
+	    Overlay.getChildren().clear(); // Clear any existing images
 
-		for (Snake snake : easyGame.getSnakesMap().values()) {
-			ImageView snakeImageView = snake.getImageView();
+	    for (Snake snake : easyGame.getSnakesMap().values()) {
+	        ImageView snakeImageView = snake.getImageView(); // Get the ImageView for the snake
 
-			// Calculate the grid position for the head and tail of the snake
-			Point2D headGridPosition = calculateGridPosition(snake.getStartPosition());
-			Point2D tailGridPosition = calculateGridPosition(snake.getEndPosition());
+	        // Calculate the grid position for the head of the snake
+	        Point2D headGridPosition = calculateGridPosition(snake.getStartPosition());
 
-			// Convert grid positions to pixel positions
-			Point2D headPixel = calculatePixelPosition(headGridPosition);
-			Point2D tailPixel = calculatePixelPosition(tailGridPosition);
+	        // Convert grid position to pixel position for the top-left corner of the tile
+	        Point2D headPixel = calculatePixelPosition(headGridPosition);
 
-			// Center the head of the snake in the middle of its tile
-			double headCenterX = headPixel.getX() + TILE_WIDTH / 2 - snakeImageView.getFitWidth() / 2;
-			double headCenterY = headPixel.getY() + TILE_HEIGHT / 2 - snakeImageView.getFitHeight() / 2;
+	        // Set the ImageView of the snake to the pixel position
+	        // Since the image is pre-sized to fit the tile, you can set it directly to the tile's position
+	        snakeImageView.setLayoutX(headPixel.getX());
+	        snakeImageView.setLayoutY(headPixel.getY());
 
-			// Set the position of the snake image
-			snakeImageView.setLayoutX(headCenterX);
-			snakeImageView.setLayoutY(headCenterY);
-
-			// Add the ImageView to the overlay
-			Overlay.getChildren().add(snakeImageView);
-		}
+	        // Add the ImageView to the overlay
+	        Overlay.getChildren().add(snakeImageView);
+	    }
 	}
 
 	private void scaleAndRotateSnakeImage(ImageView snakeImageView, Point2D head, Point2D tail) {
@@ -122,7 +117,7 @@ public class GameBoardEasyController {
 		movePlayer(diceRoll);
 	}
 
-	private void movePlayer(int steps) {
+	public void movePlayer(int steps) {
 		// Update the current player position
 		currentPlayerPosition += steps;
 
@@ -161,5 +156,14 @@ public class GameBoardEasyController {
 		}
 		return input.substring(0, 1).toUpperCase() + input.substring(1);
 	}
+
+	public int getCurrentPlayerPosition() {
+		return currentPlayerPosition;
+	}
+
+	public void setCurrentPlayerPosition(int currentPlayerPosition) {
+		this.currentPlayerPosition = currentPlayerPosition;
+	}
+	
 
 }
