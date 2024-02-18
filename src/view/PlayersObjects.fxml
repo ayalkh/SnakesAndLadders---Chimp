@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="290.0" prefWidth="552.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.PlayerObject">
+   <children>
+      <Label layoutX="87.0" layoutY="38.0" text="SELECT">
+         <font>
+            <Font size="33.0" />
+         </font>
+      </Label>
+      <Label layoutX="328.0" layoutY="38.0" text="COLOR">
+         <font>
+            <Font size="33.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="red" fitHeight="190.0" fitWidth="120.0" layoutY="104.0" onMouseClicked="#handlePhotoClick" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/chessRed.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="blue" fitHeight="190.0" fitWidth="120.0" layoutX="84.0" layoutY="104.0" onMouseClicked="#handlePhotoClick" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/chessBlue.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="yellow" fitHeight="190.0" fitWidth="120.0" layoutX="166.0" layoutY="104.0" onMouseClicked="#handlePhotoClick" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/chessYellow.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="green" fitHeight="130.0" fitWidth="120.0" layoutX="247.0" layoutY="104.0" onMouseClicked="#handlePhotoClick" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/chessGreen.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="grey" fitHeight="190.0" fitWidth="120.0" layoutX="330.0" layoutY="104.0" onMouseClicked="#handlePhotoClick" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/chessGrey.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="purple" fitHeight="190.0" fitWidth="120.0" layoutX="411.0" layoutY="104.0" onMouseClicked="#handlePhotoClick" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/chessPurple.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="playerNameLabel" layoutX="240.0" layoutY="54.0" text="Label" />
+   </children>
+</AnchorPane>
