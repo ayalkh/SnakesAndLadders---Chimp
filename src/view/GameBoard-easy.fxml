@@ -114,11 +114,36 @@
             <Font size="25.0" />
          </font>
       </Label>
-      <AnchorPane fx:id="Overlay" layoutX="80.0" layoutY="60.0" prefHeight="315.0" prefWidth="315.0" />
+      <AnchorPane fx:id="Overlay" layoutX="52.0" layoutY="60.0" prefHeight="319.0" prefWidth="375.0" />
       <Button fx:id="diceButton" layoutX="679.0" layoutY="363.0" mnemonicParsing="false" onAction="#rollDiceAndMove" text="Button" />
-      <ImageView fx:id="object" fitHeight="20.0" fitWidth="20.0" layoutX="20.0" layoutY="351.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="redObject" fitHeight="20.0" fitWidth="20.0" layoutX="21.0" layoutY="364.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/chessRed.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="yellowObject" fitHeight="20.0" fitWidth="20.0" layoutX="31.0" layoutY="374.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/chessYellow.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="greenObject" fitHeight="20.0" fitWidth="20.0" layoutX="11.0" layoutY="344.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/chessGreen.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="blueObject" fitHeight="20.0" fitWidth="20.0" layoutX="4.0" layoutY="367.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/chessBlue.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="greyObject" fitHeight="20.0" fitWidth="20.0" layoutX="14.0" layoutY="377.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/chessGrey.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="purpleObject" fitHeight="20.0" fitWidth="20.0" layoutX="24.0" layoutY="387.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/chessPurple.png" />
          </image>
       </ImageView>
    </children>
