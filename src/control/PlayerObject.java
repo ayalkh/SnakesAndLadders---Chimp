@@ -49,6 +49,7 @@ public class PlayerObject {
 	// A Set to keep track of selected Images
 	private Set<ImageView> selectedImages = new HashSet<>();
 	private List<String> playerNames = new ArrayList<>();
+	private List<String> selectedColors = new ArrayList<>();
 
 	public void setNumberOfPlayers(int number) {
 		this.numberOfPlayers = number;
@@ -72,6 +73,21 @@ public class PlayerObject {
 
 	}
 
+//	@FXML
+//	private void handlePhotoClick(MouseEvent event) {
+//		ImageView clickedPhoto = (ImageView) event.getSource();
+//		if (!selectedImages.contains(clickedPhoto)) {
+//			clickedPhoto.setVisible(false); // Or set to disabled, etc.
+//			selectedImages.add(clickedPhoto);
+//
+//			// Check if this was the last selection needed
+//			if (selectedImages.size() == numberOfPlayers) {
+//				openNewWindow();
+//			}
+//		}
+//
+//	}
+
 	@FXML
 	private void handlePhotoClick(MouseEvent event) {
 		ImageView clickedPhoto = (ImageView) event.getSource();
@@ -79,18 +95,34 @@ public class PlayerObject {
 			clickedPhoto.setVisible(false); // Or set to disabled, etc.
 			selectedImages.add(clickedPhoto);
 
+			// Add color to selectedColors list based on the clicked image
+			if (clickedPhoto == red) {
+				selectedColors.add("red");
+			} else if (clickedPhoto == blue) {
+				selectedColors.add("blue");
+			} else if (clickedPhoto == green) {
+				selectedColors.add("green");
+			} else if (clickedPhoto == yellow) {
+				selectedColors.add("yellow");
+			} else if (clickedPhoto == purple) {
+				selectedColors.add("purple");
+			} else if (clickedPhoto == grey) {
+				selectedColors.add("grey");
+			}
+
 			// Check if this was the last selection needed
 			if (selectedImages.size() == numberOfPlayers) {
 				openNewWindow();
 			}
 		}
-
 	}
 
 	private void openNewWindow() {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/GameBoard-easy.fxml"));
 			Parent root = loader.load();
+			GameBoardEasyController controller = loader.getController();
+			controller.setSelectedColors(selectedColors);
 
 			// Create a new stage for the new scene
 			Stage stage = new Stage();

@@ -1,6 +1,7 @@
-
 package control;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import javafx.fxml.FXML;
@@ -31,11 +32,34 @@ public class GameBoardEasyController {
 	@FXML
 	private ImageView object;
 	@FXML
+	private ImageView object1;
+	@FXML
 	private Button diceButton;
 	private int currentPlayerPosition = 0; // Starting at button 1
 	private Random random = new Random();
+	private int currentPlayer1Position = 0;
+	private int currentPlayer2Position = 0;
 	private final double TILE_WIDTH = 45; // Set the width of your tiles here
 	private final double TILE_HEIGHT = 45; // Set the height of your tiles here
+	private boolean isPlayer1Turn = true; // Starts with player 1
+	private List<String> selectedColors = new ArrayList<>();
+
+	@FXML
+	private ImageView blueObject;
+	@FXML
+	private ImageView greenObject;
+
+	@FXML
+	private ImageView greyObject;
+	@FXML
+	private ImageView purpleObject;
+
+	@FXML
+	private ImageView redObject;
+
+	@FXML
+	private ImageView yellowObject;
+
 	// 49buttons
 	@FXML
 	private Button i0j0, i0j1, i0j2, i0j3, i0j4, i0j5, i0j6, i1j0, i1j1, i1j2, i1j3, i1j4, i1j5, i1j6, i2j0, i2j1, i2j2,
@@ -78,28 +102,6 @@ public class GameBoardEasyController {
 		}
 	}
 
-	private void scaleAndRotateSnakeImage(ImageView snakeImageView, Point2D head, Point2D tail) {
-		// Calculate the number of tiles snake covers vertically and horizontally
-		int verticalTiles = Math.abs((int) head.getY() - (int) tail.getY()) + 1;
-		int horizontalTiles = Math.abs((int) head.getX() - (int) tail.getX()) + 1;
-
-		// Set the size of the snake image based on the number of tiles it covers
-		snakeImageView.setFitHeight(TILE_HEIGHT * verticalTiles);
-		snakeImageView.setFitWidth(TILE_WIDTH * horizontalTiles); // Only set this if you want to scale width as well
-
-		// Determine rotation and flipping
-		if (head.getX() == tail.getX()) {
-			// Vertical snake
-			snakeImageView.setRotate(head.getY() < tail.getY() ? 0 : 180);
-		} else {
-			// Horizontal snake or diagonal
-			// Use atan2 to find the angle required to rotate the snake image to align it
-			// with the grid
-			double angle = Math.toDegrees(Math.atan2(tail.getY() - head.getY(), tail.getX() - head.getX()));
-			snakeImageView.setRotate(angle);
-		}
-	}
-
 	private Point2D calculateGridPosition(int boardPosition) {
 		int row = (boardPosition - 1) / easyGame.getSize();
 		int col = (boardPosition - 1) % easyGame.getSize();
@@ -115,44 +117,89 @@ public class GameBoardEasyController {
 
 	@FXML
 	private void rollDiceAndMove() {
-		// Roll the dice to get a number between 1 and 6
-		int diceRoll = random.nextInt(6) + 1;
+		// Roll the dice to get a number between 1 and 4
+		int diceRoll = random.nextInt(4) + 1;
 
 		// Move the player
 		movePlayer(diceRoll);
+
+		// Switch turn to the next player
+		isPlayer1Turn = !isPlayer1Turn;
 	}
 
 	private void movePlayer(int steps) {
 		// Update the current player position
+		System.out.println("you got :" + steps);
+
+		int currentPlayerPosition = isPlayer1Turn ? currentPlayer1Position : currentPlayer2Position;
 		currentPlayerPosition += steps;
+
+		// Check for ladders, snakes, and question squares
+		// Implement ladder, snake, and question logic here...
 
 		// If the player's position exceeds the number of buttons, set it to the last
 		// button
 		if (currentPlayerPosition >= 49) {
 			currentPlayerPosition = 48; // Zero-based index for 49th button
-			Alerts.alertBox(AlertType.INFORMATION, "Failed", "Invalid input", "Player has won !!");
+			Alerts.alertBox(AlertType.INFORMATION, "Congratulations", "You Win",
+					isPlayer1Turn ? "Player 1 has won!!" : "Player 2 has won!!");
 		}
 
 		// Convert the currentPlayerPosition to matrix indices
-		int row = currentPlayerPosition / 7; // Determine row number (0-indexed)
-		int col = currentPlayerPosition % 7; // Determine column number (0-indexed)
+		int row = currentPlayerPosition / 7;
+		int col = currentPlayerPosition % 7;
 
-		// Check the direction of the current row
 		if (row % 2 == 1) {
-			// For odd rows (0-indexed, which are even-numbered rows), the numbers increase
-			// from right to left
 			col = 6 - col;
 		}
 
-		// Clear the object from all buttons
-		for (Button[] buttonRow : buttonMatrix) {
-			for (Button button : buttonRow) {
-				button.setGraphic(null);
-			}
+		// Update player positions
+		if (isPlayer1Turn) {
+			currentPlayer1Position = currentPlayerPosition;
+		} else {
+			currentPlayer2Position = currentPlayerPosition;
 		}
 
+		// Clear the previous position of the current player
+		clearPreviousPlayerPosition(isPlayer1Turn);
+
+		for (String color : selectedColors)
+			System.out.println(color);
+
 		// Place the object on the new button
-		buttonMatrix[row][col].setGraphic(object);
+		if (selectedColors.get(0).toLowerCase() == "red")
+			object = redObject;
+		else if (selectedColors.get(0).toLowerCase() == "blue")
+			object = blueObject;
+		else if (selectedColors.get(0).toLowerCase() == "green")
+			object = greenObject;
+		else if (selectedColors.get(0).toLowerCase() == "yellow")
+			object = yellowObject;
+		else if (selectedColors.get(0).toLowerCase() == "purple")
+			object = purpleObject;
+		else if (selectedColors.get(0).toLowerCase() == "grey")
+			object = greyObject;
+
+		if (selectedColors.get(1).toLowerCase() == "red")
+			object1 = redObject;
+		else if (selectedColors.get(1).toLowerCase() == "blue")
+			object1 = blueObject;
+		else if (selectedColors.get(1).toLowerCase() == "green")
+			object1 = greenObject;
+		else if (selectedColors.get(1).toLowerCase() == "yellow")
+			object1 = yellowObject;
+		else if (selectedColors.get(1).toLowerCase() == "purple")
+			object1 = purpleObject;
+		else if (selectedColors.get(1).toLowerCase() == "grey")
+			object1 = greyObject;
+
+		buttonMatrix[row][col].setGraphic(isPlayer1Turn ? object : object1);
+	}
+
+	private void clearPreviousPlayerPosition(boolean isPlayer1) {
+		// Logic to clear the previous position of the current player
+		// This should clear only the player's object, not affecting the other player's
+		// object
 	}
 
 	private String capitalize(String input) {
@@ -160,6 +207,43 @@ public class GameBoardEasyController {
 			return input;
 		}
 		return input.substring(0, 1).toUpperCase() + input.substring(1);
+	}
+
+	public void setSelectedColors(List<String> colors) {
+		// Initialize all objects to be invisible
+		redObject.setVisible(false);
+		blueObject.setVisible(false);
+		greenObject.setVisible(false);
+		purpleObject.setVisible(false);
+		greyObject.setVisible(false);
+		yellowObject.setVisible(false);
+		selectedColors = colors;
+//		for (String color : selectedColors)
+//			System.out.println(color);
+
+		// Set visible only the objects that match the selected colors
+		for (String color : colors) {
+			switch (color.toLowerCase()) {
+			case "red":
+				redObject.setVisible(true);
+				break;
+			case "blue":
+				blueObject.setVisible(true);
+				break;
+			case "green":
+				greenObject.setVisible(true);
+				break;
+			case "purple":
+				purpleObject.setVisible(true);
+				break;
+			case "grey":
+				greyObject.setVisible(true);
+				break;
+			case "yellow":
+				yellowObject.setVisible(true);
+				break;
+			}
+		}
 	}
 
 }
