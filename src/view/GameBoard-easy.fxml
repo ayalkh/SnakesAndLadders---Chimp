@@ -23,7 +23,7 @@
             <Image url="@../images/casino.png" />
          </image>
       </ImageView>
-      <HBox layoutX="80.0" layoutY="330.0" prefHeight="45.0" prefWidth="315.0">
+      <HBox layoutX="50.0" layoutY="331.0" prefHeight="45.0" prefWidth="315.0">
          <children>
             <Button fx:id="i0j0" alignment="BOTTOM_LEFT" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="1" textOverrun="CLIP">
                <font>
@@ -37,7 +37,7 @@
             <Button fx:id="i0j6" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="7" />
          </children>
       </HBox>
-      <HBox layoutX="80.0" layoutY="285.0" prefHeight="45.0" prefWidth="315.0">
+      <HBox layoutX="50.0" layoutY="285.0" prefHeight="45.0" prefWidth="315.0">
          <children>
             <Button fx:id="i1j0" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="14" />
             <Button fx:id="i1j1" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="13" />
@@ -48,7 +48,7 @@
             <Button fx:id="i1j6" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="8" />
          </children>
       </HBox>
-      <HBox layoutX="80.0" layoutY="240.0" prefHeight="45.0" prefWidth="315.0">
+      <HBox layoutX="50.0" layoutY="240.0" prefHeight="45.0" prefWidth="315.0">
          <children>
             <Button fx:id="i2j0" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="15" />
             <Button fx:id="i2j1" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="16" />
@@ -59,7 +59,7 @@
             <Button fx:id="i2j6" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="21" />
          </children>
       </HBox>
-      <HBox layoutX="80.0" layoutY="195.0" prefHeight="45.0" prefWidth="315.0">
+      <HBox layoutX="50.0" layoutY="195.0" prefHeight="45.0" prefWidth="315.0">
          <children>
             <Button fx:id="i3j0" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="28" />
             <Button fx:id="i3j1" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="27" />
@@ -70,7 +70,7 @@
             <Button fx:id="i3j6" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="22" />
          </children>
       </HBox>
-      <HBox layoutX="80.0" layoutY="150.0" prefHeight="45.0" prefWidth="315.0">
+      <HBox layoutX="50.0" layoutY="150.0" prefHeight="45.0" prefWidth="315.0">
          <children>
             <Button fx:id="i4j0" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="29" />
             <Button fx:id="i4j1" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="30" />
@@ -81,7 +81,7 @@
             <Button fx:id="i4j6" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="35" />
          </children>
       </HBox>
-      <HBox layoutX="80.0" layoutY="105.0" prefHeight="45.0" prefWidth="315.0">
+      <HBox layoutX="50.0" layoutY="105.0" prefHeight="45.0" prefWidth="315.0">
          <children>
             <Button fx:id="i5j0" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="42" />
             <Button fx:id="i5j1" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="41" />
@@ -92,7 +92,7 @@
             <Button fx:id="i5j6" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="36" />
          </children>
       </HBox>
-      <HBox layoutX="80.0" layoutY="60.0" prefHeight="45.0" prefWidth="315.0">
+      <HBox layoutX="50.0" layoutY="60.0" prefHeight="45.0" prefWidth="315.0">
          <children>
             <Button fx:id="i6j0" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="43" />
             <Button fx:id="i6j1" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="44" />

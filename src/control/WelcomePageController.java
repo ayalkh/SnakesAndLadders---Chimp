@@ -8,7 +8,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-//a
 public class WelcomePageController {
 	@FXML
 	private Button viewQuestion;
@@ -18,8 +17,7 @@ public class WelcomePageController {
 	@FXML
 	private void handleViewQuestionAction(ActionEvent event) {
 		try {
-			// Load the QuestionsList view
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/QuestionsList.fxml"));
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/WelcomePage.fxml"));
 			Parent questionsListView = loader.load();
 
 			// Get the current stage using the event's source

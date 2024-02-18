@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.gluonhq.charm.glisten.control.AutoCompleteTextField?>
 <?import javafx.scene.control.Accordion?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
@@ -31,27 +31,27 @@
       </Label>
       <Label fx:id="player2" layoutX="43.0" layoutY="165.0" prefHeight="35.0" prefWidth="98.0" text="Player 2">
          <font>
-            <Font size="24.0" />
+            <Font size="13.0" />
          </font>
       </Label>
       <Label fx:id="player3" layoutX="42.0" layoutY="212.0" prefHeight="35.0" prefWidth="98.0" text="Player 3">
          <font>
-            <Font size="24.0" />
+            <Font size="13.0" />
          </font>
       </Label>
       <Label fx:id="player4" layoutX="305.0" layoutY="118.0" prefHeight="35.0" prefWidth="98.0" text="Player 4">
          <font>
-            <Font size="24.0" />
+            <Font size="13.0" />
          </font>
       </Label>
       <Label fx:id="player5" layoutX="304.0" layoutY="165.0" prefHeight="35.0" prefWidth="91.0" text="Player 5">
          <font>
-            <Font size="24.0" />
+            <Font size="13.0" />
          </font>
       </Label>
       <Label fx:id="player6" layoutX="301.0" layoutY="212.0" prefHeight="35.0" prefWidth="98.0" text="Player 6">
          <font>
-            <Font size="24.0" />
+            <Font size="13.0" />
          </font>
       </Label>
       <Button fx:id="button" layoutX="191.0" layoutY="265.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="226.0" text="START">
@@ -65,6 +65,7 @@
       <TextField fx:id="text6" layoutX="398.0" layoutY="217.0" style="-fx-background-color: #ffffff;" />
       <TextField fx:id="text5" layoutX="398.0" layoutY="170.0" style="-fx-background-color: #ffffff;" />
       <TextField fx:id="text4" layoutX="398.0" layoutY="123.0" style="-fx-background-color: #ffffff;" />
+
    </children>
    
 </AnchorPane>
