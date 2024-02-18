@@ -2,11 +2,13 @@
 package control;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Point2D;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import model.EasyGame;
 import model.Snake;
 
@@ -20,9 +22,12 @@ public class GameBoardEasyController {
 	private ImageView stopwatchImageView;
 	@FXML
 	private Label timerLabel;
-
+    @FXML
+    private AnchorPane Overlay;
 	 private EasyGame easyGame; // The game logic
 	 private Button[][] buttonMatrix;
+	   private final double TILE_WIDTH = 45; // Set the width of your tiles here
+	    private final double TILE_HEIGHT = 45; // Set the height of your tiles here
 	// 49buttons
 	@FXML
 	private Button i0j0, i0j1, i0j2, i0j3, i0j4, i0j5, i0j6, i1j0, i1j1, i1j2, i1j3, i1j4, i1j5, i1j6, i2j0, i2j1, i2j2,
@@ -45,34 +50,62 @@ public class GameBoardEasyController {
 	    }
 	  
 	  private void updateBoardWithSnakes() {
-	        for (int i = 0; i < easyGame.getSize(); i++) {
-	            for (int j = 0; j < easyGame.getSize(); j++) {
-	                if (easyGame.getBoard()[i][j] instanceof Snake) {
-	                    Snake snake = (Snake) easyGame.getBoard()[i][j];
-	                    int headRow = (snake.getStartPosition() - 1) / easyGame.getSize();
-	                    int headCol = (snake.getStartPosition() - 1) % easyGame.getSize();
-	                    int tailRow = (snake.getEndPosition() - 1) / easyGame.getSize();
-	                    int tailCol = (snake.getEndPosition() - 1) % easyGame.getSize();
+		    Overlay.getChildren().clear();
 
-	                    displaySnakeOnButton(buttonMatrix[headRow][headCol], "head", snake);
-	                    displaySnakeOnButton(buttonMatrix[tailRow][tailCol], "tail", snake);
-	                }
-	            }
-	        }
-	    }
-	    private void displaySnakeOnButton(Button button, String part, Snake snake) {
-	        // Determine the correct image based on the snake's color and the part (head/tail)
-	        String snakeColor = snake.getColor().toLowerCase();
-	        String imageFileName = "/images/" + snakeColor + "Snake" + capitalize(part) + ".png"; // Assuming you have images named accordingly
+		    for (Snake snake : easyGame.getSnakesMap().values()) {
+		        ImageView snakeImageView = snake.getImageView();
 
-	        Image snakeImage = new Image(imageFileName);
-	        button.setGraphic(new ImageView(snakeImage));
-	    }
+		        // Calculate the grid position for the head and tail of the snake
+		        Point2D headGridPosition = calculateGridPosition(snake.getStartPosition());
+		        Point2D tailGridPosition = calculateGridPosition(snake.getEndPosition());
 
-	    private String capitalize(String input) {
-	        if (input == null || input.isEmpty()) {
-	            return input;
-	        }
-	        return input.substring(0, 1).toUpperCase() + input.substring(1);
-	    }
+		        // Convert grid positions to pixel positions
+		        Point2D headPixel = calculatePixelPosition(headGridPosition);
+		        Point2D tailPixel = calculatePixelPosition(tailGridPosition);
+
+		        // Center the head of the snake in the middle of its tile
+		        double headCenterX = headPixel.getX() + TILE_WIDTH / 2 - snakeImageView.getFitWidth() / 2;
+		        double headCenterY = headPixel.getY() + TILE_HEIGHT / 2 - snakeImageView.getFitHeight() / 2;
+
+		        // Set the position of the snake image
+		        snakeImageView.setLayoutX(headCenterX);
+		        snakeImageView.setLayoutY(headCenterY);
+
+		        // Add the ImageView to the overlay
+		        Overlay.getChildren().add(snakeImageView);
+		    }
+		}
+	  private void scaleAndRotateSnakeImage(ImageView snakeImageView, Point2D head, Point2D tail) {
+		    // Calculate the number of tiles snake covers vertically and horizontally
+		    int verticalTiles = Math.abs((int)head.getY() - (int)tail.getY()) + 1;
+		    int horizontalTiles = Math.abs((int)head.getX() - (int)tail.getX()) + 1;
+
+		    // Set the size of the snake image based on the number of tiles it covers
+		    snakeImageView.setFitHeight(TILE_HEIGHT * verticalTiles);
+		    snakeImageView.setFitWidth(TILE_WIDTH * horizontalTiles); // Only set this if you want to scale width as well
+
+		    // Determine rotation and flipping
+		    if (head.getX() == tail.getX()) {
+		        // Vertical snake
+		        snakeImageView.setRotate(head.getY() < tail.getY() ? 0 : 180);
+		    } else {
+		        // Horizontal snake or diagonal
+		        // Use atan2 to find the angle required to rotate the snake image to align it with the grid
+		        double angle = Math.toDegrees(Math.atan2(tail.getY() - head.getY(), tail.getX() - head.getX()));
+		        snakeImageView.setRotate(angle);
+		    }
+		}
+
+	  private Point2D calculateGridPosition(int boardPosition) {
+		    int row = (boardPosition - 1) / easyGame.getSize();
+		    int col = (boardPosition - 1) % easyGame.getSize();
+		    // Adjust for zero-based index
+		    return new Point2D(col, easyGame.getSize() - row - 1);
+		}
+	  private Point2D calculatePixelPosition(Point2D gridPosition) {
+		    double x = gridPosition.getX() * TILE_WIDTH;
+		    double y = gridPosition.getY() * TILE_HEIGHT;
+		    return new Point2D(x, y);
+		}
+
 }

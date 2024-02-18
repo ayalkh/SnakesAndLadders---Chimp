@@ -2,23 +2,41 @@ package model;
 
 import java.util.Objects;
 
-public class Sneak extends Tile {
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
+public class Snake extends Tile {
 private int startPosition;
     private int endPosition;
     private String color;
     private int length;
-	public Sneak(int startPosition, int endPosition, String color, int length) {
-		super();
+    private ImageView imageView; // ImageView to hold the snake's image
+
+	public Snake(int startPosition, int endPosition, String color, int length) {
 		this.startPosition = startPosition;
 		this.endPosition = endPosition;
 		this.color = color;
 		this.length = length;
-		
+		 
+		 String imagePath = "/images/" + color + "Snake.png"; // Ensure this path is correct
+		    Image image = new Image(getClass().getResourceAsStream(imagePath));
+
+
+		    this.imageView = new ImageView(); // Initialize the ImageView
+		    this.imageView.setImage(image); // Set the image to ImageView
+
 	}
 	
 	
 
-	
+	   // Getter and setter for the ImageView
+    public ImageView getImageView() {
+        return imageView;
+    }
+
+    public void setImageView(ImageView imageView) {
+        this.imageView = imageView;
+    }
 	public int getStartPosition() {
 		return startPosition;
 	}
@@ -63,7 +81,7 @@ private int startPosition;
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Sneak other = (Sneak) obj;
+		Snake other = (Snake) obj;
 		return Objects.equals(color, other.color) && endPosition == other.endPosition && length == other.length
 				&& startPosition == other.startPosition;
 	}

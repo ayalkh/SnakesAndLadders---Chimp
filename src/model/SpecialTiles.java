@@ -4,10 +4,10 @@ import java.util.Objects;
 
 public class SpecialTiles extends Tile {
 	private Ladder ladder;
-	private Sneak sneak;
+	private Snake sneak;
 	private Question question;
 	private SurpriseTile surpriseTile;
-	public SpecialTiles(Ladder ladder, Sneak sneak, Question question, SurpriseTile surpriseTile) {
+	public SpecialTiles(Ladder ladder, Snake sneak, Question question, SurpriseTile surpriseTile) {
 		super();
 		this.ladder = ladder;
 		this.sneak = sneak;
@@ -20,10 +20,10 @@ public class SpecialTiles extends Tile {
 	public void setLadder(Ladder ladder) {
 		this.ladder = ladder;
 	}
-	public Sneak getSneak() {
+	public Snake getSneak() {
 		return sneak;
 	}
-	public void setSneak(Sneak sneak) {
+	public void setSneak(Snake sneak) {
 		this.sneak = sneak;
 	}
 	public Question getQuestion() {
