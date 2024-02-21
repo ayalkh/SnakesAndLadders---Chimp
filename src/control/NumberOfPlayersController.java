@@ -40,7 +40,6 @@ public class NumberOfPlayersController {
 	@FXML
 	void choose2(MouseEvent event) {
 		this.number = 2;
-		System.out.println("Before loading PlayersInfo, number is: " + number);
 		loadPlayersInfoView(event);
 
 	}

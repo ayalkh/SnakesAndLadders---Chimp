@@ -15,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -65,7 +66,6 @@ public class PlayersInfoControl {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				selectedValue = newValue;
-				System.out.println("Selected value: " + newValue);
 			}
 		});
 
@@ -101,16 +101,36 @@ public class PlayersInfoControl {
 	}
 
 	private void goToPlayerObjectPage() {
-		// Collect data from ComboBox and TextFields
-		String comboBoxValue = comboBox.getValue();
-		List<String> playerNames = new ArrayList<>();
-		for (TextField textField : Arrays.asList(text1, text2, text3, text4, text5, text6)) {
-			if (textField.isVisible()) {
-				playerNames.add(textField.getText());
-			}
-		}
+	    // Collect data from ComboBox and TextFields
+	    String comboBoxValue = comboBox.getValue();
+	    List<String> playerNames = new ArrayList<>();
 
-		loadPlayerObjectView(comboBoxValue, playerNames);
+	    boolean allFieldsFilled = true;
+	    for (TextField textField : Arrays.asList(text1, text2, text3, text4, text5, text6)) {
+	        if (textField.isVisible() && textField.getText().trim().isEmpty()) {
+	            allFieldsFilled = false;
+	            break;
+	        }
+	        if (textField.isVisible()) {
+	            playerNames.add(textField.getText().trim());
+	        }
+	    }
+
+	    // Check if all required fields are filled and level is selected
+	    if (!allFieldsFilled || comboBoxValue == null) {
+	        String alertMessage = !allFieldsFilled ? "Please fill in all the player names." : "Please select a difficulty level.";
+	        showAlert("Missing Information", alertMessage);
+	    } else {
+	        loadPlayerObjectView(comboBoxValue, playerNames);
+	    }
+	}
+
+	private void showAlert(String title, String content) {
+	    Alert alert = new Alert(Alert.AlertType.WARNING);
+	    alert.setTitle(title);
+	    alert.setHeaderText(null);
+	    alert.setContentText(content);
+	    alert.showAndWait();
 	}
 
 	private void loadPlayerObjectView(String comboBoxValue, List<String> playerNames) {

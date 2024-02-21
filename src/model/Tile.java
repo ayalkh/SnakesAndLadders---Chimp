@@ -8,7 +8,8 @@ public class Tile {
 	private int id;
 
 	Position pos;
-
+	  private Ladder ladder; // Reference to Ladder
+	    private Snake snake;   // Reference to Snake
 	// Constructors
 	public Tile() {
 		super();
@@ -44,7 +45,22 @@ public class Tile {
 		this.id = id;
 	}
 
-	
+	public Ladder getLadder() {
+        return ladder;
+    }
+
+    public void setLadder(Ladder ladder) {
+        this.ladder = ladder;
+    }
+
+    // Getter and Setter for Snake
+    public Snake getSnake() {
+        return snake;
+    }
+
+    public void setSnake(Snake snake) {
+        this.snake = snake;
+    }
 
 	@Override
 	public int hashCode() {
