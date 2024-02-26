@@ -7,6 +7,8 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
+import javafx.scene.image.ImageView;
+
 public class EasyGame {
     private Tile[][] board;
     private final int size = 7; // Easy level board size is 7x7
@@ -31,35 +33,66 @@ public class EasyGame {
         }
     }
 
-
     private void placeLadders() {
         laddersMap.clear();
-        int[] ladderLengths = {1, 2, 3, 4}; // Ladder lengths according to the number of rows they span
+        int[] ladderLengths = {1, 2, 3, 4}; // Ladder lengths
 
         for (int length : ladderLengths) {
             boolean placed = false;
             while (!placed) {
-                // Generate a random start position that does not conflict with snakes
                 int startPosition = getRandomLadderStartPosition(length);
-                int endPosition = startPosition + (length * size); // Calculate the end position based on ladder length
+                int endPosition = startPosition + (length * size);
 
-                // Check if the calculated end position is valid and does not conflict with snakes
-                if (endPosition <= size * size && !snakesMap.containsKey(startPosition) && !snakesMap.containsKey(endPosition)) {
+                int startRow = getRow(startPosition);
+                int endRow = getRow(endPosition);
+
+                // Adjust constraints for ladder start position based on ladder length
+                boolean isStartPositionValid = startRow >= 0 && startRow <= size - length;
+
+                // Check constraints for snake and ladder overlap
+                boolean isOverlapFree = !(snakesMap.containsKey(startPosition) ||
+                                          snakesMap.containsKey(endPosition) ||
+                                          laddersMap.containsKey(endPosition));
+
+                if (isStartPositionValid && isOverlapFree) {
+                    // Place the ladder
                     Ladder ladder = new Ladder(startPosition, endPosition, length);
                     laddersMap.put(startPosition, ladder);
+                    board[startRow][getColumn(startPosition)].setLadder(ladder); // Set ladder on the tile
                     placed = true;
                 }
             }
         }
     }
+
+    private int getRow(int position) {
+        return (position - 1) / size;
+    }
+
+    private int getColumn(int position) {
+        return (position - 1) % size;
+    }
     private int getRandomLadderStartPosition(int ladderLength) {
-        int maxPosition = size * size - ladderLength * size; // Ensure the ladder doesn't go off the board
+        int maxRowForStart = size - ladderLength; // The maximum row a ladder of this length can start
         int startPosition;
+        int row, column; // Declare 'row' and 'column' outside the loop to ensure visibility
+
         do {
-            startPosition = random.nextInt(maxPosition) + 1;
-        } while (startPosition % size == 0); // Ensure not at the right edge of the board
+            int maxPosition = maxRowForStart * size; // The maximum position on the board for the ladder start
+            startPosition = random.nextInt(maxPosition) + 1; // Get a random start position within bounds
+            row = getRow(startPosition); // Calculate the row based on the start position
+            column = getColumn(startPosition); // Calculate the column based on the start position
+
+            // Check the conditions for placing the ladder
+        } while (
+            column == size - 1 || // The ladder cannot start at the right edge of the board
+            row > maxRowForStart // The ladder cannot start too high such that it would extend beyond the board
+        );
+        
         return startPosition;
     }
+
+
 
     private void placeSpecialTiles() {
         // Place question tiles and surprise tiles, if any
@@ -75,10 +108,14 @@ public class EasyGame {
 
             Snake snake = new Snake(startPosition, endPosition, color, Math.abs(startPosition - endPosition));
             snakesMap.put(startPosition, snake);
-            // Update the board with the snake - convert startPosition to row & column if necessary
+            int row = (startPosition ) / size;
+            int col = (startPosition ) % size;
+            board[row][col].setSnake(snake); // Set snake on the tile
         }
     }
-    private int calculateEndPosition(int startPosition, String color) {
+ 
+
+	private int calculateEndPosition(int startPosition, String color) {
         int endPosition = startPosition; // Default
 
         switch (color.toLowerCase()) {
@@ -92,10 +129,10 @@ public class EasyGame {
                 endPosition -= 3 * size; // Move back three rows
                 break;
             case "red":
-                endPosition = 1; // Back to start
+                endPosition = 0; // Back to start
                 break;
         }
-        return Math.max(1, endPosition); // Ensure end position is not less than 1
+        return Math.max(0, endPosition); // Ensure end position is not less than 1
     }
     private Map<String, Integer> generateSnakePositions() {
         Map<String, Integer> positions = new HashMap<>();
@@ -146,7 +183,13 @@ public class EasyGame {
         return position;
     }
 
+    public Map<Integer, Ladder> getLaddersMap() {
+ 		return laddersMap;
+ 	}
 
+ 	public void setLaddersMap(Map<Integer, Ladder> laddersMap) {
+ 		this.laddersMap = laddersMap;
+ 	}
 	public Tile[][] getBoard() {
 		return board;
 	}
@@ -170,7 +213,7 @@ public class EasyGame {
 	public void setSnakesMap(Map<Integer, Snake> snakesMap) {
 		this.snakesMap = snakesMap;
 	}
-	
+
 
 
 }

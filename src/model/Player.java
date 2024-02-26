@@ -2,14 +2,14 @@ package model;
 
 public class Player {
 	private String name;
-	private String color;
+	private ObjectColor color;
 	private int position;
 
 	public void setName(String name) {
 		this.name = name;
 	}
 
-	public void setColor(String color) {
+	public void setColor(ObjectColor color) {
 		this.color = color;
 	}
 
@@ -22,7 +22,7 @@ public class Player {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Player(String name, String color) {
+	public Player(String name, ObjectColor color) {
 		this.name = name;
 		this.color = color;
 		this.position = 1; // המשחק מתחיל מהמשבצת 1
@@ -32,7 +32,7 @@ public class Player {
 		return name;
 	}
 
-	public String getColor() {
+	public ObjectColor getColor() {
 		return color;
 	}
 
@@ -53,6 +53,11 @@ public class Player {
 
 		System.out.println(name + " is answering a question.");
 
+	}
+
+	@Override
+	public String toString() {
+		return "Player [name=" + name + ", color=" + color + ", position=" + position + "]";
 	}
 
 	public void displayPlayerInfo() {
