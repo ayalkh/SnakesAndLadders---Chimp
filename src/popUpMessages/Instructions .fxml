@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="339.0" prefWidth="619.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171">
+   <children>
+      <ImageView fitHeight="339.0" fitWidth="619.0" layoutX="-1.0">
+         <image>
+            <Image url="@../../../../../תמונות/צילומי%20מסך/צילום%20מסך%202024-02-26%20131312.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
