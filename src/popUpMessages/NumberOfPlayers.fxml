@@ -1,165 +1,172 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.Group?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.effect.ColorAdjust?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Circle?>
-<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="295.0" prefWidth="455.0" style="-fx-background-color: #5F9EA0;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.NumberOfPlayersController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="443.0" prefWidth="440.0" style="-fx-background-color: #5F9EA0;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.NumberOfPlayersController">
    <children>
-      <Label layoutX="106.0" layoutY="47.0" text="Select Number Of Players" textFill="#fffefe">
-         <font>
-            <Font name="Microsoft Sans Serif" size="23.0" />
-         </font>
-      </Label>
-      <Group fx:id="group1" layoutX="166.0" layoutY="130.0" onMouseClicked="#choose2">
+      <ImageView fitHeight="470.0" fitWidth="440.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/תמונה40.png" />
+         </image>
+      </ImageView>
+      <Group fx:id="group1" layoutX="80.0" layoutY="145.0" onMouseClicked="#choose2">
          <children>
-            <Circle fill="#e2fffb" radius="46.0" stroke="#e2fffb" strokeType="INSIDE">
-               <effect>
-                  <ColorAdjust />
-               </effect>
-            </Circle>
-            <ImageView fitHeight="41.0" fitWidth="41.0" layoutX="-4.0" layoutY="-23.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="139.0" fitWidth="149.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/chessBlue.png" />
+                  <Image url="@../images/border.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="41.0" fitWidth="44.0" layoutX="-37.0" layoutY="-22.0" pickOnBounds="true" preserveRatio="true">
+            <Circle fill="#e2f1ff" layoutX="72.0" layoutY="69.0" radius="42.0" stroke="#e2f1ff" strokeType="INSIDE" />
+            <ImageView fitHeight="63.0" fitWidth="37.0" layoutX="46.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/chessYellow.png" />
+                  <Image url="@../images/BLUE.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="61.0" fitWidth="29.0" layoutX="73.0" layoutY="34.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/YELLOW.png" />
                </image>
             </ImageView>
          </children>
       </Group>
-      <Group fx:id="group2" layoutX="289.0" layoutY="105.0" onMouseClicked="#choose3">
+      <Group fx:id="group2" layoutX="220.0" layoutY="145.0" onMouseClicked="#choose3">
          <children>
-            <Circle fill="#e2fffb" layoutX="21.0" layoutY="27.0" radius="46.0" stroke="#e2fffb" strokeType="INSIDE">
-               <effect>
-                  <ColorAdjust />
-               </effect>
-            </Circle>
-            <ImageView fitHeight="41.0" fitWidth="44.0" layoutX="-15.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="139.0" fitWidth="149.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/chessYellow.png" />
+                  <Image url="@../images/border.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="41.0" fitWidth="41.0" layoutX="18.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true">
+            <Circle fill="#e2f1ff" layoutX="73.0" layoutY="68.0" radius="42.0" stroke="#e2f1ff" strokeType="INSIDE" />
+            <ImageView fitHeight="63.0" fitWidth="37.0" layoutX="45.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/chessBlue.png" />
+                  <Image url="@../images/BLUE.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="55.0" fitWidth="41.0" layoutX="1.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="61.0" fitWidth="29.0" layoutX="75.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/chessRed.png" />
+                  <Image url="@../images/YELLOW.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="63.0" fitWidth="37.0" layoutX="59.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/RED.png" />
                </image>
             </ImageView>
          </children>
       </Group>
-      <Group fx:id="group3" layoutX="94.0" layoutY="221.0" onMouseClicked="#choose4">
+      <Group fx:id="group3" layoutX="10.0" layoutY="270.0" onMouseClicked="#choose4">
          <children>
-            <Circle fill="#e2fffb" radius="46.0" stroke="#e2fffb" strokeType="INSIDE">
-               <effect>
-                  <ColorAdjust />
-               </effect>
-            </Circle>
-            <ImageView fitHeight="41.0" fitWidth="41.0" layoutX="-10.0" layoutY="-39.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="139.0" fitWidth="149.0" layoutX="-6.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/chessBlue.png" />
+                  <Image url="@../images/border.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="41.0" fitWidth="44.0" layoutX="-4.0" layoutY="-8.0" pickOnBounds="true" preserveRatio="true">
+            <Circle fill="#e2f1ff" layoutX="68.0" layoutY="67.0" radius="42.0" stroke="#e2f1ff" strokeType="INSIDE" />
+            <ImageView fitHeight="63.0" fitWidth="37.0" layoutX="40.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/chessGreen.png" />
+                  <Image url="@../images/BLUE.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="55.0" fitWidth="41.0" layoutX="-40.0" layoutY="-38.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="61.0" fitWidth="29.0" layoutX="69.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/chessYellow.png" />
+                  <Image url="@../images/YELLOW.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="41.0" fitWidth="41.0" layoutX="-34.0" layoutY="-8.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="63.0" fitWidth="37.0" layoutX="34.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/chessRed.png" />
+                  <Image url="@../images/RED.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="63.0" fitWidth="37.0" layoutX="68.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/GREEN.png" />
                </image>
             </ImageView>
          </children>
       </Group>
-      <Group fx:id="group4" layoutX="239.0" layoutY="225.0" onMouseClicked="#choose5">
+      <Group fx:id="group4" layoutX="145.0" layoutY="270.0" onMouseClicked="#choose5">
          <children>
-            <Circle fill="#e2fffb" radius="46.0" stroke="#e2fffb" strokeType="INSIDE">
-               <effect>
-                  <ColorAdjust />
-               </effect>
-            </Circle>
-            <ImageView fitHeight="41.0" fitWidth="41.0" layoutX="-7.0" layoutY="-37.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="139.0" fitWidth="149.0" layoutX="-2.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/chessBlue.png" />
+                  <Image url="@../images/border.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="55.0" fitWidth="41.0" layoutX="-33.0" layoutY="-37.0" pickOnBounds="true" preserveRatio="true">
+            <Circle fill="#e2f1ff" layoutX="71.0" layoutY="70.0" radius="42.0" stroke="#e2f1ff" strokeType="INSIDE" />
+            <ImageView fitHeight="63.0" fitWidth="37.0" layoutX="47.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/chessYellow.png" />
+                  <Image url="@../images/BLUE.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="41.0" fitWidth="41.0" layoutX="2.0" layoutY="-12.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="61.0" fitWidth="29.0" layoutX="72.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/chessRed.png" />
+                  <Image url="@../images/YELLOW.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="41.0" fitWidth="41.0" layoutX="-20.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="63.0" fitWidth="37.0" layoutX="35.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/chessGrey.png" />
+                  <Image url="@../images/RED.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="41.0" fitWidth="44.0" layoutX="-41.0" layoutY="-12.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="63.0" fitWidth="37.0" layoutX="82.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/chessGreen.png" />
+                  <Image url="@../images/GREEN.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="63.0" fitWidth="37.0" layoutX="59.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/GREY.png" />
                </image>
             </ImageView>
          </children>
       </Group>
-      <Group fx:id="group5" layoutX="382.0" layoutY="224.0" onMouseClicked="#choose6">
+      <Group fx:id="group5" layoutX="280.0" layoutY="270.0" onMouseClicked="#choose6">
          <children>
-            <Circle fill="#e2fffb" radius="46.0" stroke="#e2fffb" strokeType="INSIDE">
-               <effect>
-                  <ColorAdjust />
-               </effect>
-            </Circle>
-            <ImageView fitHeight="41.0" fitWidth="41.0" layoutX="-18.0" layoutY="-37.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="139.0" fitWidth="149.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/chessBlue.png" />
+                  <Image url="@../images/border.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="41.0" fitWidth="41.0" layoutX="-1.0" layoutY="-33.0" pickOnBounds="true" preserveRatio="true">
+            <Circle fill="#e2f1ff" layoutX="73.0" layoutY="69.0" radius="42.0" stroke="#e2f1ff" strokeType="INSIDE" />
+            <ImageView fitHeight="61.0" fitWidth="29.0" layoutX="83.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/chessGreen.png" />
+                  <Image url="@../images/YELLOW.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="41.0" fitWidth="44.0" layoutX="1.0" layoutY="-10.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="63.0" fitWidth="37.0" layoutX="36.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/chessPurple.png" />
+                  <Image url="@../images/BLUE.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="55.0" fitWidth="41.0" layoutX="-39.0" layoutY="-33.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="63.0" fitWidth="37.0" layoutX="32.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/chessYellow.png" />
+                  <Image url="@../images/RED.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="41.0" fitWidth="41.0" layoutX="-40.0" layoutY="-11.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="63.0" fitWidth="37.0" layoutX="82.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/chessRed.png" />
+                  <Image url="@../images/GREY.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="41.0" fitWidth="41.0" layoutX="-19.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="63.0" fitWidth="37.0" layoutX="59.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../images/chessGrey.png" />
+                  <Image url="@../images/GREEN.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="63.0" fitWidth="37.0" layoutX="58.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/PURPLE.png" />
                </image>
             </ImageView>
          </children>
       </Group>
+      <ImageView fx:id="homeButton" fitHeight="84.0" fitWidth="78.0" layoutX="10.0" layoutY="18.0" onMouseClicked="#whenClickButtonHome" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/house.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
