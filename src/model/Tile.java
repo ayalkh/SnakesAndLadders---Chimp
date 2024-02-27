@@ -10,6 +10,7 @@ public class Tile {
 	Position pos;
 	  private Ladder ladder; // Reference to Ladder
 	    private Snake snake;   // Reference to Snake
+	    private QuestionTile questiontile;
 	// Constructors
 	public Tile() {
 		super();
@@ -76,6 +77,12 @@ public class Tile {
 			return false;
 		Tile other = (Tile) obj;
 		return id == other.id && Objects.equals(pos, other.pos);
+	}
+	public QuestionTile getQuestiontile() {
+		return questiontile;
+	}
+	public void setQuestiontile(QuestionTile questiontile) {
+		this.questiontile = questiontile;
 	}
 	
 
