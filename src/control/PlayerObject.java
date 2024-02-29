@@ -133,6 +133,7 @@ public class PlayerObject {
 		for (int i = 0; i < numberOfPlayers; i++) {
 			String name = playerNames.get(i);
 			ObjectColor color = selectedColors.get(i);
+			System.out.println(color);
 			Player currentPlayer = new Player(name, color);
 			gameSession.addPlayer(currentPlayer);
 		}
@@ -149,7 +150,7 @@ public class PlayerObject {
 
 			// Create a new stage for the new scene
 			Stage stage = new Stage();
-			stage.setScene(new Scene(root));
+			stage.setScene(new Scene(root, 756, 548));
 			stage.setTitle("Players Info");
 
 			// Optional: if you want to block interaction with other windows
