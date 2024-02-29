@@ -13,13 +13,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import model.GameSession;
-import model.ObjectColor;
 import model.Player;
 
 // ... other imports
@@ -42,9 +39,7 @@ public class PlayerObject {
 
 	@FXML
 	private ImageView purple;
-	@FXML
-	private Label playerNameLabel;
-	private int currentPlayerIndex = 0;
+
 	@FXML
 	private ImageView red;
 
@@ -54,32 +49,15 @@ public class PlayerObject {
 	private int numberOfPlayers;
 	// A Set to keep track of selected Images
 	private Set<ImageView> selectedImages = new HashSet<>();
-
-	private List<ObjectColor> selectedColors = new ArrayList<>();
-
-	private GameSession gameSession;
 	private List<String> playerNames = new ArrayList<>();
+	private List<String> selectedColors = new ArrayList<>();
 
-	public void setGameSession(GameSession session) {
-		System.out.println("1");
-		this.gameSession = session;
-		numberOfPlayers = session.getNumberOfPlayers();
-		this.playerNames = session.getPlayerNames();
-
-		for (String s : playerNames)
-			System.out.println(s);
-
-		if (playerNames == null) {
-			System.out.println("Error: Player names list in GameSession is null.");
-		}
-
-		updatePlayerNameLabel();
+	public void setNumberOfPlayers(int number) {
+		this.numberOfPlayers = number;
 	}
 
 	@FXML
 	void initialize() {
-		System.out.println("2");
-
 		assert blue != null : "fx:id=\"blue\" was not injected: check your FXML file 'PlayersObjects.fxml'.";
 		assert green != null : "fx:id=\"green\" was not injected: check your FXML file 'PlayersObjects.fxml'.";
 		assert grey != null : "fx:id=\"grey\" was not injected: check your FXML file 'PlayersObjects.fxml'.";
@@ -96,32 +74,45 @@ public class PlayerObject {
 
 	}
 
+//	@FXML
+//	private void handlePhotoClick(MouseEvent event) {
+//		ImageView clickedPhoto = (ImageView) event.getSource();
+//		if (!selectedImages.contains(clickedPhoto)) {
+//			clickedPhoto.setVisible(false); // Or set to disabled, etc.
+//			selectedImages.add(clickedPhoto);
+//
+//			// Check if this was the last selection needed
+//			if (selectedImages.size() == numberOfPlayers) {
+//				openNewWindow();
+//			}
+//		}
+//
+//	}
+
 	@FXML
 	private void handlePhotoClick(MouseEvent event) {
 		ImageView clickedPhoto = (ImageView) event.getSource();
 		if (!selectedImages.contains(clickedPhoto)) {
-			clickedPhoto.setVisible(false);
+			clickedPhoto.setVisible(false); // Or set to disabled, etc.
 			selectedImages.add(clickedPhoto);
 
 			// Add color to selectedColors list based on the clicked image
 			if (clickedPhoto == red) {
-				selectedColors.add(ObjectColor.RED);
+				selectedColors.add("red");
 			} else if (clickedPhoto == blue) {
-				selectedColors.add(ObjectColor.BLUE);
+				selectedColors.add("blue");
 			} else if (clickedPhoto == green) {
-				selectedColors.add(ObjectColor.GREEN);
+				selectedColors.add("green");
 			} else if (clickedPhoto == yellow) {
-				selectedColors.add(ObjectColor.YELLOW);
+				selectedColors.add("yellow");
 			} else if (clickedPhoto == purple) {
-				selectedColors.add(ObjectColor.PURPLE);
+				selectedColors.add("purple");
 			} else if (clickedPhoto == grey) {
-				selectedColors.add(ObjectColor.GREY);
+				selectedColors.add("grey");
 			}
-			currentPlayerIndex++;
-			updatePlayerNameLabel();
 
 			// Check if this was the last selection needed
-			if (selectedImages.size() == numberOfPlayers) {
+			if (selectedImages.size() == Main.easygame.getNumberofplayers()) {
 				openNewWindow();
 			}
 		}
@@ -171,23 +162,11 @@ public class PlayerObject {
 	}
 
 	public void setComboBoxValue(String value) {
+		// Handle the ComboBox value
 		this.diffLevel = value;
 	}
 
-	// Method to accept player names
-	public void setPlayerNames(List<String> names) {
-		this.playerNames.clear();
-		this.playerNames.addAll(names);
-		updatePlayerNameLabel();
-	}
+	
 
-	private void updatePlayerNameLabel() {
-		System.out.println("8");
-		if (currentPlayerIndex < playerNames.size()) {
-			playerNameLabel.setText(playerNames.get(currentPlayerIndex));
-		} else {
-			playerNameLabel.setText("All players have selected their colors.");
-		}
-	}
 
 }

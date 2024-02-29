@@ -26,6 +26,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import model.GameLevel;
 import model.GameSession;
+import model.Player;
 
 public class PlayersInfoControl {
 
@@ -36,7 +37,7 @@ public class PlayersInfoControl {
 	private URL location;
 
 	@FXML
-	private ComboBox<GameLevel> comboBox;
+	private ComboBox<String> comboBox;
 
 	@FXML
 	private TextField text1, text2, text3, text4, text5, text6;
@@ -61,7 +62,7 @@ public class PlayersInfoControl {
 	@FXML
 	private ImageView startButton;
 
-	private GameLevel selectedValue;
+	private String selectedValue;
 	private int numberOfPlayers;
 
 	private GameSession gameSession;
@@ -87,21 +88,14 @@ public class PlayersInfoControl {
 		}
 	}
 
-	public void setGameSession(GameSession session) {
-		this.gameSession = session;
-		numberOfPlayers = gameSession.getNumberOfPlayers();
-		updateTextFieldsVisibility();
-
-	}
+	
 
 	@FXML
 	void initialize() {
-
-		comboBox.setItems(FXCollections.observableArrayList(GameLevel.EASY, GameLevel.MEDIUM, GameLevel.HARD));
-		comboBox.valueProperty().addListener(new ChangeListener<GameLevel>() {
+		comboBox.setItems(FXCollections.observableArrayList("easy", "medium", "hard"));
+		comboBox.valueProperty().addListener(new ChangeListener<String>() {
 			@Override
-			public void changed(ObservableValue<? extends GameLevel> observable, GameLevel oldValue,
-					GameLevel newValue) {
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
 				selectedValue = newValue;
 			}
 		});
@@ -121,7 +115,7 @@ public class PlayersInfoControl {
 
 		startLabel.setOnMouseClicked(event -> goToPlayerObjectPage());
 	}
-
+	
 	private void updateTextFieldsVisibility() {
 		List<TextField> textFields = Arrays.asList(text1, text2, text3, text4, text5, text6);
 		List<Label> labels = Arrays.asList(player1, player2, player3, player4, player5, player6);
@@ -146,42 +140,32 @@ public class PlayersInfoControl {
 	@FXML
 	private void goToPlayerObjectPage() {
 		// Collect data from ComboBox and TextFields
-		GameLevel difficultyLevel = comboBox.getValue();
-		List<String> playerNames = new ArrayList<>();
+	    String comboBoxValue = comboBox.getValue();
+	    List<String> playerNames = new ArrayList<>();
 
-		boolean allFieldsFilled = true;
-		for (TextField textField : Arrays.asList(text1, text2, text3, text4, text5, text6)) {
-			if (textField.isVisible() && textField.getText().trim().isEmpty()) {
-				allFieldsFilled = false;
-				break;
-			}
-			if (textField.isVisible()) {
-				playerNames.add(textField.getText().trim());
-			}
-		}
+	    boolean allFieldsFilled = true;
+	    for (TextField textField : Arrays.asList(text1, text2, text3, text4, text5, text6)) {
+	        if (textField.isVisible() && textField.getText().trim().isEmpty()) {
+	            allFieldsFilled = false;
+	            break;
+	        }
+	        if (textField.isVisible()) {
+	            playerNames.add(textField.getText().trim());
+	        }
+	    }
 
-		// Check if all required fields are filled and level is selected
-		if (!allFieldsFilled || difficultyLevel == null) {
-			String alertMessage = !allFieldsFilled ? "Please fill in all the player names."
-					: "Please select a difficulty level.";
-			showAlert("Missing Information", alertMessage);
-			return; // Exit the method if validation fails
-		} else {
-			gameSession.setDifficultyLevel(difficultyLevel);
-			gameSession.setPlayerNames(playerNames);
-			gameSession.initializePlayers(); // Initialize players with names but without objects
-
-			// Add print statements here
-			System.out.println("Selected Difficulty Level: " + gameSession.getDifficultyLevel().toString());
-			System.out.print("Player Names: ");
-			for (String name : gameSession.getPlayerNames()) {
-				System.out.print(name + " ");
-			}
-			System.out.println(); // To move to the next line after listing all names
-
-			loadPlayerObjectView();
-
-		}
+	    // Check if all required fields are filled and level is selected
+	    if (!allFieldsFilled || comboBoxValue == null) {
+	        String alertMessage = !allFieldsFilled ? "Please fill in all the player names." : "Please select a difficulty level.";
+	        showAlert("Missing Information", alertMessage);
+	    } else {
+	    	for(int i=0;i<numberOfPlayers;i++) {
+	    		Player player=new Player();
+	    		player.setName(playerNames.get(i));
+	    		Main.easygame.getGameplayers().add(player);
+	    	}
+	        loadPlayerObjectView();
+	    }
 	}
 
 	private void showAlert(String title, String content) {
@@ -199,7 +183,7 @@ public class PlayersInfoControl {
 			Parent root = loader.load();
 
 			PlayerObject controller = loader.getController();
-			controller.setGameSession(gameSession); // Pass the GameSession object
+			
 
 			Stage stage = new Stage();
 			stage.setScene(new Scene(root));
@@ -212,5 +196,14 @@ public class PlayersInfoControl {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public int getNumberOfPlayers() {
+		return numberOfPlayers;
+	}
+
+	public void setNumberOfPlayers(int numberOfPlayers) {
+		this.numberOfPlayers = numberOfPlayers;
+		updateTextFieldsVisibility();
 	}
 }

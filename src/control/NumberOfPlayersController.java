@@ -56,16 +56,12 @@ public class NumberOfPlayersController {
 	}
 
 	int number;
-	private GameSession gameSession;
-
-	public void setGameSession(GameSession session) {
-		this.gameSession = session;
-	}
+	
 
 	@FXML
 	void choose2(MouseEvent event) {
 		this.number = 2;
-		gameSession.setNumberOfPlayers(number);
+		
 		loadPlayersInfoView(event);
 
 	}
@@ -74,14 +70,14 @@ public class NumberOfPlayersController {
 	void choose3(MouseEvent event) {
 
 		this.number = 3;
-		gameSession.setNumberOfPlayers(number);
+		
 		loadPlayersInfoView(event);
 	}
 
 	@FXML
 	void choose4(MouseEvent event) {
 		this.number = 4;
-		gameSession.setNumberOfPlayers(number);
+		
 		loadPlayersInfoView(event);
 
 	}
@@ -89,21 +85,21 @@ public class NumberOfPlayersController {
 	@FXML
 	void choose5(MouseEvent event) {
 		this.number = 5;
-		gameSession.setNumberOfPlayers(number);
+		
 		loadPlayersInfoView(event);
 	}
 
 	@FXML
 	void choose6(MouseEvent event) {
 		this.number = 6;
-		gameSession.setNumberOfPlayers(number);
+		
 		loadPlayersInfoView(event);
 
 	}
 
 	@FXML
 	void initialize() {
-		gameSession = new GameSession();
+		
 		homeButton.setCursor(Cursor.HAND);
 		homeButton.setOnMouseEntered(event -> homeButton.setOpacity(0.8));
 		homeButton.setOnMouseExited(event -> homeButton.setOpacity(1.5));
@@ -133,7 +129,8 @@ public class NumberOfPlayersController {
 			Parent x = loader.load();
 
 			PlayersInfoControl controller = loader.getController();
-			controller.setGameSession(gameSession); // Pass the GameSession object
+			controller.setNumberOfPlayers(number);
+            Main.easygame.setNumberofplayers(number);
 
 			Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
