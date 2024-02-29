@@ -104,17 +104,12 @@
          </children>
       </HBox>
       <TextField layoutX="562.0" layoutY="69.0" prefHeight="26.0" prefWidth="133.0" />
-      <ImageView fitHeight="46.0" fitWidth="38.0" layoutX="610.0" layoutY="142.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../images/stopwatch%20(1).png" />
-         </image>
-      </ImageView>
       <Label layoutX="600.0" layoutY="222.0" text="00:29">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <AnchorPane fx:id="Overlay" layoutX="52.0" layoutY="60.0" prefHeight="319.0" prefWidth="375.0" />
+      <AnchorPane fx:id="Overlay" layoutX="52.0" layoutY="64.0" prefHeight="315.0" prefWidth="375.0" />
       <Button fx:id="diceButton" layoutX="679.0" layoutY="363.0" mnemonicParsing="false" onAction="#rollDiceAndMove" text="Button" />
       <ImageView fx:id="redObject" fitHeight="20.0" fitWidth="20.0" layoutX="21.0" layoutY="364.0" pickOnBounds="true" preserveRatio="true">
          <image>

@@ -7,7 +7,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="428.0" prefWidth="750.0" style="-fx-background-color: #5F9EA0;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.WelcomePageController">
 
    <children>
-      <ImageView fitHeight="450.0" fitWidth="750.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="455.0" fitWidth="750.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/background.jpg" />
          </image>
@@ -17,7 +17,7 @@
             <Image url="@../images/startButton.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="233.0" layoutY="314.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="historyButton" fitHeight="80.0" fitWidth="80.0" layoutX="233.0" layoutY="314.0" onMouseClicked="#openHistoryWhenButtonClicked" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/historyButton.png" />
          </image>
@@ -32,7 +32,7 @@
             <Image url="@../images/soundButton.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="70.0" fitWidth="70.0" layoutX="646.0" layoutY="178.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="instructions" fitHeight="70.0" fitWidth="70.0" layoutX="646.0" layoutY="178.0" onMouseClicked="#instructionsPageOpenWhenClick" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/instructionsButton.png" />
          </image>
