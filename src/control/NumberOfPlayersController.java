@@ -10,8 +10,10 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import model.GameSession;
 
 public class NumberOfPlayersController {
 
@@ -35,24 +37,47 @@ public class NumberOfPlayersController {
 	@FXML
 	private Group group5;
 
+	@FXML
+	private ImageView homeButton;
+
+	@FXML
+	void whenClickButtonHome(MouseEvent event) {
+		try {
+
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/WelcomePage.fxml"));
+			Parent x = loader.load();
+
+			Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+			stage.setScene(new Scene(x));
+			stage.show();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	int number;
+	
 
 	@FXML
 	void choose2(MouseEvent event) {
 		this.number = 2;
+		
 		loadPlayersInfoView(event);
 
 	}
 
 	@FXML
 	void choose3(MouseEvent event) {
+
 		this.number = 3;
+		
 		loadPlayersInfoView(event);
 	}
 
 	@FXML
 	void choose4(MouseEvent event) {
 		this.number = 4;
+		
 		loadPlayersInfoView(event);
 
 	}
@@ -60,18 +85,24 @@ public class NumberOfPlayersController {
 	@FXML
 	void choose5(MouseEvent event) {
 		this.number = 5;
+		
 		loadPlayersInfoView(event);
 	}
 
 	@FXML
 	void choose6(MouseEvent event) {
 		this.number = 6;
+		
 		loadPlayersInfoView(event);
 
 	}
 
 	@FXML
 	void initialize() {
+		
+		homeButton.setCursor(Cursor.HAND);
+		homeButton.setOnMouseEntered(event -> homeButton.setOpacity(0.8));
+		homeButton.setOnMouseExited(event -> homeButton.setOpacity(1.5));
 		assert group1 != null : "fx:id=\"group1\" was not injected: check your FXML file 'NumberOfPlayers.fxml'.";
 		assert group2 != null : "fx:id=\"group2\" was not injected: check your FXML file 'NumberOfPlayers.fxml'.";
 		assert group3 != null : "fx:id=\"group3\" was not injected: check your FXML file 'NumberOfPlayers.fxml'.";
@@ -86,24 +117,33 @@ public class NumberOfPlayersController {
 	}
 
 	private void applyMouseEffects(Group group) {
+
 		group.setOnMouseEntered(event -> group.getScene().setCursor(Cursor.HAND));
 		group.setOnMouseExited(event -> group.getScene().setCursor(Cursor.DEFAULT));
-		// If the groups contain ImageView children, you can apply additional effects to
-		// them
+
 	}
 
 	private void loadPlayersInfoView(MouseEvent event) {
 		try {
-
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/PlayersInfo.fxml"));
 			Parent x = loader.load();
 
-			PlayersInfoControl playerInfoControl = loader.getController();
-			playerInfoControl.setNumberOfPlayers(number);
+			PlayersInfoControl controller = loader.getController();
+			controller.setNumberOfPlayers(number);
+            Main.easygame.setNumberofplayers(number);
 
-			// System.out.println(number);
 			Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-			stage.setScene(new Scene(x));
+
+			// Set the scene with specified width and height
+			Scene scene = new Scene(x, 505, 489);
+
+			stage.setScene(scene);
+
+			stage.setResizable(false);
+
+			// Optional: If you want to make sure the window is centered on the screen
+			stage.centerOnScreen();
+
 			stage.show();
 		} catch (Exception e) {
 			e.printStackTrace();

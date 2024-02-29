@@ -1,8 +1,10 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
@@ -10,29 +12,46 @@ import java.util.Set;
 import javafx.scene.image.ImageView;
 
 public class EasyGame {
-	private Tile[][] board;
-	private final int size = 7; // Easy level board size is 7x7
-	private final Random random = new Random();
-	private Map<Integer, Snake> snakesMap = new HashMap<>();
-	private Map<Integer, Ladder> laddersMap = new HashMap<>();
+	 private List<QuestionTile> questions=new ArrayList<>();
+	 private int numberofplayers;
+	    private List<Player> gameplayers = new ArrayList<>();
+    private Tile[][] board;
+    private final int size = 7; // Easy level board size is 7x7
+    private final Random random = new Random();
+    private Map<Integer, Snake> snakesMap = new HashMap<>();
+    private Map<Integer, Ladder> laddersMap = new HashMap<>(); 
 
-	public EasyGame() {
-		this.board = new Tile[size][size];
-		initializeBoard();
-		placeLadders();
-		placeSnakes();
-		
-		placeSpecialTiles(); // If you have question tiles or surprise tiles
-		// Add other initialization as needed
+    public EasyGame() {
+        this.board = new Tile[size][size];
+        initializeBoard();
+        placeSnakes();
+        placeLadders();
+        placeSpecialTiles();
+        placequestions();// If you have question tiles or surprise tiles
+        // Add other initialization as needed
+    }
+    public int getNumberofplayers() {
+		return numberofplayers;
 	}
 
-	private void initializeBoard() {
-		for (int i = 0; i < size; i++) {
-			for (int j = 0; j < size; j++) {
-				board[i][j] = new Tile(i, j); // Assuming your Tile constructor takes row and column as arguments
-			}
-		}
+	public void setNumberofplayers(int numberofplayers) {
+		this.numberofplayers = numberofplayers;
 	}
+
+	public List<Player> getGameplayers() {
+		return gameplayers;
+	}
+
+	public void setGameplayers(List<Player> gameplayers) {
+		this.gameplayers = gameplayers;
+	}
+    private void initializeBoard() {
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                board[i][j] = new Tile(i, j); // Assuming your Tile constructor takes row and column as arguments
+            }
+        }
+    }
 
 	private void placeLadders() {
 	    laddersMap.clear();
@@ -283,5 +302,47 @@ public class EasyGame {
 	public void setSnakesMap(Map<Integer, Snake> snakesMap) {
 		this.snakesMap = snakesMap;
 	}
+	private void placequestions() {
+    	questions.clear();
+    	
+    	Set<Integer> occupiedPositions = new HashSet<>();
+    	int maxPosition=size*size;
+    	int i=0;
+       while(i<4) {
+    	 QuestionTile QT = new QuestionTile(getRandomQuestion(), getRandomPosition(size,maxPosition,occupiedPositions));
+    	 if (!(snakesMap.containsKey(QT.getPosition()) ||
+                 snakesMap.containsKey(QT.getPosition()) ||
+                 laddersMap.containsKey(QT.getPosition()))){
+    		 questions.add(QT);
+    	 occupiedPositions.add(questions.get(i).getPosition());
+    	 int row = (QT.getPosition() ) / size;
+         int col = (QT.getPosition() ) % size;
+         board[row][col].setQuestiontile(QT); // Set snake on the tile
+    	 i++;
+    	 }
+    	 
+    	 
+       }
+       
+
+           
+  
+        }
+    
+ 
+
+	public List<QuestionTile> getQuestions() {
+		return questions;
+	}
+
+	public void setQuestions(List<QuestionTile> questions) {
+		this.questions = questions;
+	}
+
+	private Question getRandomQuestion() {
+		
+		return null;
+	}
+
 
 }

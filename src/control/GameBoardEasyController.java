@@ -13,8 +13,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import model.Dice;
 import model.EasyGame;
+import model.GameLevel;
+import model.GameSession;
 import model.Ladder;
+import model.ObjectColor;
+import model.Player;
+import model.QuestionTile;
 import model.Snake;
 
 public class GameBoardEasyController {
@@ -37,7 +43,7 @@ public class GameBoardEasyController {
 	private ImageView object1;
 	@FXML
 	private Button diceButton;
-	private int currentPlayerPosition = 0; // Starting at button 1
+	Player currentplayer=Main.easygame.getGameplayers().get(0);
 	private Random random = new Random();
 	private int currentPlayer1Position = 0;
 	private int currentPlayer2Position = 0;
@@ -61,6 +67,7 @@ public class GameBoardEasyController {
 
 	@FXML
 	private ImageView yellowObject;
+	private GameSession gameSession;
 
 	// 49buttons
 	@FXML
@@ -70,57 +77,63 @@ public class GameBoardEasyController {
 
 	public void initialize() {
 		easyGame = new EasyGame(); // Initialize the game
+		initializeBoard();
+		updateBoardWithSnakes();
+		updateBoardWithLadders();
+		updateBoardWithQuestionTiles();
+	}
+
+	private void initializeBoard() {
 		buttonMatrix = new Button[][] { { i0j0, i0j1, i0j2, i0j3, i0j4, i0j5, i0j6 },
 				{ i1j0, i1j1, i1j2, i1j3, i1j4, i1j5, i1j6 }, { i2j0, i2j1, i2j2, i2j3, i2j4, i2j5, i2j6 },
 				{ i3j0, i3j1, i3j2, i3j3, i3j4, i3j5, i3j6 }, { i4j0, i4j1, i4j2, i4j3, i4j4, i4j5, i4j6 },
 				{ i5j0, i5j1, i5j2, i5j3, i5j4, i5j5, i5j6 }, { i6j0, i6j1, i6j2, i6j3, i6j4, i6j5, i6j6 } };
-		updateBoardWithSnakes();
-		updateBoardWithLadders();
 	}
 
 	private void updateBoardWithLadders() {
-	    for (Ladder ladder : easyGame.getLaddersMap().values()) {
-	        ImageView ladderImageView = ladder.getImageView(); // Assuming Ladder class has getImageView method
+		for (Ladder ladder : easyGame.getLaddersMap().values()) {
+			ImageView ladderImageView = ladder.getImageView(); // Assuming Ladder class has getImageView method
 
-	        // Calculate the grid position for the bottom and top of the ladder
-	        Point2D ladderBottomGridPosition = calculateGridPosition(ladder.getStartPosition());
-	        Point2D ladderTopGridPosition = calculateGridPosition(ladder.getEndPosition());
+			// Calculate the grid position for the bottom and top of the ladder
+			Point2D ladderBottomGridPosition = calculateGridPosition(ladder.getStartPosition());
+			Point2D ladderTopGridPosition = calculateGridPosition(ladder.getEndPosition());
 
-	        // Convert grid position to pixel position
-	        Point2D ladderBottomPixel = calculatePixelPosition(ladderBottomGridPosition);
-	        Point2D ladderTopPixel = calculatePixelPosition(ladderTopGridPosition);
+			// Convert grid position to pixel position
+			Point2D ladderBottomPixel = calculatePixelPosition(ladderBottomGridPosition);
+			Point2D ladderTopPixel = calculatePixelPosition(ladderTopGridPosition);
 
-	        // Set the ImageView of the ladder at the bottom position
-	        ladderImageView.setLayoutX(ladderBottomPixel.getX());
-	        // Adjust the Y position so that the top of the ladder image reaches the top position
-	        ladderImageView.setLayoutY(ladderTopPixel.getY() - (ladder.getLength() - 1) * TILE_HEIGHT);
+			// Set the ImageView of the ladder at the bottom position
+			ladderImageView.setLayoutX(ladderBottomPixel.getX());
+			// Adjust the Y position so that the top of the ladder image reaches the top
+			// position
+			ladderImageView.setLayoutY(ladderTopPixel.getY() - (ladder.getLength() - 1) * TILE_HEIGHT);
 
-	        // Add the ImageView to the overlay
-	        Overlay.getChildren().add(ladderImageView);
-	    }
+			// Add the ImageView to the overlay
+			Overlay.getChildren().add(ladderImageView);
+		}
 	}
 
-
 	private void updateBoardWithSnakes() {
-	    Overlay.getChildren().clear(); // Clear any existing images
+		Overlay.getChildren().clear(); // Clear any existing images
 
-	    for (Snake snake : easyGame.getSnakesMap().values()) {
-	        ImageView snakeImageView = snake.getImageView(); // Get the ImageView for the snake
+		for (Snake snake : easyGame.getSnakesMap().values()) {
+			ImageView snakeImageView = snake.getImageView(); // Get the ImageView for the snake
 
-	        // Calculate the grid position for the head of the snake
-	        Point2D headGridPosition = calculateGridPosition(snake.getStartPosition());
+			// Calculate the grid position for the head of the snake
+			Point2D headGridPosition = calculateGridPosition(snake.getStartPosition());
 
-	        // Convert grid position to pixel position for the top-left corner of the tile
-	        Point2D headPixel = calculatePixelPosition(headGridPosition);
+			// Convert grid position to pixel position for the top-left corner of the tile
+			Point2D headPixel = calculatePixelPosition(headGridPosition);
 
-	        // Set the ImageView of the snake to the pixel position
-	        // Since the image is pre-sized to fit the tile, you can set it directly to the tile's position
-	        snakeImageView.setLayoutX(headPixel.getX());
-	        snakeImageView.setLayoutY(headPixel.getY());
+			// Set the ImageView of the snake to the pixel position
+			// Since the image is pre-sized to fit the tile, you can set it directly to the
+			// tile's position
+			snakeImageView.setLayoutX(headPixel.getX());
+			snakeImageView.setLayoutY(headPixel.getY());
 
-	        // Add the ImageView to the overlay
-	        Overlay.getChildren().add(snakeImageView);
-	    }
+			// Add the ImageView to the overlay
+			Overlay.getChildren().add(snakeImageView);
+		}
 	}
 
 	private Point2D calculateGridPosition(int boardPosition) {
@@ -148,193 +161,189 @@ public class GameBoardEasyController {
 	@FXML
 	private void rollDiceAndMove() {
 		// Roll the dice to get a number between 1 and 4
-		int diceRoll = random.nextInt(4) + 1;
+		Dice result = new Dice(GameLevel.EASY);
+		int diceRoll = result.rollDice();
 
 		// Move the player
 		movePlayer(diceRoll);
 
 		// Switch turn to the next player
-		isPlayer1Turn = !isPlayer1Turn;
+		currentplayer = Main.easygame.getGameplayers().get((Main.easygame.getGameplayers().indexOf(currentplayer) + 1) % Main.easygame.getNumberofplayers());
 	}
 
 	public void movePlayer(int steps) {
 		// Update the current player position
-	    System.out.println((isPlayer1Turn ? "Player 1" : "Player 2") + " got: " + steps);
+		 System.out.println((currentplayer.getName()  + " got: " + steps));
 
-		int currentPlayerPosition = isPlayer1Turn ? currentPlayer1Position : currentPlayer2Position;
-		currentPlayerPosition += steps;
+		int currentposition=currentplayer.getPosition()+steps;
+		
 
-	    // Check if landed on a snake
-		if (easyGame.getSnakesMap().containsKey(currentPlayerPosition)) {
+		// Check if landed on a snake
+		if (easyGame.getSnakesMap().containsKey(currentposition)) {
 			System.out.println(easyGame.getSnakesMap().keySet());
-	        Snake snake = easyGame.getSnakesMap().get(currentPlayerPosition);
-	        String snakeColor = snake.getColor().toLowerCase();
+			Snake snake = easyGame.getSnakesMap().get(currentposition);
+			String snakeColor = snake.getColor().toLowerCase();
 
-	        switch (snakeColor) {
-	            case "yellow":
-	                currentPlayerPosition -= 7; // Move back one row
-	                break;
-	            case "green":
-	                currentPlayerPosition -= 14; // Move back two rows
-	                break;
-	            case "blue":
-	                currentPlayerPosition -= 21; // Move back three rows
-	                break;
-	            case "red":
-	                currentPlayerPosition = 0; // Back to start
-	                break;
-	        }
+			switch (snakeColor) {
+			case "yellow":
+				currentposition -= 7; // Move back one row
+				break;
+			case "green":
+				currentposition -= 14; // Move back two rows
+				break;
+			case "blue":
+				currentposition -= 21; // Move back three rows
+				break;
+			case "red":
+				currentposition = 0; // Back to start
+				break;
+			}
 
-	        currentPlayerPosition = Math.max(0, currentPlayerPosition); // Ensure not less than 0
-	        System.out.println("Hit a " + snakeColor + " snake! Moved to position: " + (currentPlayerPosition + 1));
-	    }
-		// button
-		if (currentPlayerPosition >= 49) {
-			currentPlayerPosition = 48; // Zero-based index for 49th button
-			Alerts.alertBox(AlertType.INFORMATION, "Congratulations", "You Win",
-					isPlayer1Turn ? "Player 1 has won!!" : "Player 2 has won!!");
+			currentposition = Math.max(0, currentposition); // Ensure not less than 0
+			System.out.println("Hit a " + snakeColor + " snake! Moved to position: " + (currentposition + 1));
 		}
-		if (currentPlayerPosition >= 49) {
-	        currentPlayerPosition = 48; // Zero-based index for 49th button
-	        Alerts.alertBox(AlertType.INFORMATION, "Congratulations", "You Win",
-	                isPlayer1Turn ? "Player 1 has won!!" : "Player 2 has won!!");
-	    }
+		// button
+		if (currentposition >= 49) {
+			currentposition = 48; // Zero-based index for 49th button
+			Alerts.alertBox(AlertType.INFORMATION, "Congratulations", "You Win",
+					currentplayer.getName()+"  has won!!" );
+		}
+		// Clear the previous position of the current player
+		clearPreviousPlayerPosition(currentplayer);
+Main.easygame.getGameplayers().get(Main.easygame.getGameplayers().indexOf(currentplayer)).setPosition
+		(currentposition);
 		// Convert the currentPlayerPosition to matrix indices
-		int row = currentPlayerPosition / 7;
-		int col = currentPlayerPosition % 7;
+		int row = currentposition / 7;
+		int col = currentposition % 7;
 
 		if (row % 2 == 1) {
 			col = 6 - col;
 		}
 
-		// Update player positions
-		if (isPlayer1Turn) {
-			currentPlayer1Position = currentPlayerPosition;
-		} else {
-			currentPlayer2Position = currentPlayerPosition;
-		}
+				buttonMatrix[row][col].setGraphic(currentplayer.getObject());
+			}
 
-		// Clear the previous position of the current player
-		clearPreviousPlayerPosition(isPlayer1Turn);
+			private void clearPreviousPlayerPosition(Player currentplayer) {
+			    int previousPosition = currentplayer.getPosition();
+			    int row = previousPosition / 7;
+			    int col = previousPosition % 7;
+			    if (row % 2 == 1) {
+			        col = 6 - col;
+			    }
+			    
+			    // Only clear the graphic if it matches the current player's object
+			    ImageView currentPlayerObject = currentplayer.getObject();
+			    if (row >= 0 && row < buttonMatrix.length && col >= 0 && col < buttonMatrix[0].length) {
+				    // Check if buttonMatrix[row][col] is within bounds before accessing
+				    if (buttonMatrix[row][col].getGraphic() == currentPlayerObject) {
+				        buttonMatrix[row][col].setGraphic(null);
+				    }
+				} 
+			}
+			
 
-		// Place the object on the new button
-		if (selectedColors.get(0).toLowerCase() == "red")
-			object = redObject;
-		else if (selectedColors.get(0).toLowerCase() == "blue")
-			object = blueObject;
-		else if (selectedColors.get(0).toLowerCase() == "green")
-			object = greenObject;
-		else if (selectedColors.get(0).toLowerCase() == "yellow")
-			object = yellowObject;
-		else if (selectedColors.get(0).toLowerCase() == "purple")
-			object = purpleObject;
-		else if (selectedColors.get(0).toLowerCase() == "grey")
-			object = greyObject;
+			private String capitalize(String input) {
+				if (input == null || input.isEmpty()) {
+					return input;
+				}
+				return input.substring(0, 1).toUpperCase() + input.substring(1);
+			}
 
-		if (selectedColors.get(1).toLowerCase() == "red")
-			object1 = redObject;
-		else if (selectedColors.get(1).toLowerCase() == "blue")
-			object1 = blueObject;
-		else if (selectedColors.get(1).toLowerCase() == "green")
-			object1 = greenObject;
-		else if (selectedColors.get(1).toLowerCase() == "yellow")
-			object1 = yellowObject;
-		else if (selectedColors.get(1).toLowerCase() == "purple")
-			object1 = purpleObject;
-		else if (selectedColors.get(1).toLowerCase() == "grey")
-			object1 = greyObject;
+			
 
-		buttonMatrix[row][col].setGraphic(isPlayer1Turn ? object : object1);
-	}
+			
 
-	private void clearPreviousPlayerPosition(boolean isPlayer1) {
-	    int previousPosition = isPlayer1 ? currentPlayer1Position : currentPlayer2Position;
-	    int row = previousPosition / 7;
-	    int col = previousPosition % 7;
-	    if (row % 2 == 1) {
-	        col = 6 - col;
-	    }
-	    
-	    // Only clear the graphic if it matches the current player's object
-	    ImageView currentPlayerObject = isPlayer1 ? object : object1;
-	    if (buttonMatrix[row][col].getGraphic() == currentPlayerObject) {
-	        buttonMatrix[row][col].setGraphic(null);
-	    }
-	}
+			public void setSelectedColors(List<String> colors) {
+				// Initialize all objects to be invisible
+				redObject.setVisible(false);
+				blueObject.setVisible(false);
+				greenObject.setVisible(false);
+				purpleObject.setVisible(false);
+				greyObject.setVisible(false);
+				yellowObject.setVisible(false);
+				selectedColors = colors;
+//				for (String color : selectedColors)
+//					System.out.println(color);
 
+				
+				int i=0;// Set visible only the objects that match the selected colors
+				for (String color : colors) {
+					
+					switch (color.toLowerCase()) {
+					case "red":
+						redObject.setVisible(true);
+						Main.easygame.getGameplayers().get(i).setColor(color);
+						Main.easygame.getGameplayers().get(i).setObject(redObject);
+						i++;
+						break;
+					case "blue":
+						blueObject.setVisible(true);
+						Main.easygame.getGameplayers().get(i).setColor(color);
+						Main.easygame.getGameplayers().get(i).setObject(blueObject);
+						i++;
+						break;
+					case "green":
+						greenObject.setVisible(true);
+						Main.easygame.getGameplayers().get(i).setColor(color);
+						Main.easygame.getGameplayers().get(i).setObject(greenObject);
+						i++;
+						break;
+					case "purple":
+						purpleObject.setVisible(true);
+						Main.easygame.getGameplayers().get(i).setColor(color);
+						Main.easygame.getGameplayers().get(i).setObject(purpleObject);
+						i++;
+						break;
+					case "grey":
+						greyObject.setVisible(true);
+						Main.easygame.getGameplayers().get(i).setColor(color);
+						Main.easygame.getGameplayers().get(i).setObject(greyObject);
+						i++;
+						break;
+					case "yellow":
+						yellowObject.setVisible(true);
+						Main.easygame.getGameplayers().get(i).setColor(color);
+						Main.easygame.getGameplayers().get(i).setObject(yellowObject);
+						i++;
+						break;
+					}
+				}
+			}
+			private void updatePlayerPositions() {
+			    // Update the player position based on their current state
+			    int player1Row = currentplayer.getPosition() / 7;
+			    int player1Col = currentplayer.getPosition() % 7;
+			    if (player1Row % 2 == 1) {
+			        player1Col = 6 - player1Col;
+			    }
 
-	private String capitalize(String input) {
-		if (input == null || input.isEmpty()) {
-			return input;
-		}
-		return input.substring(0, 1).toUpperCase() + input.substring(1);
-	}
+			    
 
-	public int getCurrentPlayerPosition() {
-		return currentPlayerPosition;
-	}
+			  
 
-	public void setCurrentPlayerPosition(int currentPlayerPosition) {
-		this.currentPlayerPosition = currentPlayerPosition;
-	}
-	
+			    // Set the graphics for the new positions
+			    buttonMatrix[player1Row][player1Col].setGraphic(currentplayer.getObject());
+			 
+			}
+			private void updateBoardWithQuestionTiles() {
+			    for (QuestionTile QT : easyGame.getQuestions()) {
+			        ImageView questiotileImageView = QT.getImageView(); // Assuming Ladder class has getImageView method
 
-	public void setSelectedColors(List<String> colors) {
-		// Initialize all objects to be invisible
-		redObject.setVisible(false);
-		blueObject.setVisible(false);
-		greenObject.setVisible(false);
-		purpleObject.setVisible(false);
-		greyObject.setVisible(false);
-		yellowObject.setVisible(false);
-		selectedColors = colors;
-//		for (String color : selectedColors)
-//			System.out.println(color);
+			        // Calculate the grid position for the bottom and top of the ladder
+			        Point2D questiontileGridPosition = calculateGridPosition(QT.getPosition());
+			      
 
-		// Set visible only the objects that match the selected colors
-		for (String color : colors) {
-			switch (color.toLowerCase()) {
-			case "red":
-				redObject.setVisible(true);
-				break;
-			case "blue":
-				blueObject.setVisible(true);
-				break;
-			case "green":
-				greenObject.setVisible(true);
-				break;
-			case "purple":
-				purpleObject.setVisible(true);
-				break;
-			case "grey":
-				greyObject.setVisible(true);
-				break;
-			case "yellow":
-				yellowObject.setVisible(true);
-				break;
+			        // Convert grid position to pixel position
+			        Point2D questiontilePixelPosition = calculatePixelPosition(questiontileGridPosition);
+			        
+
+			        // Set the ImageView of the ladder at the bottom position
+			        questiotileImageView.setLayoutX(questiontilePixelPosition.getX());
+			        questiotileImageView.setLayoutY(questiontilePixelPosition.getY());
+			        questiotileImageView.setFitWidth(20);
+			        questiotileImageView.setFitHeight(20);
+			        // Add the ImageView to the overlay
+			        Overlay.getChildren().add(questiotileImageView);
+			    }
 			}
 		}
-	}
-	private void updatePlayerPositions() {
-	    // Update the player position based on their current state
-	    int player1Row = currentPlayer1Position / 7;
-	    int player1Col = currentPlayer1Position % 7;
-	    if (player1Row % 2 == 1) {
-	        player1Col = 6 - player1Col;
-	    }
-
-	    int player2Row = currentPlayer2Position / 7;
-	    int player2Col = currentPlayer2Position % 7;
-	    if (player2Row % 2 == 1) {
-	        player2Col = 6 - player2Col;
-	    }
-
-	    // Clear previous positions
-	    clearPreviousPlayerPosition(true);
-	    clearPreviousPlayerPosition(false);
-
-	    // Set the graphics for the new positions
-	    buttonMatrix[player1Row][player1Col].setGraphic(object);
-	    buttonMatrix[player2Row][player2Col].setGraphic(object1);
-	}
-}

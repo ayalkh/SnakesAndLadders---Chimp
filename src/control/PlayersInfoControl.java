@@ -13,14 +13,20 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import model.GameLevel;
+import model.GameSession;
+import model.Player;
 
 public class PlayersInfoControl {
 
@@ -54,10 +60,35 @@ public class PlayersInfoControl {
 	private Label player6;
 
 	@FXML
-	private Button button;
+	private ImageView startButton;
 
 	private String selectedValue;
 	private int numberOfPlayers;
+
+	private GameSession gameSession;
+
+	@FXML
+	private Label startLabel;
+
+	@FXML
+	private ImageView homeButton;
+
+	@FXML
+	void whenClickButtonHome(MouseEvent event) {
+		try {
+
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/WelcomePage.fxml"));
+			Parent x = loader.load();
+
+			Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+			stage.setScene(new Scene(x));
+			stage.show();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	
 
 	@FXML
 	void initialize() {
@@ -68,17 +99,23 @@ public class PlayersInfoControl {
 				selectedValue = newValue;
 			}
 		});
+		homeButton.setCursor(Cursor.HAND);
+		homeButton.setOnMouseEntered(event -> homeButton.setOpacity(0.8));
+		homeButton.setOnMouseExited(event -> homeButton.setOpacity(1.5));
 
+		startButton.setCursor(Cursor.HAND);
+		startButton.setOnMouseEntered(event -> startButton.setOpacity(0.8));
+		startButton.setOnMouseExited(event -> startButton.setOpacity(1.5));
+
+		startLabel.setCursor(Cursor.HAND);
+		startLabel.setOnMouseEntered(event -> startLabel.setOpacity(0.8));
+		startLabel.setOnMouseExited(event -> startLabel.setOpacity(1.5));
 		// Initialize visibility of text fields
 		updateTextFieldsVisibility();
-		button.setOnAction(event -> goToPlayerObjectPage());
-	}
 
-	public void setNumberOfPlayers(int number) {
-		this.numberOfPlayers = number;
-		updateTextFieldsVisibility();
+		startLabel.setOnMouseClicked(event -> goToPlayerObjectPage());
 	}
-
+	
 	private void updateTextFieldsVisibility() {
 		List<TextField> textFields = Arrays.asList(text1, text2, text3, text4, text5, text6);
 		List<Label> labels = Arrays.asList(player1, player2, player3, player4, player5, player6);
@@ -100,8 +137,9 @@ public class PlayersInfoControl {
 		}
 	}
 
+	@FXML
 	private void goToPlayerObjectPage() {
-	    // Collect data from ComboBox and TextFields
+		// Collect data from ComboBox and TextFields
 	    String comboBoxValue = comboBox.getValue();
 	    List<String> playerNames = new ArrayList<>();
 
@@ -121,37 +159,51 @@ public class PlayersInfoControl {
 	        String alertMessage = !allFieldsFilled ? "Please fill in all the player names." : "Please select a difficulty level.";
 	        showAlert("Missing Information", alertMessage);
 	    } else {
-	        loadPlayerObjectView(comboBoxValue, playerNames);
+	    	for(int i=0;i<numberOfPlayers;i++) {
+	    		Player player=new Player();
+	    		player.setName(playerNames.get(i));
+	    		Main.easygame.getGameplayers().add(player);
+	    	}
+	        loadPlayerObjectView();
 	    }
 	}
 
 	private void showAlert(String title, String content) {
-	    Alert alert = new Alert(Alert.AlertType.WARNING);
-	    alert.setTitle(title);
-	    alert.setHeaderText(null);
-	    alert.setContentText(content);
-	    alert.showAndWait();
+		Alert alert = new Alert(Alert.AlertType.WARNING);
+		alert.setTitle(title);
+		alert.setHeaderText(null);
+		alert.setContentText(content);
+		alert.showAndWait();
 	}
 
-	private void loadPlayerObjectView(String comboBoxValue, List<String> playerNames) {
+	@FXML
+	private void loadPlayerObjectView() {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/PlayersObjects.fxml"));
 			Parent root = loader.load();
 
 			PlayerObject controller = loader.getController();
-			controller.setComboBoxValue(comboBoxValue);
-			controller.setPlayerNames(playerNames);
-			PlayerObject num = loader.getController();
-			num.setNumberOfPlayers(numberOfPlayers);
+			
 
 			Stage stage = new Stage();
 			stage.setScene(new Scene(root));
 			stage.show();
 
 			// Close the current window
-			((Stage) button.getScene().getWindow()).close();
+			((Stage) startButton.getScene().getWindow()).close();
+			((Stage) startLabel.getScene().getWindow()).close();
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public int getNumberOfPlayers() {
+		return numberOfPlayers;
+	}
+
+	public void setNumberOfPlayers(int numberOfPlayers) {
+		this.numberOfPlayers = numberOfPlayers;
+		updateTextFieldsVisibility();
 	}
 }

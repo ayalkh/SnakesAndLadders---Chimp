@@ -1,10 +1,12 @@
 package model;
 
+import javafx.scene.image.ImageView;
+
 public class Player {
 	private String name;
 	private String color;
 	private int position;
-
+private ImageView object;
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -25,7 +27,7 @@ public class Player {
 	public Player(String name, String color) {
 		this.name = name;
 		this.color = color;
-		this.position = 1; // המשחק מתחיל מהמשבצת 1
+		this.position = 0;
 	}
 
 	public String getName() {
@@ -60,4 +62,13 @@ public class Player {
 		System.out.println("Color: " + color);
 		System.out.println("Position: " + position);
 	}
+
+	public ImageView getObject() {
+		return object;
+	}
+
+	public void setObject(ImageView object) {
+		this.object = object;
+	}
+	
 }

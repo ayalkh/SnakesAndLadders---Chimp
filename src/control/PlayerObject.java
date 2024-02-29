@@ -17,6 +17,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.Player;
 
 // ... other imports
 public class PlayerObject {
@@ -111,7 +112,7 @@ public class PlayerObject {
 			}
 
 			// Check if this was the last selection needed
-			if (selectedImages.size() == numberOfPlayers) {
+			if (selectedImages.size() == Main.easygame.getNumberofplayers()) {
 				openNewWindow();
 			}
 		}
@@ -151,19 +152,7 @@ public class PlayerObject {
 		this.diffLevel = value;
 	}
 
-	// Method to accept player names
-	public void setPlayerNames(List<String> names) {
-		this.playerNames.clear(); // Clear existing names if any
-		this.playerNames.addAll(names); // Add all the new names
-		displayPlayerNames();
-	}
+	
 
-	private void displayPlayerNames() {
-		// Example: print names to console or display them in the UI
-		for (String name : playerNames) {
-			System.out.println(name);
-			// If you have UI elements like labels or text areas, update them here
-		}
-	}
 
 }
