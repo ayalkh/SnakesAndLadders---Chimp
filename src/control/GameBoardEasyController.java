@@ -44,8 +44,11 @@ public class GameBoardEasyController {
 	private Random random = new Random();
 	private int currentPlayer1Position = 0;
 	private int currentPlayer2Position = 0;
+	////////////////////////////////////////////////////////////////////////////////////////////////////////
 	private final double TILE_WIDTH = 45; // Set the width of your tiles here
 	private final double TILE_HEIGHT = 45; // Set the height of your tiles here
+	////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 	private boolean isPlayer1Turn = true; // Starts with player 1
 	private List<ObjectColor> selectedColors = new ArrayList<>();
 
