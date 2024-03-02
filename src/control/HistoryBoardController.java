@@ -1,29 +1,45 @@
 package control;
 
-import javafx.application.Application;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-public class HistoryBoardController extends Application {
+public class HistoryBoardController {
+	@FXML
+	private ImageView homeButton;
 
-	@Override
-	public void start(Stage primaryStage) {
+	@FXML
+	void navigateToHomeInClick(MouseEvent event) {
 		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/HistoryBoard.fxml"));
-			Parent root = loader.load();
 
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/WelcomePage.fxml"));
+			Parent x = loader.load();
 
-			Scene scene = new Scene(root, 700, 400);
-			primaryStage.setScene(scene);
-			primaryStage.show();
+			Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+			stage.setScene(new Scene(x));
+			stage.close();
+
+			stage.show();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
 	}
 
-	public static void main(String[] args) {
-		launch(args);
+	@FXML
+	void initialize() {
+		assert homeButton != null : "fx:id=\"homeButton\" was not injected: check your FXML file 'HistoryBoard.fxml'.";
+		homeButton.setCursor(Cursor.HAND);
+
+		// Set opacity effects for 'start'
+		homeButton.setOnMouseEntered(event -> homeButton.setOpacity(0.8));
+		homeButton.setOnMouseExited(event -> homeButton.setOpacity(1.5));
 	}
+
 }

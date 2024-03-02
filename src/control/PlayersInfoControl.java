@@ -5,8 +5,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -24,7 +26,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import model.GameLevel;
 import model.GameSession;
 import model.Player;
 
@@ -88,8 +89,6 @@ public class PlayersInfoControl {
 		}
 	}
 
-	
-
 	@FXML
 	void initialize() {
 		comboBox.setItems(FXCollections.observableArrayList("easy", "medium", "hard"));
@@ -115,7 +114,7 @@ public class PlayersInfoControl {
 
 		startLabel.setOnMouseClicked(event -> goToPlayerObjectPage());
 	}
-	
+
 	private void updateTextFieldsVisibility() {
 		List<TextField> textFields = Arrays.asList(text1, text2, text3, text4, text5, text6);
 		List<Label> labels = Arrays.asList(player1, player2, player3, player4, player5, player6);
@@ -140,32 +139,52 @@ public class PlayersInfoControl {
 	@FXML
 	private void goToPlayerObjectPage() {
 		// Collect data from ComboBox and TextFields
-	    String comboBoxValue = comboBox.getValue();
-	    List<String> playerNames = new ArrayList<>();
+		String comboBoxValue = comboBox.getValue();
+		List<String> playerNames = new ArrayList<>();
 
-	    boolean allFieldsFilled = true;
-	    for (TextField textField : Arrays.asList(text1, text2, text3, text4, text5, text6)) {
-	        if (textField.isVisible() && textField.getText().trim().isEmpty()) {
-	            allFieldsFilled = false;
-	            break;
-	        }
-	        if (textField.isVisible()) {
-	            playerNames.add(textField.getText().trim());
-	        }
-	    }
+		boolean allFieldsFilled = true;
+		Set<String> uniqueNames = new HashSet<>(); // To ensure names are unique
 
-	    // Check if all required fields are filled and level is selected
-	    if (!allFieldsFilled || comboBoxValue == null) {
-	        String alertMessage = !allFieldsFilled ? "Please fill in all the player names." : "Please select a difficulty level.";
-	        showAlert("Missing Information", alertMessage);
-	    } else {
-	    	for(int i=0;i<numberOfPlayers;i++) {
-	    		Player player=new Player();
-	    		player.setName(playerNames.get(i));
-	    		Main.easygame.getGameplayers().add(player);
-	    	}
-	        loadPlayerObjectView();
-	    }
+		for (TextField textField : Arrays.asList(text1, text2, text3, text4, text5, text6)) {
+			if (textField.isVisible() && textField.getText().trim().isEmpty()) {
+				allFieldsFilled = false;
+				break;
+			}
+			if (textField.isVisible()) {
+				String playerName = textField.getText().trim();
+
+				// Check if the name is valid (only letters)
+				if (!playerName.matches("^[a-zA-Z]+$")) {
+					showAlert("Invalid Name", "Player names can only contain letters.");
+					textField.setText("");
+
+					return;
+				}
+
+				// Check if the name is unique
+				if (!uniqueNames.add(playerName)) {
+					showAlert("Duplicate Names", "Player names must be different.");
+					textField.setText("");
+					return;
+				}
+
+				playerNames.add(playerName);
+			}
+		}
+
+		// Check if all required fields are filled and level is selected
+		if (!allFieldsFilled || comboBoxValue == null) {
+			String alertMessage = !allFieldsFilled ? "Please fill in all the player names."
+					: "Please select a difficulty level.";
+			showAlert("Missing Information", alertMessage);
+		} else {
+			for (int i = 0; i < numberOfPlayers; i++) {
+				Player player = new Player();
+				player.setName(playerNames.get(i));
+				Main.easygame.getGameplayers().add(player);
+			}
+			loadPlayerObjectView();
+		}
 	}
 
 	private void showAlert(String title, String content) {
@@ -183,7 +202,6 @@ public class PlayersInfoControl {
 			Parent root = loader.load();
 
 			PlayerObject controller = loader.getController();
-			
 
 			Stage stage = new Stage();
 			stage.setScene(new Scene(root));

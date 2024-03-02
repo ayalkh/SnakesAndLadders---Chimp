@@ -10,13 +10,14 @@ import javafx.stage.Stage;
 import model.EasyGame;
 
 public class Main extends Application {
-	public static EasyGame easygame=new EasyGame();
+	public static EasyGame easygame = new EasyGame();
+
 	@Override
 	public void start(Stage primaryStage) {
 		try {
 
 			AnchorPane root = (AnchorPane) FXMLLoader.load(getClass().getResource("/view/WelcomePage.fxml"));
-			Scene scene = new Scene(root, 750, 450);
+			Scene scene = new Scene(root, 1192, 680);
 			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 			primaryStage.setScene(scene);
 			primaryStage.show();

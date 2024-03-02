@@ -6,7 +6,8 @@ public class Player {
 	private String name;
 	private String color;
 	private int position;
-private ImageView object;
+	private ImageView object;
+
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -70,5 +71,5 @@ private ImageView object;
 	public void setObject(ImageView object) {
 		this.object = object;
 	}
-	
+
 }
