@@ -13,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
@@ -44,6 +45,9 @@ public class PlayerObject {
 	private ImageView red;
 
 	@FXML
+	private Label playerNameLabel;
+
+	@FXML
 	private ImageView yellow;
 	private String diffLevel;
 	private int numberOfPlayers;
@@ -51,6 +55,7 @@ public class PlayerObject {
 	private Set<ImageView> selectedImages = new HashSet<>();
 	private List<String> playerNames = new ArrayList<>();
 	private List<String> selectedColors = new ArrayList<>();
+	private int currentPlayerIndex = 0;
 
 	public void setNumberOfPlayers(int number) {
 		this.numberOfPlayers = number;
@@ -58,6 +63,7 @@ public class PlayerObject {
 
 	@FXML
 	void initialize() {
+
 		assert blue != null : "fx:id=\"blue\" was not injected: check your FXML file 'PlayersObjects.fxml'.";
 		assert green != null : "fx:id=\"green\" was not injected: check your FXML file 'PlayersObjects.fxml'.";
 		assert grey != null : "fx:id=\"grey\" was not injected: check your FXML file 'PlayersObjects.fxml'.";
@@ -72,25 +78,21 @@ public class PlayerObject {
 		applyMouseEffects(purple);
 		applyMouseEffects(grey);
 
-	}
+		for (Player player : Main.easygame.getGameplayers()) {
+			playerNames.add(player.getName());
 
-//	@FXML
-//	private void handlePhotoClick(MouseEvent event) {
-//		ImageView clickedPhoto = (ImageView) event.getSource();
-//		if (!selectedImages.contains(clickedPhoto)) {
-//			clickedPhoto.setVisible(false); // Or set to disabled, etc.
-//			selectedImages.add(clickedPhoto);
-//
-//			// Check if this was the last selection needed
-//			if (selectedImages.size() == numberOfPlayers) {
-//				openNewWindow();
-//			}
-//		}
-//
-//	}
+		}
+		System.out.println("players size :" + playerNames.size());
+		System.out.println("current player index :" + currentPlayerIndex);
+
+		updatePlayerNameLabel();
+		currentPlayerIndex++;
+
+	}
 
 	@FXML
 	private void handlePhotoClick(MouseEvent event) {
+
 		ImageView clickedPhoto = (ImageView) event.getSource();
 		if (!selectedImages.contains(clickedPhoto)) {
 			clickedPhoto.setVisible(false); // Or set to disabled, etc.
@@ -111,28 +113,31 @@ public class PlayerObject {
 				selectedColors.add("grey");
 			}
 
+
+			// change Label of the current player when choosing the object
+			updatePlayerNameLabel();
+			currentPlayerIndex++;
+
 			// Check if this was the last selection needed
 			if (selectedImages.size() == Main.easygame.getNumberofplayers()) {
 				openNewWindow();
 			}
+
+		}
+	}
+
+	private void updatePlayerNameLabel() {
+		System.out.println("current player index into update method:" + currentPlayerIndex);
+		System.out.println("player names size is " + playerNames.size());
+		if (currentPlayerIndex < playerNames.size()) {
+			playerNameLabel.setText(playerNames.get(currentPlayerIndex));
+		} else {
+			playerNameLabel.setText("All players have selected their colors.");
 		}
 	}
 
 	private void openNewWindow() {
-		System.out.println("4");
 
-		for (int i = 0; i < numberOfPlayers; i++) {
-			String name = playerNames.get(i);
-			ObjectColor color = selectedColors.get(i);
-			System.out.println(color);
-			Player currentPlayer = new Player(name, color);
-			gameSession.addPlayer(currentPlayer);
-		}
-
-		for (Player p : gameSession.getPlayers()) {
-			System.out.println("why??");
-			System.out.println(p.toString());
-		}
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/GameBoard-easy.fxml"));
 			Parent root = loader.load();
@@ -141,7 +146,7 @@ public class PlayerObject {
 
 			// Create a new stage for the new scene
 			Stage stage = new Stage();
-			stage.setScene(new Scene(root, 756, 548));
+			stage.setScene(new Scene(root));
 			stage.setTitle("Players Info");
 
 			// Optional: if you want to block interaction with other windows
@@ -157,16 +162,15 @@ public class PlayerObject {
 	}
 
 	private void applyMouseEffects(ImageView imageView) {
+
 		imageView.setOnMouseEntered(event -> imageView.setCursor(Cursor.HAND));
 		imageView.setOnMouseExited(event -> imageView.setCursor(Cursor.DEFAULT));
 	}
 
 	public void setComboBoxValue(String value) {
+
 		// Handle the ComboBox value
 		this.diffLevel = value;
 	}
-
-	
-
 
 }
