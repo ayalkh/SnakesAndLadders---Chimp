@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.image.ImageView;
@@ -50,6 +51,12 @@ public class ManagerCodeController {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+		}
+
+		else {
+			Alerts.alertBox(Alert.AlertType.ERROR, "Invalid Code", "Wrong Code Entered",
+					"The code you entered is incorrect. Please try again.");
+			passCode.setText("");
 		}
 	}
 
