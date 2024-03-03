@@ -1,212 +1,188 @@
 {
-	"questions": [
-		{
-			"questionID": 1,
-			"question": "Which of the following is not an agile best practice",
-			"level": 1,
-			"answers": [
-				"Delivering working software frequently.",
-				"Performing unit testing as part of the development process.",
-				"Dividing the development process into a series of short iterations, where each iteration focuses on a specific set of features or requirements.",
-				"Lack of collaboration with the customer"
-			],
-			"team": "Chimp",
-			"correctAnswer": 4
-		},
-		{
-			"questionID": 2,
-			"question": "Which of the following is not supposed to be discussed during the daily stand-up meetings (daily scrum meetings):",
-			"level": 2,
-			"answers": [
-				"Tasks to be done for the day",
-				"Current obstacles",
-				"Planning for the iteration",
-				"Recently completed tasks"
-			],
-			"team": "Chimp",
-			"correctAnswer": 3
-		},
-		{
-			"questionID": 3,
-			"question": "Which of the following distinguishes Scrum from Agile",
-			"level": 3,
-			"answers": [
-				"Emphasize the importance of delivering working software to the customer regularly.",
-				"A set of predetermined roles",
-				"Placing strong emphasis on continuous improvement using feedback mechanisms.",
-				"Involving the customer in the development process"
-			],
-			"team": "Chimp",
-			"correctAnswer": 2
-		},
-		{
-			"questionID": 4,
-			"question": "How to ensure that the most prominent features are delivered first",
-			"level": 3,
-			"answers": [
-				"Using a requirements traceability matrix to track requirements through the development process.",
-				"Prioritizing based on personal preferences",
-				"Decreasing the priority of non-functional requirements",
-				"Not considering feasibility of implementation"
-			],
-			"team": "Chimp",
-			"correctAnswer": 1
-		},
-		{
-			"questionID": 5,
-			"question": "Which of the following must be avoided when specifying software requirements",
-			"level": 1,
-			"answers": [
-				"Tracking changes to requirements",
-				"Involving all stakeholders",
-				"Not gathering enough details",
-				"Prioritizing requirements"
-			],
-			"team": "Chimp",
-			"correctAnswer": 3
-		},
-		{
-			"questionID": 6,
-			"question": "Which of the following is not a benefit to conducting code review:",
-			"level": 2,
-			"answers": [
-				"Detecting early defects and mistakes in code",
-				"Providing an opportunity for team members to share knowledge",
-				"Improving code quality, ensuring that the code follows best practice and conventional standards",
-				"Requiring additional time and resources to review code"
-			],
-			"team": "Chimp",
-			"correctAnswer": 4
-		},
-		{
-			"questionID": 7,
-			"question": "Which of the following fulfills the goal of code review",
-			"level": 2,
-			"answers": [
-				"Rewriting code",
-				"Encouraging collaboration and communication between development team members",
-				"Replacing unit testing",
-				"Enforce coding style on other team members"
-			],
-			"team": "Chimp",
-			"correctAnswer": 2
-		},
-		{
-			"questionID": 8,
-			"question": "Which of the following does not demonstrate how MVC components interact with each other:",
-			"level": 1,
-			"answers": [
-				"The controller stores data",
-				"The controller processes user requests from View and communicates with the Model to handle the requests",
-				"The view may send input from user to the controller, and it sends the data to model to handle them.",
-				"The user interacts with the View, which sends a request to the Controller"
-			],
-			"team": "Chimp",
-			"correctAnswer": 1
-		},
-		{
-			"questionID": 9,
-			"question": "Which of the following is not a benefit of layered architecture:",
-			"level": 1,
-			"answers": [
-				"It is easier to add new features or make changes, as the different layers can be adjusted independently",
-				"Improves reusability",
-				"Increased complexity",
-				"Layers can be tested independently, making it easier to test"
-			],
-			"team": "Chimp",
-			"correctAnswer": 3
-		},
-		{
-			"questionID": 10,
-			"question": "Which of the following design patterns is not a behavioral design pattern:",
-			"level": 2,
-			"answers": [
-				"Chain of responsibility",
-				"Façade",
-				"Observer",
-				"Template"
-			],
-			"team": "Chimp",
-			"correctAnswer": 2
-		},
-		{
-			"questionID": 11,
-			"question": "Which principle of the Norman\u2019s design principles stated below does not match with its definition:",
-			"level": 3,
-			"answers": [
-				"Visibility: Make essential elements visible so that users can easily find them.",
-				"Consistency: reduce confusion and increase usability.",
-				"Constraints: to guide users towards appropriate actions.",
-				"Mapping: to indicate the actions that can be performed with an object."
-			],
-			"team": "Chimp",
-			"correctAnswer": 4
-		},
-		{
-			"questionID": 12,
-			"question": "Which of the following is not a characteristic of white box testing:",
-			"level": 3,
-			"answers": [
-				"Has access to the outputs of the system",
-				"Can be used in various stages of the software development",
-				"Has full access to the internal structure of the system",
-				"Focuses on the internal logic"
-			],
-			"team": "Chimp",
-			"correctAnswer": 1
-		},
-		{
-			"questionID": 13,
-			"question": "Which of the following annotations is not part of the JUnit testing framework:",
-			"level": 3,
-			"answers": [
-				"@Deprecated",
-				"@SuppressWarnings",
-				"@Ignore",
-				"@After"
-			],
-			"team": "Chimp",
-			"correctAnswer": 2
-		},
-		{
-			"questionID": 14,
-			"question": "Which of the following is not a benefit of TDD (Test Driven Design):",
-			"level": 1,
-			"answers": [
-				"Reduce Time spent on debugging",
-				"Thinking carefully about the code and how it should be structured leads to better code design",
-				"Identify bugs early in the development process",
-				"Lack of flexibility and hard to make changes"
-			],
-			"team": "Chimp",
-			"correctAnswer": 4
-		},
-		{
-			"questionID": 15,
-			"question": "Which of the following skills is not a required skill for corrective maintenance:",
-			"level": 2,
-			"answers": [
-				"Project management",
-				"Attention to detail",
-				"Communication skills",
-				"Troubleshooting"
-			],
-			"team": "Chimp",
-			"correctAnswer": 1
-		},
-		{
-			"questionID": 16,
-			"question": "Which of the following is not a characteristic of adaptive maintenance",
-			"level": 3,
-			"answers": [
-				"Performed in response to changes in the operating conditions of a system",
-				"May involve significant changes to the system",
-				"Performed in response to a problem or malfunction that has been identified in a system",
-				"Focused on the future needs and capabilities of the system"
-			],
-			"team": "Chimp",
-			"correctAnswer": 3
-		}
-	]
+  "questions": [
+    {
+      "questionID": 1,
+      "question": "In Agile development, which ceremony is crucial for refining the product backlog to ensure alignment with customer needs?",
+      "level": 1,
+      "answers": [
+        "Sprint Planning",
+        "Backlog Grooming",
+        "Daily Stand-up",
+        "Sprint Retrospective"
+      ],
+      "team": "Chimp",
+      "correctAnswer": 2
+    },
+    {
+      "questionID": 2,
+      "question": "What Agile metric measures the team's work rate and helps in future sprint planning?",
+      "level": 1,
+      "answers": [
+        "Velocity",
+        "Burn-up Chart",
+        "Cumulative Flow Diagram",
+        "Lead Time"
+      ],
+      "team": "Chimp",
+      "correctAnswer": 1
+    },
+    {
+      "questionID": 3,
+      "question": "When documenting software requirements, which format emphasizes user interaction with the system?",
+      "level": 1,
+      "answers": [
+        "Technical Specification",
+        "User Stories",
+        "Function Points",
+        "Use Cases"
+      ],
+      "team": "Chimp",
+      "correctAnswer": 2
+    },
+    {
+      "questionID": 4,
+      "question": "Which approach ensures that non-functional requirements are consistently met throughout the development process?",
+      "level": 1,
+      "answers": [
+        "Acceptance Testing",
+        "Performance Benchmarking",
+        "Continuous Integration",
+        "Quality Gates"
+      ],
+      "team": "Chimp",
+      "correctAnswer": 4
+    },
+    {
+      "questionID": 5,
+      "question": "What is the primary goal of user surveys in the context of software development?",
+      "level": 1,
+      "answers": [
+        "Identifying user preferences and pain points",
+        "Estimating the project budget",
+        "Determining the project timeline",
+        "Assessing team performance"
+      ],
+      "team": "Chimp",
+      "correctAnswer": 1
+    },
+    {
+      "questionID": 6,
+      "question": "How can surveys contribute to the iterative development process?",
+      "level": 1,
+      "answers": [
+        "By providing a platform for stakeholder feedback",
+        "Facilitating daily stand-ups",
+        "Guiding sprint retrospectives",
+        "Setting sprint goals"
+      ],
+      "team": "Chimp",
+      "correctAnswer": 1
+    },
+    {
+      "questionID": 7,
+      "question": "Which principle of software architecture aims at reducing rework and simplifying expansion?",
+      "level": 1,
+      "answers": [
+        "Modularity",
+        "Scalability",
+        "Performance",
+        "Security"
+      ],
+      "team": "Chimp",
+      "correctAnswer": 1
+    },
+    {
+      "questionID": 8,
+      "question": "In the context of software architecture, what does the term 'separation of concerns' refer to?",
+      "level": 1,
+      "answers": [
+        "Dividing the application into distinct features that overlap in functionality",
+        "Organizing the system into layers, each with a specific responsibility",
+        "The process of integrating third-party services into the application",
+        "Ensuring that the application can scale horizontally and vertically"
+      ],
+      "team": "Chimp",
+      "correctAnswer": 2
+    },
+    {
+      "questionID": 9,
+      "question": "What type of software maintenance addresses changes in the environment in which the software operates?",
+      "level": 1,
+      "answers": [
+        "Corrective",
+        "Adaptive",
+        "Perfective",
+        "Preventive"
+      ],
+      "team": "Chimp",
+      "correctAnswer": 2
+    },
+    {
+      "questionID": 10,
+      "question": "Which maintenance activity is primarily concerned with improving the software's performance and maintainability?",
+      "level": 1,
+      "answers": [
+        "Corrective Maintenance",
+        "Adaptive Maintenance",
+        "Perfective Maintenance",
+        "Preventive Maintenance"
+      ],
+      "team": "Chimp",
+      "correctAnswer": 3
+    },
+    {
+      "questionID": 11,
+      "question": "In Agile testing, what practice involves continuously integrating and testing changes to ensure compatibility?",
+      "level": 1,
+      "answers": [
+        "Unit Testing",
+        "Integration Testing",
+        "Continuous Integration Testing",
+        "Regression Testing"
+      ],
+      "team": "Chimp",
+      "correctAnswer": 3
+    },
+    {
+      "questionID": 12,
+      "question": "Which testing strategy involves testing the application from an end-user perspective?",
+      "level": 1,
+      "answers": [
+        "Black Box Testing",
+        "White Box Testing",
+        "Gray Box Testing",
+        "User Acceptance Testing"
+      ],
+      "team": "Chimp",
+      "correctAnswer": 4
+    }, 
+  {
+   "questionID": 13,
+      "question": "What testing technique is best suited for identifying memory leaks, bottlenecks, and performance issues in a software application?",
+      "level": 2,
+      "answers": [
+        "Load Testing",
+        "Stress Testing",
+        "Performance Testing",
+        "Security Testing"
+      ],
+      "team": "Chimp",
+      "correctAnswer": 3
+    },
+    {
+      "questionID": 14,
+      "question": "In the context of TDD (Test Driven Development), which of the following best describes the cycle of operations?",
+      "level": 2,
+      "answers": [
+        "Write a test, refactor code, write code to pass the test",
+        "Write code, write a test, refactor code",
+        "Write a test, write code to pass the test, refactor code",
+        "Refactor code, write a test, write code to pass the test"
+      ],
+      "team": "Chimp",
+      "correctAnswer": 3
+    }
+  ]
 }
+}
+

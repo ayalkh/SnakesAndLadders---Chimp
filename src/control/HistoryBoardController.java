@@ -1,5 +1,8 @@
 package control;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
@@ -12,10 +15,16 @@ import javafx.stage.Stage;
 
 public class HistoryBoardController {
 	@FXML
-	private ImageView homeButton;
+	private ResourceBundle resources;
 
 	@FXML
-	void navigateToHomeInClick(MouseEvent event) {
+	private URL location;
+	
+	@FXML
+	private ImageView homeButton1;
+
+	@FXML
+	void handleHomeButton(MouseEvent event) {
 		try {
 
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/WelcomePage.fxml"));
@@ -34,12 +43,12 @@ public class HistoryBoardController {
 
 	@FXML
 	void initialize() {
-		assert homeButton != null : "fx:id=\"homeButton\" was not injected: check your FXML file 'HistoryBoard.fxml'.";
-		homeButton.setCursor(Cursor.HAND);
+		assert homeButton1 != null : "fx:id=\"homeButton\" was not injected: check your FXML file 'HistoryBoard.fxml'.";
+		homeButton1.setCursor(Cursor.HAND);
 
 		// Set opacity effects for 'start'
-		homeButton.setOnMouseEntered(event -> homeButton.setOpacity(0.8));
-		homeButton.setOnMouseExited(event -> homeButton.setOpacity(1.5));
+		homeButton1.setOnMouseEntered(event -> homeButton1.setOpacity(0.8));
+		homeButton1.setOnMouseExited(event -> homeButton1.setOpacity(1.5));
 	}
 
 }
