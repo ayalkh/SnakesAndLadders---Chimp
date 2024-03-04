@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="765.0" prefWidth="905.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.ViewQuestionDetailsController">
+   <children>
+      <ImageView fitHeight="851.0" fitWidth="965.0" layoutX="-23.0" layoutY="-40.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/image22-Photoroom.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="home" fitHeight="114.0" fitWidth="114.0" layoutX="32.0" layoutY="46.0" onMouseClicked="#handleHomeButton" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/QuestionHomeButton.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="back" fitHeight="131.0" fitWidth="126.0" layoutX="26.0" layoutY="170.0" onMouseClicked="#handleBack" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/QuestionBackButton.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="184.0" fitWidth="359.0" layoutX="284.0" layoutY="601.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/diffLevel%20(1)-Photoroom.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="difficultyLabel" layoutX="366.0" layoutY="652.0" style="-fx-control-inner-background: #EEE8AA;" text="Difficulty Level : ">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font></Label>
+      <Label fx:id="teamLabel" layoutX="369.0" layoutY="682.0" text="Team : ">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font></Label>
+      <TextArea fx:id="questionText" layoutX="230.0" layoutY="257.0" prefHeight="78.0" prefWidth="444.0" style="-fx-control-inner-background: #EEE8AA;">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </TextArea>
+      <TextArea fx:id="answer1Tex" layoutX="294.0" layoutY="348.0" prefHeight="46.0" prefWidth="379.0" style="-fx-control-inner-background: #EEE8AA;" />
+      <TextArea fx:id="answer2Tex" layoutX="294.0" layoutY="419.0" prefHeight="46.0" prefWidth="379.0" style="-fx-control-inner-background: #EEE8AA;" />
+      <TextArea fx:id="answer3Tex" layoutX="294.0" layoutY="489.0" prefHeight="46.0" prefWidth="379.0" style="-fx-control-inner-background: #EEE8AA;" />
+      <TextArea fx:id="answer4Tex" layoutX="294.0" layoutY="559.0" prefHeight="46.0" prefWidth="379.0" style="-fx-control-inner-background: #EEE8AA;" />
+      <ImageView fitHeight="70.0" fitWidth="47.0" layoutX="237.0" layoutY="348.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/ABCD.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="250.0" layoutY="355.0" text="A">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="70.0" fitWidth="47.0" layoutX="235.0" layoutY="419.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/ABCD.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="248.0" layoutY="426.0" text="B">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="70.0" fitWidth="47.0" layoutX="235.0" layoutY="487.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/ABCD.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="248.0" layoutY="494.0" text="C">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="70.0" fitWidth="47.0" layoutX="235.0" layoutY="558.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/ABCD.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="248.0" layoutY="565.0" text="D">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font>
+      </Label>
+      <ImageView fx:id="deleteButton" fitHeight="114.0" fitWidth="113.0" layoutX="645.0" layoutY="603.0" onMouseClicked="#handleDeleteQuestion" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/deleteQuestion.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="updateButton" fitHeight="114.0" fitWidth="113.0" layoutX="145.0" layoutY="602.0" onMouseClicked="#handleUpdateButton" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/editQuestion.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

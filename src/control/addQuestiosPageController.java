@@ -3,128 +3,222 @@ package control;
 import java.io.IOException;
 import java.util.Arrays;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import model.Question;
 import model.SysData;
 
 public class addQuestiosPageController {
-	  @FXML
-	    private TextField questionText;
+	@FXML
+	private TextArea questionText;
 
-	    @FXML
-	    private TextField answer1Tex;
+	@FXML
+	private TextArea answer1Tex;
 
-	    @FXML
-	    private TextField answer3Tex;
+	@FXML
+	private TextArea answer2Tex;
 
-	    @FXML
-	    private TextField answer2Tex;
+	@FXML
+	private TextArea answer3Tex;
 
-	    @FXML
-	    private TextField answer4Tex;
+	@FXML
+	private TextArea answer4Tex;
 
-	    @FXML
-	    private Button addButton;
-	    @FXML
-	    private TextField level;
-	    @FXML
-	    private TextField CorrAnswer;
-	    @FXML
-	    private Button back;
-	 // At the top of the addQuestiosPageController file
-	    @FunctionalInterface
-	    interface QuestionAddedCallback {
-	        void onQuestionAdded(Question question);
-	    }
-	 // Inside addQuestiosPageController class
-	    private QuestionAddedCallback questionAddedCallback;
+	@FXML
+	private TextField level;
+	@FXML
+	private TextField CorrAnswer;
 
-	    public void setQuestionAddedCallback(QuestionAddedCallback callback) {
-	        this.questionAddedCallback = callback;
-	    }
+	@FXML
+	private ImageView back;
+	@FXML
+	private ImageView addButton;
 
-	    @FXML
-	    void handleAdd(ActionEvent event) {
-	        try {
-	            // Parse the level and correct answer index from the text fields
-	            int levelValue = Integer.parseInt(level.getText().trim());
-	            int correctAnswerIndex = Integer.parseInt(CorrAnswer.getText().trim()) - 1; // Assuming the answers are 1-indexed in the UI
+	@FXML
+	private ComboBox<Integer> diffLevel;
 
-	            // Validate the correct answer index
-	            if (correctAnswerIndex < 0 || correctAnswerIndex >= 4) {
-	                // Handle error - show an error message to the user
-	                return;
-	            }
+	@FXML
+	private ImageView home;
 
-	            // Create a new Question object with data from the form
-	            Question newQuestion = new Question(
-	                SysData.getNextQuestionID(),
-	                questionText.getText(),
-	                Arrays.asList(answer1Tex.getText(), answer2Tex.getText(), answer3Tex.getText(), answer4Tex.getText()),
-	                correctAnswerIndex, // Correct answer index (0-indexed)
-	                levelValue, // Level
-	                "Team Name" // You need to determine how to set the team
-	            );
+	@FXML
+	private ComboBox<Integer> CorrectAnswer;
 
-	            // Add the new question to SysData
-	            if (SysData.getInstance().addQuestion(newQuestion)) {
-	                System.out.println("added successfully");
-	                if (questionAddedCallback != null) {
-	                    questionAddedCallback.onQuestionAdded(newQuestion);
-	                }
-	            } else {
-	                System.out.println("add failed");
-	            }
+	// At the top of the addQuestiosPageController file
+	@FunctionalInterface
+	interface QuestionAddedCallback {
+		void onQuestionAdded(Question question);
+	}
 
-	            // Close the window after adding the question
-	            Stage stage = (Stage) addButton.getScene().getWindow();
-	            stage.close();
-	        } catch (NumberFormatException e) {
-	            // Handle error - show an error message to the user
-	        }
-	        
-	    }
-	    private Stage currentStage;
+	// Inside addQuestiosPageController class
+	private QuestionAddedCallback questionAddedCallback;
 
-	    public void setCurrentStage(Stage stage) {
-	        this.currentStage = stage;
-	    }
+	public void setQuestionAddedCallback(QuestionAddedCallback callback) {
+		this.questionAddedCallback = callback;
+	}
 
-	    @FXML
-	    void handleBack(ActionEvent event) {
-	        try {
-	            // Check if the currentStage is set
-	            if (currentStage == null) {
-	                System.out.println("Current stage is not set.");
-	                return;
-	            }
-	         
-	            // Load QuestionsList.fxml
-	            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/QuestionsList.fxml"));
-	            Parent root = loader.load();
+	@FXML
+	void handleAdd(MouseEvent event) {
+		// Validate TextAreas for empty values
+		if (questionText.getText().trim().isEmpty() || answer1Tex.getText().trim().isEmpty()
+				|| answer2Tex.getText().trim().isEmpty() || answer3Tex.getText().trim().isEmpty()
+				|| answer4Tex.getText().trim().isEmpty()) {
+			showAlert("Error", "All fields are required.",
+					"Please ensure all question and answer fields are filled out.");
+			return;
+		}
 
-	            // Set the new scene to the current stage
-	            if (currentStage != null) {
-	                currentStage.setScene(new Scene(root));
-	                currentStage.setTitle("Questions List");
-	            } else {
-	                System.out.println("Current stage is null.");
-	            }
-	            currentStage.show();
-	            Stage stage = (Stage) back.getScene().getWindow();
-	            stage.close();
-	        } catch (IOException e) {
-	            e.printStackTrace();
-	            System.out.println("Error loading QuestionsList.fxml: " + e.getMessage());
-	        }
-	    }
+		// Validate ComboBoxes for selected values
+		if (diffLevel.getValue() == null || CorrectAnswer.getValue() == null) {
+			showAlert("Error", "Selection Required", "Please select a difficulty level and the correct answer.");
+			return;
+		}
 
+		// Parsing and creating a new Question object after validation
+		try {
+			// Assuming diffLevel and CorrectAnswer are ComboBox<Integer> and already have a
+			// selected value
+			int levelValue = diffLevel.getValue();
+			int correctAnswerIndex = CorrectAnswer.getValue();
+			String teamName = "Chimp";
+
+			// Create a new Question object with data from the form
+			Question newQuestion = new Question(SysData.getNextQuestionID(), questionText.getText(),
+					Arrays.asList(answer1Tex.getText(), answer2Tex.getText(), answer3Tex.getText(),
+							answer4Tex.getText()),
+					correctAnswerIndex, // Correct answer index (assuming 0-indexed)
+					levelValue, // Level
+					teamName // Placeholder for team name
+			);
+
+			// Add the new question to SysData
+			if (SysData.getInstance().addQuestion(newQuestion)) {
+				System.out.println("Question added successfully");
+//				// Optionally: Close the window or clear the form
+//				Stage stage = (Stage) addButton.getScene().getWindow();
+//				stage.close();
+				try {
+					FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Questions.fxml"));
+					Parent players = loader.load();
+
+					Stage newStage = new Stage();
+					newStage.setScene(new Scene(players));
+					newStage.show();
+
+					// Close the current stage
+					Stage currentStage = (Stage) addButton.getScene().getWindow();
+					currentStage.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			} else {
+				System.out.println("Failed to add the question");
+				// Optionally: Show an error message to the user
+			}
+		} catch (NumberFormatException e) {
+			showAlert("Error", "Invalid Input", "Please ensure all inputs are valid.");
+		}
+	}
+
+	private void showAlert(String title, String header, String content) {
+		Alert alert = new Alert(Alert.AlertType.ERROR);
+		alert.setTitle(title);
+		alert.setHeaderText(header);
+		alert.setContentText(content);
+		alert.showAndWait();
+	}
+
+	private Stage currentStage;
+
+	public void setCurrentStage(Stage stage) {
+		this.currentStage = stage;
+	}
+
+	@FXML
+	void handleBack(MouseEvent event) {
+		// navigateTo("/view/Questions.fxml", "Welcome Page");
+
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Questions.fxml"));
+			Parent players = loader.load();
+
+			Stage newStage = new Stage();
+			newStage.setScene(new Scene(players));
+			newStage.show();
+
+			// Close the current stage
+			Stage currentStage = (Stage) addButton.getScene().getWindow();
+			currentStage.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@FXML
+	void initialize() {
+
+		diffLevel.getItems().addAll(1, 2, 3);
+		CorrectAnswer.getItems().addAll(1, 2, 3, 4);
+		assert CorrAnswer != null
+				: "fx:id=\"CorrAnswer\" was not injected: check your FXML file 'addQuestionPage.fxml'.";
+		assert answer1Tex != null
+				: "fx:id=\"answer1Tex\" was not injected: check your FXML file 'addQuestionPage.fxml'.";
+		assert answer2Tex != null
+				: "fx:id=\"answer2Tex\" was not injected: check your FXML file 'addQuestionPage.fxml'.";
+		assert answer3Tex != null
+				: "fx:id=\"answer3Tex\" was not injected: check your FXML file 'addQuestionPage.fxml'.";
+		assert answer4Tex != null
+				: "fx:id=\"answer4Tex\" was not injected: check your FXML file 'addQuestionPage.fxml'.";
+		assert back != null : "fx:id=\"back\" was not injected: check your FXML file 'addQuestionPage.fxml'.";
+		assert diffLevel != null : "fx:id=\"diffLevel\" was not injected: check your FXML file 'addQuestionPage.fxml'.";
+		assert home != null : "fx:id=\"home\" was not injected: check your FXML file 'addQuestionPage.fxml'.";
+		assert level != null : "fx:id=\"level\" was not injected: check your FXML file 'addQuestionPage.fxml'.";
+		assert questionText != null
+				: "fx:id=\"questionText\" was not injected: check your FXML file 'addQuestionPage.fxml'.";
+
+		back.setCursor(Cursor.HAND);
+		back.setOnMouseEntered(event -> back.setOpacity(0.8));
+		back.setOnMouseExited(event -> back.setOpacity(1.5));
+
+		home.setCursor(Cursor.HAND);
+		home.setOnMouseEntered(event -> home.setOpacity(0.8));
+		home.setOnMouseExited(event -> home.setOpacity(1.5));
+
+		addButton.setCursor(Cursor.HAND);
+		addButton.setOnMouseEntered(event -> addButton.setOpacity(0.8));
+		addButton.setOnMouseExited(event -> addButton.setOpacity(1.5));
+
+	}
+
+	@FXML
+	void handleHomeButton(MouseEvent event) {
+
+		navigateTo("/view/WelcomePage.fxml", "Welcome Page");
+
+	}
+
+	void navigateTo(String fxmlPath, String title) {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+			Parent root = loader.load();
+			Scene scene = new Scene(root);
+
+			Stage stage = (Stage) back.getScene().getWindow();
+			stage.setScene(scene);
+			stage.setTitle(title);
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.out.println("Error loading " + fxmlPath + ": " + e.getMessage());
+		}
+	}
 
 }

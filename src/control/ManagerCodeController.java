@@ -31,7 +31,7 @@ public class ManagerCodeController {
 		String password = passCode.getText();
 		if (password.equals("123")) {
 			try {
-				FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/QuestionsList.fxml"));
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Questions.fxml"));
 				Parent root = loader.load();
 
 				// Create a new stage for the new scene
