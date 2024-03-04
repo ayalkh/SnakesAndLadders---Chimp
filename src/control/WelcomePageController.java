@@ -38,18 +38,16 @@ public class WelcomePageController {
 		// Set opacity effects for 'start'
 		start.setOnMouseEntered(event -> start.setOpacity(0.8));
 		start.setOnMouseExited(event -> start.setOpacity(1.5));
-
 		// Set opacity effects for 'viewQuestionImage'
-		viewQuestionImage.setOnMouseEntered(event -> viewQuestionImage.setOpacity(0.8));
-		viewQuestionImage.setOnMouseExited(event -> viewQuestionImage.setOpacity(1.5));
+				viewQuestionImage.setOnMouseEntered(event -> viewQuestionImage.setOpacity(0.8));
+				viewQuestionImage.setOnMouseExited(event -> viewQuestionImage.setOpacity(1.5));
 
-		instructions.setOnMouseEntered(event -> instructions.setOpacity(0.8));
-		instructions.setOnMouseExited(event -> instructions.setOpacity(1.5));
+				instructions.setOnMouseEntered(event -> instructions.setOpacity(0.8));
+				instructions.setOnMouseExited(event -> instructions.setOpacity(1.5));
 
-		historyButton.setOnMouseEntered(event -> historyButton.setOpacity(0.8));
-		historyButton.setOnMouseExited(event -> historyButton.setOpacity(1.5));
-	}
-
+				historyButton.setOnMouseEntered(event -> historyButton.setOpacity(0.8));
+				historyButton.setOnMouseExited(event -> historyButton.setOpacity(1.5));
+			}
 	@FXML
 	private void handleViewQuestionImageClick(MouseEvent event) {
 		try {
@@ -108,7 +106,6 @@ public class WelcomePageController {
 		}
 
 	}
-
 	@FXML
 	void openHistoryWhenButtonClicked(MouseEvent event) {
 

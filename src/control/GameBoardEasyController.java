@@ -1,6 +1,8 @@
 package control;
 
 import java.util.ArrayList;
+
+
 import java.util.List;
 import java.util.Random;
 
@@ -45,8 +47,8 @@ public class GameBoardEasyController {
 	private Random random = new Random();
 	private int currentPlayer1Position = 0;
 	private int currentPlayer2Position = 0;
-	private final double TILE_WIDTH = 45; // Set the width of your tiles here
-	private final double TILE_HEIGHT = 45; // Set the height of your tiles here
+	private final double TILE_WIDTH = 45.0; // Set the width of your tiles here
+	private final double TILE_HEIGHT = 45.0; // Set the height of your tiles here
 	private boolean isPlayer1Turn = true; // Starts with player 1
 	private List<String> selectedColors = new ArrayList<>();
 
@@ -135,18 +137,27 @@ public class GameBoardEasyController {
 	}
 
 	private Point2D calculateGridPosition(int boardPosition) {
-		int row = (boardPosition - 1) / easyGame.getSize();
-		int col = (boardPosition - 1) % easyGame.getSize();
-		// Adjust for zero-based index
-		return new Point2D(col, easyGame.getSize() - row - 1);
+	    int size = easyGame.getSize(); // Assuming size is the dimension of the board
+	    int row = (boardPosition - 1) / size;
+	    int col = (boardPosition - 1) % size;
+
+	    // Adjust column index for zigzag pattern
+	    if (row % 2 != 0) { // If the row is even when 0-indexed, invert the column calculation
+	        col = (size - 1) - col;
+	    }
+
+	    // Adjust row index to start from the bottom
+	    row = (size - 1) - row;
+
+	    return new Point2D(col, row);
 	}
+
 
 	private Point2D calculatePixelPosition(Point2D gridPosition) {
-		double x = gridPosition.getX() * TILE_WIDTH;
-		double y = gridPosition.getY() * TILE_HEIGHT;
-		return new Point2D(x, y);
+	    double x = gridPosition.getX() * TILE_WIDTH;
+	    double y = gridPosition.getY() * TILE_HEIGHT;
+	    return new Point2D(x, y);
 	}
-
 	@FXML
 	private void rollDiceAndMove() {
 		// Roll the dice to get a number between 1 and 4
