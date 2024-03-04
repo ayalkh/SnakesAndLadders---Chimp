@@ -7,122 +7,122 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="587.0" prefWidth="1013.0" style="-fx-background-color: #8FBC8F;" stylesheets="@boardButtons.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.GameBoardEasyController">                      
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="906.0" stylesheets="@boardButtons.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.GameBoardEasyController">                      
    <children>
-      <ImageView fitHeight="595.0" fitWidth="1037.0" layoutX="-23.0" layoutY="-4.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="634.0" fitWidth="829.0" layoutX="14.0" layoutY="11.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../images/image7.jpg" />
+            <Image url="@../images/image7.png" />
          </image>
       </ImageView>
       <HBox layoutX="313.0" layoutY="383.0" prefHeight="45.0" prefWidth="315.0">
          <children>
-            <Button fx:id="i0j0" alignment="BOTTOM_LEFT" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="1" textOverrun="CLIP">
+            <Button fx:id="i0j0" alignment="BOTTOM_LEFT" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="1" textOverrun="CLIP">
                <font>
                   <Font name="System Bold Italic" size="13.0" />
                </font>
             </Button>
-            <Button fx:id="i0j1" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="2" />
-            <Button fx:id="i0j2" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="3" />
-            <Button fx:id="i0j3" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="4" />
-            <Button fx:id="i0j4" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="5" />
-            <Button fx:id="i0j5" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="6" />
-            <Button fx:id="i0j6" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="7" />
+            <Button fx:id="i0j1" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="2" />
+            <Button fx:id="i0j2" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="3" />
+            <Button fx:id="i0j3" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="4" />
+            <Button fx:id="i0j4" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="5" />
+            <Button fx:id="i0j5" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="6" />
+            <Button fx:id="i0j6" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="7" />
          </children>
       </HBox>
       <HBox layoutX="313.0" layoutY="337.0" prefHeight="45.0" prefWidth="315.0">
          <children>
-            <Button fx:id="i1j0" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="14" />
-            <Button fx:id="i1j1" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="13" />
-            <Button fx:id="i1j2" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="12" />
-            <Button fx:id="i1j3" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="11" />
-            <Button fx:id="i1j4" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="10" />
-            <Button fx:id="i1j5" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="9" />
-            <Button fx:id="i1j6" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="8" />
+            <Button fx:id="i1j0" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="14" />
+            <Button fx:id="i1j1" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="13" />
+            <Button fx:id="i1j2" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="12" />
+            <Button fx:id="i1j3" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="11" />
+            <Button fx:id="i1j4" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="10" />
+            <Button fx:id="i1j5" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="9" />
+            <Button fx:id="i1j6" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="8" />
          </children>
       </HBox>
       <HBox layoutX="313.0" layoutY="292.0" prefHeight="45.0" prefWidth="315.0">
          <children>
-            <Button fx:id="i2j0" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="15" />
-            <Button fx:id="i2j1" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="16" />
-            <Button fx:id="i2j2" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="17" />
-            <Button fx:id="i2j3" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="18" />
-            <Button fx:id="i2j4" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="19" />
-            <Button fx:id="i2j5" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="20" />
-            <Button fx:id="i2j6" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="21" />
+            <Button fx:id="i2j0" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="15" />
+            <Button fx:id="i2j1" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="16" />
+            <Button fx:id="i2j2" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="17" />
+            <Button fx:id="i2j3" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="18" />
+            <Button fx:id="i2j4" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="19" />
+            <Button fx:id="i2j5" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="20" />
+            <Button fx:id="i2j6" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="21" />
          </children>
       </HBox>
       <HBox layoutX="313.0" layoutY="247.0" prefHeight="45.0" prefWidth="315.0">
          <children>
-            <Button fx:id="i3j0" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="28" />
-            <Button fx:id="i3j1" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="27" />
-            <Button fx:id="i3j2" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="26" />
-            <Button fx:id="i3j3" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="25" />
-            <Button fx:id="i3j4" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="24" />
-            <Button fx:id="i3j5" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="23" />
-            <Button fx:id="i3j6" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="22" />
+            <Button fx:id="i3j0" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="28" />
+            <Button fx:id="i3j1" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="27" />
+            <Button fx:id="i3j2" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="26" />
+            <Button fx:id="i3j3" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="25" />
+            <Button fx:id="i3j4" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="24" />
+            <Button fx:id="i3j5" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="23" />
+            <Button fx:id="i3j6" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="22" />
          </children>
       </HBox>
       <HBox layoutX="313.0" layoutY="202.0" prefHeight="45.0" prefWidth="315.0">
          <children>
-            <Button fx:id="i4j0" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="29" />
-            <Button fx:id="i4j1" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="30" />
-            <Button fx:id="i4j2" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="31" />
-            <Button fx:id="i4j3" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="32" />
-            <Button fx:id="i4j4" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="33" />
-            <Button fx:id="i4j5" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="34" />
-            <Button fx:id="i4j6" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="35" />
+            <Button fx:id="i4j0" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="29" />
+            <Button fx:id="i4j1" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="30" />
+            <Button fx:id="i4j2" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="31" />
+            <Button fx:id="i4j3" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="32" />
+            <Button fx:id="i4j4" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="33" />
+            <Button fx:id="i4j5" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="34" />
+            <Button fx:id="i4j6" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="35" />
          </children>
       </HBox>
       <HBox layoutX="313.0" layoutY="157.0" prefHeight="45.0" prefWidth="315.0">
          <children>
-            <Button fx:id="i5j0" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="42" />
-            <Button fx:id="i5j1" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="41" />
-            <Button fx:id="i5j2" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="40" />
-            <Button fx:id="i5j3" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="39" />
-            <Button fx:id="i5j4" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="38" />
-            <Button fx:id="i5j5" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="37" />
-            <Button fx:id="i5j6" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="36" />
+            <Button fx:id="i5j0" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="42" />
+            <Button fx:id="i5j1" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="41" />
+            <Button fx:id="i5j2" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="40" />
+            <Button fx:id="i5j3" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="39" />
+            <Button fx:id="i5j4" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="38" />
+            <Button fx:id="i5j5" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="37" />
+            <Button fx:id="i5j6" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="36" />
          </children>
       </HBox>
       <HBox layoutX="313.0" layoutY="112.0" prefHeight="45.0" prefWidth="315.0">
          <children>
-            <Button fx:id="i6j0" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="43" />
-            <Button fx:id="i6j1" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="44" />
-            <Button fx:id="i6j2" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="45" />
-            <Button fx:id="i6j3" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="46" />
-            <Button fx:id="i6j4" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="47" />
-            <Button fx:id="i6j5" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #7abc7a;" text="48" />
-            <Button fx:id="i6j6" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" style="-fx-background-color: #51a651;" text="49" />
+            <Button fx:id="i6j0" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="43" />
+            <Button fx:id="i6j1" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="44" />
+            <Button fx:id="i6j2" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="45" />
+            <Button fx:id="i6j3" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="46" />
+            <Button fx:id="i6j4" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="47" />
+            <Button fx:id="i6j5" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="48" />
+            <Button fx:id="i6j6" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="49" />
          </children>
       </HBox>
       <AnchorPane fx:id="Overlay" layoutX="315.0" layoutY="116.0" prefHeight="315.0" prefWidth="315.0" />
       <Button fx:id="diceButton" layoutX="43.0" layoutY="40.0" mnemonicParsing="false" onAction="#rollDiceAndMove" text="Button" />
-      <ImageView fx:id="redObject" fitHeight="20.0" fitWidth="20.0" layoutX="560.0" layoutY="708.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="redObject" fitHeight="20.0" fitWidth="20.0" layoutX="297.0" layoutY="428.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/chessRed.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="yellowObject" fitHeight="20.0" fitWidth="20.0" layoutX="521.0" layoutY="708.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="yellowObject" fitHeight="20.0" fitWidth="20.0" layoutX="287.0" layoutY="373.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/chessYellow.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="greenObject" fitHeight="20.0" fitWidth="20.0" layoutX="540.0" layoutY="679.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="greenObject" fitHeight="20.0" fitWidth="20.0" layoutX="277.0" layoutY="396.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/chessGreen.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="blueObject" fitHeight="20.0" fitWidth="20.0" layoutX="540.0" layoutY="708.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="blueObject" fitHeight="20.0" fitWidth="20.0" layoutX="257.0" layoutY="418.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/chessBlue.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="greyObject" fitHeight="20.0" fitWidth="20.0" layoutX="501.0" layoutY="718.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="greyObject" fitHeight="20.0" fitWidth="20.0" layoutX="257.0" layoutY="396.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/chessGrey.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="purpleObject" fitHeight="20.0" fitWidth="20.0" layoutX="511.0" layoutY="679.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="purpleObject" fitHeight="20.0" fitWidth="20.0" layoutX="277.0" layoutY="418.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/chessPurple.png" />
          </image>

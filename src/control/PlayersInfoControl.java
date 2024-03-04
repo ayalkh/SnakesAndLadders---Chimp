@@ -26,10 +26,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import model.EasyGame;
 import model.GameSession;
 import model.Player;
 
 public class PlayersInfoControl {
+    private EasyGame easyGame;
 
 	@FXML
 	private ResourceBundle resources;
@@ -91,6 +93,8 @@ public class PlayersInfoControl {
 
 	@FXML
 	void initialize() {
+        easyGame = EasyGame.getInstance();
+
 		comboBox.setItems(FXCollections.observableArrayList("easy", "medium", "hard"));
 		comboBox.valueProperty().addListener(new ChangeListener<String>() {
 			@Override
@@ -181,7 +185,7 @@ public class PlayersInfoControl {
 			for (int i = 0; i < numberOfPlayers; i++) {
 				Player player = new Player();
 				player.setName(playerNames.get(i));
-				Main.easygame.getGameplayers().add(player);
+				easyGame.getGameplayers().add(player);
 			}
 			loadPlayerObjectView();
 		}

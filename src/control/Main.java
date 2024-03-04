@@ -10,7 +10,6 @@ import javafx.stage.Stage;
 import model.EasyGame;
 
 public class Main extends Application {
-	public static EasyGame easygame = new EasyGame();
 
 	@Override
 	public void start(Stage primaryStage) {

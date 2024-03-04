@@ -1,6 +1,7 @@
 package control;
 
 import java.io.IOException;
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -18,10 +19,12 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.EasyGame;
 import model.Player;
 
 // ... other imports
 public class PlayerObject {
+    private EasyGame easyGame;
 
 	@FXML
 	private ResourceBundle resources;
@@ -63,6 +66,7 @@ public class PlayerObject {
 
 	@FXML
 	void initialize() {
+        easyGame = EasyGame.getInstance();
 
 		assert blue != null : "fx:id=\"blue\" was not injected: check your FXML file 'PlayersObjects.fxml'.";
 		assert green != null : "fx:id=\"green\" was not injected: check your FXML file 'PlayersObjects.fxml'.";
@@ -78,7 +82,7 @@ public class PlayerObject {
 		applyMouseEffects(purple);
 		applyMouseEffects(grey);
 
-		for (Player player : Main.easygame.getGameplayers()) {
+		for (Player player : easyGame.getGameplayers()) {
 			playerNames.add(player.getName());
 
 		}
@@ -119,7 +123,7 @@ public class PlayerObject {
 			currentPlayerIndex++;
 
 			// Check if this was the last selection needed
-			if (selectedImages.size() == Main.easygame.getNumberofplayers()) {
+			if (selectedImages.size() == easyGame.getNumberofplayers()) {
 				openNewWindow();
 			}
 

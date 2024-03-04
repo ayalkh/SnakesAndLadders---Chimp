@@ -10,6 +10,8 @@ import java.util.Random;
 import java.util.Set;
 
 public class EasyGame {
+	private static EasyGame easyGameInstance = null;
+
 	private List<QuestionTile> questions = new ArrayList<>();
 	private int numberofplayers;
 	private List<Player> gameplayers = new ArrayList<>();
@@ -20,6 +22,7 @@ public class EasyGame {
 	private Map<Integer, Ladder> laddersMap = new HashMap<>();
 
 	public EasyGame() {
+
 		this.board = new Tile[size][size];
 		initializeBoard();
 		placeSnakes();
@@ -27,6 +30,13 @@ public class EasyGame {
 		placeSpecialTiles();
 		placequestions();// If you have question tiles or surprise tiles
 		// Add other initialization as needed
+	}
+
+	public static EasyGame getInstance() {
+		if (easyGameInstance == null) {
+			easyGameInstance = new EasyGame();
+		}
+		return easyGameInstance;
 	}
 
 	public int getNumberofplayers() {
@@ -55,16 +65,17 @@ public class EasyGame {
 
 	private void placeLadders() {
 		laddersMap.clear();
-		int[] ladderLengths = { 1, 2, 3, 4 }; // Ladder lengths
+		int[] ladderLengths = { 1,2,3,4}; // Ladder lengths
 
 		for (int length : ladderLengths) {
 			boolean placed = false;
 			while (!placed) {
 				int startPosition = getRandomLadderStartPosition(length);
-				int endPosition = startPosition + (length * size);
+	
 
-				int startRow = getRow(startPosition);
-				int endRow = getRow(endPosition);
+				int endPosition = calculateLaddersEndPosition(startPosition,length);
+				int startRow = (startPosition) / size;
+				int col = (startPosition) % size;
 
 				// Adjust constraints for ladder start position based on ladder length
 				boolean isStartPositionValid = startRow >= 0 && startRow <= size - length;
@@ -75,41 +86,126 @@ public class EasyGame {
 
 				if (isStartPositionValid && isOverlapFree) {
 					// Place the ladder
+					System.out.println(" this is end position of the ladder " + length + " : " + endPosition);
+
+
 					Ladder ladder = new Ladder(startPosition, endPosition, length);
 					laddersMap.put(startPosition, ladder);
-					board[startRow][getColumn(startPosition)].setLadder(ladder); // Set ladder on the tile
+					board[startRow][col].setLadder(ladder); // Set ladder on the tile
 					placed = true;
 				}
 			}
 		}
 	}
 
-	private int getRow(int position) {
-		return (position - 1) / size;
-	}
 
-	private int getColumn(int position) {
-		return (position - 1) % size;
-	}
+	private int calculateLaddersEndPosition(int startPosition, int lenght) {
+	    int endPosition = startPosition; // Default
 
+	    // Calculate the number of rows to move back based on the color
+	    int rowsToMoveup = 0;
+	    switch (lenght) {
+	        case 1:
+	        	rowsToMoveup = 1;
+	            break;
+	        case 2:
+	        	rowsToMoveup = 2;
+	            break;
+	        case 3:
+	        	rowsToMoveup = 3;
+	            break;
+	        case 4:
+	        	rowsToMoveup = 4; // Move back to start of the board
+	        	break;
+	    }
+
+	    // Calculate the row and column position
+	    int currentRow = (startPosition - 1) / size;
+	    int currentColumn = (startPosition - 1) % size;
+
+	    // Calculate the end row
+	    int endRow = currentRow + rowsToMoveup;
+
+	    // If moving back stays within the board
+	    if (endRow <=6 ) {
+	        // Check if the current row is even or odd to account for the zigzag pattern
+	        boolean isCurrentRowOdd = currentRow % 2 == 0;
+	        boolean isEndRowOdd = endRow % 2 == 0;
+
+	        // If the direction changes, we need to mirror the column as well.
+	        if (isCurrentRowOdd != isEndRowOdd) {
+	            currentColumn = size - 1 - currentColumn;
+	        }
+
+	        // Calculate the new end position based on the end row and column
+	        endPosition = endRow * size + currentColumn + 1;
+	    } else {
+	        // If moving back would go off the board, set to the first position
+	        endPosition = 1;
+	    }
+
+	    return endPosition;
+	}
 	private int getRandomLadderStartPosition(int ladderLength) {
-		int maxRowForStart = size - ladderLength; // The maximum row a ladder of this length can start
-		int startPosition;
-		int row, column; // Declare 'row' and 'column' outside the loop to ensure visibility
+	    HashSet<Integer> triedColumns = new HashSet<>();
+	    int startPosition;
+	    int attempts = 0;
+	    int maxRowForStart = size - ladderLength; // The highest row from the bottom that a ladder can start
 
-		do {
-			int maxPosition = maxRowForStart * size; // The maximum position on the board for the ladder start
-			startPosition = random.nextInt(maxPosition) + 1; // Get a random start position within bounds
-			row = getRow(startPosition); // Calculate the row based on the start position
-			column = getColumn(startPosition); // Calculate the column based on the start position
+	    while (true) {
+	        int column = random.nextInt(size);
+	        if (triedColumns.contains(column)) {
+	            // If all columns have been tried, we cannot place any more ladders of this length
+	            if (triedColumns.size() == size) {
+	                throw new IllegalStateException("Unable to find valid ladder start position. Board may be full or constraints too tight.");
+	            }
+	            continue; // Skip this column as we've already tried all positions in it
+	        }
 
-			// Check the conditions for placing the ladder
-		} while (column == size - 1 || // The ladder cannot start at the right edge of the board
-				row > maxRowForStart // The ladder cannot start too high such that it would extend beyond the board
-		);
+	        // Calculate valid rows for the selected column considering ladder length
+	        ArrayList<Integer> validRows = new ArrayList<>();
+	        for (int row = 0; row <= maxRowForStart; row++) {
+	            int potentialStart = (row * size) + column + 1;
+	            if (row % 2 != 0) { // adjust for zigzag
+	                potentialStart = (row * size) + (size - 1 - column) + 1;
+	            }
+	            if (isPositionFree(potentialStart, ladderLength)) {
+	                validRows.add(row);
+	            }
+	        }
 
-		return startPosition;
+	        if (validRows.isEmpty()) {
+	            triedColumns.add(column); // No valid positions in this column
+	            continue;
+	        }
+
+	        // Randomly select a valid row for the ladder start
+	        int randomRowIndex = validRows.get(random.nextInt(validRows.size()));
+	        startPosition = (randomRowIndex * size) + column + 1;
+	        if (randomRowIndex % 2 != 0) { // adjust for zigzag
+	            startPosition = (randomRowIndex * size) + (size - 1 - column) + 1;
+	        }
+
+	        System.out.println("Ladder start position found after " + attempts + " attempts: " + startPosition);
+	        return startPosition;
+	    }
 	}
+
+	private boolean isPositionFree(int startPosition, int ladderLength) {
+	    // Check if the startPosition or any tile up to the length of the ladder is occupied
+	    for (int i = 0; i < ladderLength; i++) {
+	        int positionToCheck = startPosition + (i * size);
+	        if (snakesMap.containsKey(positionToCheck) || laddersMap.containsKey(positionToCheck)) {
+	            return false; // Position is not free if any part of it is occupied
+	        }
+	    }
+	    int endPosition = startPosition + (ladderLength * size);
+	    if (endPosition > size * size) {
+	        return false; // Ladder end exceeds board size
+	    }
+	    return !snakesMap.containsKey(endPosition) && !laddersMap.containsKey(endPosition);
+	}
+
 
 	private void placeSpecialTiles() {
 		// Place question tiles and surprise tiles, if any
@@ -133,24 +229,54 @@ public class EasyGame {
 	}
 
 	private int calculateEndPosition(int startPosition, String color) {
-		int endPosition = startPosition; // Default
+	    int endPosition = startPosition; // Default
 
-		switch (color.toLowerCase()) {
-		case "yellow":
-			endPosition -= size; // Move back one row
-			break;
-		case "green":
-			endPosition -= 2 * size; // Move back two rows
-			break;
-		case "blue":
-			endPosition -= 3 * size; // Move back three rows
-			break;
-		case "red":
-			endPosition = 0; // Back to start
-			break;
-		}
-		return Math.max(0, endPosition); // Ensure end position is not less than 1
+	    // Calculate the number of rows to move back based on the color
+	    int rowsToMoveBack = 0;
+	    switch (color.toLowerCase()) {
+	        case "yellow":
+	            rowsToMoveBack = 1;
+	            break;
+	        case "green":
+	            rowsToMoveBack = 2;
+	            break;
+	        case "blue":
+	            rowsToMoveBack = 3;
+	            break;
+	        case "red":
+	        	endPosition = 1; // Move back to start of the board
+	    	    return endPosition;
+
+	    }
+
+	    // Calculate the row and column position
+	    int currentRow = (startPosition - 1) / size;
+	    int currentColumn = (startPosition - 1) % size;
+
+	    // Calculate the end row
+	    int endRow = currentRow - rowsToMoveBack;
+
+	    // If moving back stays within the board
+	    if (endRow >= 0) {
+	        // Check if the current row is even or odd to account for the zigzag pattern
+	        boolean isCurrentRowOdd = currentRow % 2 == 0;
+	        boolean isEndRowOdd = endRow % 2 == 0;
+
+	        // If the direction changes, we need to mirror the column as well.
+	        if (isCurrentRowOdd != isEndRowOdd) {
+	            currentColumn = size - 1 - currentColumn;
+	        }
+
+	        // Calculate the new end position based on the end row and column
+	        endPosition = endRow * size + currentColumn + 1;
+	    } else {
+	        // If moving back would go off the board, set to the first position
+	        endPosition = 1;
+	    }
+
+	    return endPosition;
 	}
+
 
 	private Map<String, Integer> generateSnakePositions() {
 		Map<String, Integer> positions = new HashMap<>();

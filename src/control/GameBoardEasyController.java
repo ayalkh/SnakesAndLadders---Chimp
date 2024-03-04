@@ -24,7 +24,11 @@ import model.QuestionTile;
 import model.Snake;
 
 public class GameBoardEasyController {
-	// Example: Define FXML elements that you want to interact with
+    private EasyGame easyGame; // The game logic
+
+    private Player currentplayer; // Moved inside the class, not at declaration
+
+
 	@FXML
 	private Label playerNameLabel;
 	@FXML
@@ -35,7 +39,6 @@ public class GameBoardEasyController {
 	private Label timerLabel;
 	@FXML
 	private AnchorPane Overlay;
-	private EasyGame easyGame; // The game logic
 	private Button[][] buttonMatrix;
 	@FXML
 	private ImageView object;
@@ -43,7 +46,17 @@ public class GameBoardEasyController {
 	private ImageView object1;
 	@FXML
 	private Button diceButton;
-	Player currentplayer = Main.easygame.getGameplayers().get(0);
+	
+	public void initialize() {
+        easyGame = EasyGame.getInstance();
+        currentplayer = easyGame.getGameplayers().get(0); // Now it's safe to initialize.
+		Overlay.getChildren().clear(); // Clear any existing images
+
+		initializeBoard();
+		updateBoardWithSnakes();
+		updateBoardWithLadders();
+		//updateBoardWithQuestionTiles();
+	}
 	private Random random = new Random();
 	private int currentPlayer1Position = 0;
 	private int currentPlayer2Position = 0;
@@ -75,66 +88,51 @@ public class GameBoardEasyController {
 			i2j3, i2j4, i2j5, i2j6, i3j0, i3j1, i3j2, i3j3, i3j4, i3j5, i3j6, i4j0, i4j1, i4j2, i4j3, i4j4, i4j5, i4j6,
 			i5j0, i5j1, i5j2, i5j3, i5j4, i5j5, i5j6, i6j0, i6j1, i6j2, i6j3, i6j4, i6j5, i6j6;
 
-	public void initialize() {
-		easyGame = new EasyGame(); // Initialize the game
-		initializeBoard();
-		updateBoardWithSnakes();
-		updateBoardWithLadders();
-		updateBoardWithQuestionTiles();
-	}
-
+	
 	private void initializeBoard() {
 		buttonMatrix = new Button[][] { { i0j0, i0j1, i0j2, i0j3, i0j4, i0j5, i0j6 },
 				{ i1j0, i1j1, i1j2, i1j3, i1j4, i1j5, i1j6 }, { i2j0, i2j1, i2j2, i2j3, i2j4, i2j5, i2j6 },
 				{ i3j0, i3j1, i3j2, i3j3, i3j4, i3j5, i3j6 }, { i4j0, i4j1, i4j2, i4j3, i4j4, i4j5, i4j6 },
 				{ i5j0, i5j1, i5j2, i5j3, i5j4, i5j5, i5j6 }, { i6j0, i6j1, i6j2, i6j3, i6j4, i6j5, i6j6 } };
 	}
-
 	private void updateBoardWithLadders() {
-		for (Ladder ladder : easyGame.getLaddersMap().values()) {
-			ImageView ladderImageView = ladder.getImageView(); // Assuming Ladder class has getImageView method
+	    for (Ladder ladder : easyGame.getLaddersMap().values()) {
+	        ImageView ladderImageView = ladder.getImageView();
 
-			// Calculate the grid position for the bottom and top of the ladder
-			Point2D ladderBottomGridPosition = calculateGridPosition(ladder.getStartPosition());
-			Point2D ladderTopGridPosition = calculateGridPosition(ladder.getEndPosition());
+	        // Calculate the grid position for the bottom of the ladder
+	        Point2D ladderBottomGridPosition = calculateGridPosition(ladder.getStartPosition());
+	        System.out.println(" this is the grid position  of the ladder" + ladder.getLength() + " : " + ladderBottomGridPosition);
 
-			// Convert grid position to pixel position
-			Point2D ladderBottomPixel = calculatePixelPosition(ladderBottomGridPosition);
-			Point2D ladderTopPixel = calculatePixelPosition(ladderTopGridPosition);
+	        // Convert grid position to pixel position for the bottom
+	        Point2D ladderBottomPixel = calculatePixelPosition(ladderBottomGridPosition);
+	        System.out.println(" this is the pixel position  of the ladder" + ladder.getLength() + " : " + ladderBottomPixel);
 
-			// Set the ImageView of the ladder at the bottom position
-			ladderImageView.setLayoutX(ladderBottomPixel.getX());
-			// Adjust the Y position so that the top of the ladder image reaches the top
-			// position
-			ladderImageView.setLayoutY(ladderTopPixel.getY() - (ladder.getLength() - 1) * TILE_HEIGHT);
+	        // Calculate the grid position for the top of the ladder
+	        Point2D ladderTopGridPosition = calculateGridPosition(ladder.getEndPosition());
+	        
+	        // Convert grid position to pixel position for the top
+	        Point2D ladderTopPixel = calculatePixelPosition(ladderTopGridPosition);
+	        System.out.println(" this is the start of the ladder" + ladder.getLength() + " : " + ladder.getStartPosition());
+	        System.out.println(" this is the end of the ladder" + ladder.getLength() + " : " + ladder.getEndPosition());
 
-			// Add the ImageView to the overlay
-			Overlay.getChildren().add(ladderImageView);
-		}
+	        // Since the images are pre-sized, we assume they are the correct height.
+	        // Thus, we only need to center them horizontally on the tiles.
+	        // We get the center X of the bottom tile and subtract half the width of the ladder image.
+	        double ladderImageCenterX = ladderBottomPixel.getX() + TILE_WIDTH / 2 - ladderImageView.getBoundsInParent().getWidth() / 2;
+	        
+	        // The Y position should be set so that the bottom of the ladder image
+	        // aligns with the bottom of the start position tile.
+	        double ladderImageBottomY = ladderBottomPixel.getY() + TILE_HEIGHT - ladderImageView.getBoundsInParent().getHeight();
+	        
+	        // Set the ImageView of the ladder at the calculated positions
+	        ladderImageView.setLayoutX(ladderImageCenterX); // Centered X position
+	        ladderImageView.setLayoutY(ladderImageBottomY); // Bottom aligned Y position
+	        
+	        // Add the ImageView to the overlay
+	        Overlay.getChildren().add(ladderImageView);
+	    }
 	}
 
-	private void updateBoardWithSnakes() {
-		Overlay.getChildren().clear(); // Clear any existing images
-
-		for (Snake snake : easyGame.getSnakesMap().values()) {
-			ImageView snakeImageView = snake.getImageView(); // Get the ImageView for the snake
-
-			// Calculate the grid position for the head of the snake
-			Point2D headGridPosition = calculateGridPosition(snake.getStartPosition());
-
-			// Convert grid position to pixel position for the top-left corner of the tile
-			Point2D headPixel = calculatePixelPosition(headGridPosition);
-
-			// Set the ImageView of the snake to the pixel position
-			// Since the image is pre-sized to fit the tile, you can set it directly to the
-			// tile's position
-			snakeImageView.setLayoutX(headPixel.getX());
-			snakeImageView.setLayoutY(headPixel.getY());
-
-			// Add the ImageView to the overlay
-			Overlay.getChildren().add(snakeImageView);
-		}
-	}
 
 	private Point2D calculateGridPosition(int boardPosition) {
 	    int size = easyGame.getSize(); // Assuming size is the dimension of the board
@@ -168,8 +166,29 @@ public class GameBoardEasyController {
 		movePlayer(diceRoll);
 
 		// Switch turn to the next player
-		currentplayer = Main.easygame.getGameplayers()
-				.get((Main.easygame.getGameplayers().indexOf(currentplayer) + 1) % Main.easygame.getNumberofplayers());
+		currentplayer = easyGame.getGameplayers()
+				.get((easyGame.getGameplayers().indexOf(currentplayer) + 1) % easyGame.getNumberofplayers());
+	}
+	private void updateBoardWithSnakes() {
+
+		for (Snake snake : easyGame.getSnakesMap().values()) {
+			ImageView snakeImageView = snake.getImageView(); // Get the ImageView for the snake
+
+			// Calculate the grid position for the head of the snake
+			Point2D headGridPosition = calculateGridPosition(snake.getStartPosition());
+
+			// Convert grid position to pixel position for the top-left corner of the tile
+			Point2D headPixel = calculatePixelPosition(headGridPosition);
+
+			// Set the ImageView of the snake to the pixel position
+			// Since the image is pre-sized to fit the tile, you can set it directly to the
+			// tile's position
+			snakeImageView.setLayoutX(headPixel.getX());
+			snakeImageView.setLayoutY(headPixel.getY());
+
+			// Add the ImageView to the overlay
+			Overlay.getChildren().add(snakeImageView);
+		}
 	}
 
 	public void movePlayer(int steps) {
@@ -210,7 +229,7 @@ public class GameBoardEasyController {
 		}
 		// Clear the previous position of the current player
 		clearPreviousPlayerPosition(currentplayer);
-		Main.easygame.getGameplayers().get(Main.easygame.getGameplayers().indexOf(currentplayer))
+		easyGame.getGameplayers().get(easyGame.getGameplayers().indexOf(currentplayer))
 				.setPosition(currentposition);
 		// Convert the currentPlayerPosition to matrix indices
 		int row = currentposition / 7;
@@ -266,38 +285,38 @@ public class GameBoardEasyController {
 			switch (color.toLowerCase()) {
 			case "red":
 				redObject.setVisible(true);
-				Main.easygame.getGameplayers().get(i).setColor(color);
-				Main.easygame.getGameplayers().get(i).setObject(redObject);
+				easyGame.getGameplayers().get(i).setColor(color);
+				easyGame.getGameplayers().get(i).setObject(redObject);
 				i++;
 				break;
 			case "blue":
 				blueObject.setVisible(true);
-				Main.easygame.getGameplayers().get(i).setColor(color);
-				Main.easygame.getGameplayers().get(i).setObject(blueObject);
+				easyGame.getGameplayers().get(i).setColor(color);
+				easyGame.getGameplayers().get(i).setObject(blueObject);
 				i++;
 				break;
 			case "green":
 				greenObject.setVisible(true);
-				Main.easygame.getGameplayers().get(i).setColor(color);
-				Main.easygame.getGameplayers().get(i).setObject(greenObject);
+				easyGame.getGameplayers().get(i).setColor(color);
+				easyGame.getGameplayers().get(i).setObject(greenObject);
 				i++;
 				break;
 			case "purple":
 				purpleObject.setVisible(true);
-				Main.easygame.getGameplayers().get(i).setColor(color);
-				Main.easygame.getGameplayers().get(i).setObject(purpleObject);
+				easyGame.getGameplayers().get(i).setColor(color);
+				easyGame.getGameplayers().get(i).setObject(purpleObject);
 				i++;
 				break;
 			case "grey":
 				greyObject.setVisible(true);
-				Main.easygame.getGameplayers().get(i).setColor(color);
-				Main.easygame.getGameplayers().get(i).setObject(greyObject);
+				easyGame.getGameplayers().get(i).setColor(color);
+				easyGame.getGameplayers().get(i).setObject(greyObject);
 				i++;
 				break;
 			case "yellow":
 				yellowObject.setVisible(true);
-				Main.easygame.getGameplayers().get(i).setColor(color);
-				Main.easygame.getGameplayers().get(i).setObject(yellowObject);
+				easyGame.getGameplayers().get(i).setColor(color);
+				easyGame.getGameplayers().get(i).setObject(yellowObject);
 				i++;
 				break;
 			}
