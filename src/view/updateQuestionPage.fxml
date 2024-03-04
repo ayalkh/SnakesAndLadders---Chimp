@@ -1,138 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="559.0" prefWidth="1007.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.UpdateQuestionController">
-   <top>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-         <children>
-            <Button fx:id="back" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleBack" prefHeight="66.0" prefWidth="89.0" text="Back">
-               <font>
-                  <Font name="Bell MT" size="16.0" />
-               </font>
-            </Button>
-            <Label alignment="CENTER" contentDisplay="CENTER" lineSpacing="10.0" prefHeight="100.0" prefWidth="902.0" text="Update Question">
-               <font>
-                  <Font size="36.0" />
-               </font>
-            </Label>
-         </children>
-      </HBox>
-   </top>
-   <center>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-         <children>
-            <TextField fx:id="questionText" prefHeight="74.0" prefWidth="953.0">
-               <font>
-                  <Font name="Bell MT" size="12.0" />
-               </font>
-               <VBox.margin>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </VBox.margin>
-            </TextField>
-            <GridPane prefHeight="226.0" prefWidth="977.0">
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-               </rowConstraints>
-               <children>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <TextField fx:id="answer1Tex" prefHeight="87.0" prefWidth="462.0" promptText="Answer 1" HBox.hgrow="ALWAYS">
-                           <HBox.margin>
-                              <Insets right="5.0" />
-                           </HBox.margin>
-                           <font>
-                              <Font name="Bell MT" size="12.0" />
-                           </font>
-                        </TextField>
-                     </children>
-                  </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
-                     <children>
-                        <TextField fx:id="answer3Tex" prefHeight="87.0" prefWidth="462.0" promptText="Answer 3" HBox.hgrow="ALWAYS">
-                           <font>
-                              <Font name="Bell MT" size="12.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets right="5.0" />
-                           </HBox.margin>
-                        </TextField>
-                     </children>
-                  </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS">
-                     <children>
-                        <TextField fx:id="answer2Tex" prefHeight="87.0" prefWidth="462.0" promptText="Answer 2" HBox.hgrow="ALWAYS">
-                           <font>
-                              <Font name="Bell MT" size="12.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets right="5.0" />
-                           </HBox.margin>
-                        </TextField>
-                     </children>
-                  </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1">
-                     <children>
-                        <TextField fx:id="answer4Tex" prefHeight="87.0" prefWidth="462.0" promptText="Answer 4" HBox.hgrow="ALWAYS">
-                           <font>
-                              <Font name="Bell MT" size="12.0" />
-                           </font>
-                           <HBox.margin>
-                              <Insets right="5.0" />
-                           </HBox.margin>
-                        </TextField>
-                     </children>
-                  </HBox>
-                  <TextField fx:id="level" prefHeight="20.0" prefWidth="50.0" promptText="Level" GridPane.rowIndex="2" />
-                  <TextField fx:id="CorrAnswer" promptText="Correct Answer" GridPane.columnIndex="1" GridPane.rowIndex="2">
-                     <GridPane.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </GridPane.margin>
-                  </TextField>
-               </children>
-               <VBox.margin>
-                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-               </VBox.margin>
-            </GridPane>
-         </children>
-      </VBox>
-   </center>
-   <bottom>
-      <HBox alignment="CENTER" prefHeight="111.0" prefWidth="1007.0" BorderPane.alignment="CENTER">
-         <children>
-            <HBox alignment="CENTER_LEFT" prefHeight="97.0" prefWidth="216.0">
-               <children>
-                  <Button fx:id="editButton" mnemonicParsing="false" onAction="#handleEdit" prefHeight="87.0" prefWidth="182.0" text="Edit">
-                     <HBox.margin>
-                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                     </HBox.margin>
-                     <padding>
-                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                     </padding>
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Button>
-               </children>
-            </HBox>
-            <TextField fx:id="team" promptText="Team" />
-         </children>
-      </HBox>
-   </bottom>
-</BorderPane>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="745.0" prefWidth="858.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.UpdateQuestionController">
+   <children>
+      <ImageView fitHeight="781.0" fitWidth="929.0" layoutX="-59.0" layoutY="-8.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/image22-Photoroom-Photoroom.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="home" fitHeight="114.0" fitWidth="114.0" layoutX="26.0" layoutY="32.0" onMouseClicked="#handleHomeButton" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/QuestionHomeButton.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="back" fitHeight="131.0" fitWidth="126.0" layoutX="20.0" layoutY="154.0" onMouseClicked="#handleBack" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/QuestionBackButton.png" />
+         </image>
+      </ImageView>
+      <TextArea fx:id="answer1Tex" layoutX="204.0" layoutY="352.0" prefHeight="50.0" prefWidth="399.0" promptText="Answer 1" />
+      <TextArea fx:id="answer2Tex" layoutX="204.0" layoutY="412.0" prefHeight="49.0" prefWidth="399.0" promptText="Answer 2" />
+      <TextArea fx:id="answer3Tex" layoutX="204.0" layoutY="470.0" prefHeight="49.0" prefWidth="399.0" promptText="Answer 3" />
+      <TextArea fx:id="answer4Tex" layoutX="204.0" layoutY="528.0" prefHeight="49.0" prefWidth="399.0" promptText="Answer 4" />
+      <TextArea fx:id="questionText" layoutX="204.0" layoutY="276.0" prefHeight="66.0" prefWidth="399.0" />
+      <ComboBox fx:id="diffLevel" layoutX="204.0" layoutY="589.0" prefHeight="39.0" prefWidth="168.0" promptText="Level" />
+      <ComboBox fx:id="CorrectAnswer" layoutX="435.0" layoutY="589.0" prefHeight="39.0" prefWidth="168.0" promptText="Correct Answer" />
+      <ImageView fx:id="updateButton" fitHeight="101.0" fitWidth="103.0" layoutX="353.0" layoutY="631.0" onMouseClicked="#handleUpdateButton" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/editQuestion.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
