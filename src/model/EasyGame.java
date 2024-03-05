@@ -368,9 +368,9 @@ public class EasyGame {
 		Set<Integer> occupiedPositions = new HashSet<>();
 		int maxPosition = size * size;
 		int i = 0;
-		while (i < 4) {
+		while (i < 3) {
 			QuestionTile QT = new QuestionTile(getRandomQuestion(),
-					getRandomPosition(size, maxPosition, occupiedPositions));
+					getRandomPosition(size, maxPosition, occupiedPositions),i+1);
 			if (!(snakesMap.containsKey(QT.getPosition()) || snakesMap.containsKey(QT.getPosition())
 					|| laddersMap.containsKey(QT.getPosition()))) {
 				questions.add(QT);

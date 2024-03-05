@@ -7,19 +7,30 @@ import model.Tile;
 
 public class QuestionTile extends Tile{
 	private Question question;
-	private ImageView imageView; // ImageView to hold the questionmark image
+	private ImageView imageView; // ImageView to hold the question mark image
 	private int position;
+
+	private int level;
 	
-	public QuestionTile(Question question, int position) {
+	public QuestionTile(Question question, int position,int level) {
 		super();
+		
 		this.question = question;
 		
 		this.position = position;
+		this.level=level;
+		
 		String imagePath = "/images/Black_question_mark.png"; // Ensure this path is correct
 		Image image = new Image(getClass().getResourceAsStream(imagePath));
 
 		this.imageView = new ImageView(); // Initialize the ImageView
 		this.imageView.setImage(image); // Set the image to ImageView
+	}
+	public int getLevel() {
+		return level;
+	}
+	public void setLevel(int level) {
+		this.level = level;
 	}
 	public Question getQuestion() {
 		return question;
