@@ -1,19 +1,22 @@
 package control;
 
+import java.io.IOException;
 import java.util.ArrayList;
-
-
 import java.util.List;
 import java.util.Random;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import model.Dice;
 import model.EasyGame;
 import model.GameLevel;
@@ -68,7 +71,7 @@ public class GameBoardEasyController {
 	@FXML
 	private ImageView yellowObject;
 	private GameSession gameSession;
-
+	private Dice dice;
 	// 49buttons
 	@FXML
 	private Button i0j0, i0j1, i0j2, i0j3, i0j4, i0j5, i0j6, i1j0, i1j1, i1j2, i1j3, i1j4, i1j5, i1j6, i2j0, i2j1, i2j2,
@@ -137,39 +140,57 @@ public class GameBoardEasyController {
 	}
 
 	private Point2D calculateGridPosition(int boardPosition) {
-	    int size = easyGame.getSize(); // Assuming size is the dimension of the board
-	    int row = (boardPosition - 1) / size;
-	    int col = (boardPosition - 1) % size;
+		int size = easyGame.getSize(); // Assuming size is the dimension of the board
+		int row = (boardPosition - 1) / size;
+		int col = (boardPosition - 1) % size;
 
-	    // Adjust column index for zigzag pattern
-	    if (row % 2 != 0) { // If the row is even when 0-indexed, invert the column calculation
-	        col = (size - 1) - col;
-	    }
+		// Adjust column index for zigzag pattern
+		if (row % 2 != 0) { // If the row is even when 0-indexed, invert the column calculation
+			col = (size - 1) - col;
+		}
 
-	    // Adjust row index to start from the bottom
-	    row = (size - 1) - row;
+		// Adjust row index to start from the bottom
+		row = (size - 1) - row;
 
-	    return new Point2D(col, row);
+		return new Point2D(col, row);
 	}
-
 
 	private Point2D calculatePixelPosition(Point2D gridPosition) {
-	    double x = gridPosition.getX() * TILE_WIDTH;
-	    double y = gridPosition.getY() * TILE_HEIGHT;
-	    return new Point2D(x, y);
+		double x = gridPosition.getX() * TILE_WIDTH;
+		double y = gridPosition.getY() * TILE_HEIGHT;
+		return new Point2D(x, y);
 	}
+
 	@FXML
 	private void rollDiceAndMove() {
-		// Roll the dice to get a number between 1 and 4
-		Dice result = new Dice(GameLevel.EASY);
-		int diceRoll = result.rollDice();
-
+		this.dice = new Dice(GameLevel.EASY);
+		int diceRoll = dice.rollDice();
 		// Move the player
 		movePlayer(diceRoll);
-
 		// Switch turn to the next player
 		currentplayer = Main.easygame.getGameplayers()
 				.get((Main.easygame.getGameplayers().indexOf(currentplayer) + 1) % Main.easygame.getNumberofplayers());
+
+		try {
+			// Load the new FXML page
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/DiceSimulation.fxml"));
+			Parent root = loader.load();
+
+			// Create a new stage for the popup
+			Stage newStage = new Stage();
+			newStage.setTitle("Dice Simulation"); // Set the title of the new stage
+
+			// Set the scene to the new stage
+			newStage.setScene(new Scene(root));
+
+			// Display the new stage
+			newStage.show();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+			// Handle the exception
+		}
+
 	}
 
 	public void movePlayer(int steps) {

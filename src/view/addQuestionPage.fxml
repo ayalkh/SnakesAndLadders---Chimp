@@ -1,39 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="745.0" prefWidth="858.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.addQuestiosPageController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="716.0" prefWidth="858.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.addQuestiosPageController">
    <children>
-      <ImageView fitHeight="781.0" fitWidth="929.0" layoutX="-59.0" layoutY="-8.0" onMouseClicked="#handleAdd" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="764.0" fitWidth="896.0" layoutX="-4.0" layoutY="-16.0" onMouseClicked="#handleAdd" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/image22-Photoroom-Photoroom.jpg" />
          </image>
       </ImageView>
-      <ImageView fx:id="home" fitHeight="114.0" fitWidth="114.0" layoutX="26.0" layoutY="32.0" onMouseClicked="#handleHomeButton" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="home" fitHeight="101.0" fitWidth="101.0" layoutX="26.0" layoutY="32.0" onMouseClicked="#handleHomeButton" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/QuestionHomeButton.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="back" fitHeight="131.0" fitWidth="126.0" layoutX="20.0" layoutY="154.0" onMouseClicked="#handleBack" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="back" fitHeight="119.0" fitWidth="117.0" layoutX="18.0" layoutY="159.0" onMouseClicked="#handleBack" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/QuestionBackButton.png" />
          </image>
       </ImageView>
-      <TextArea fx:id="answer1Tex" layoutX="204.0" layoutY="352.0" prefHeight="50.0" prefWidth="399.0" promptText="Answer 1" />
-      <TextArea fx:id="answer2Tex" layoutX="204.0" layoutY="412.0" prefHeight="49.0" prefWidth="399.0" promptText="Answer 2" />
-      <TextArea fx:id="answer3Tex" layoutX="204.0" layoutY="470.0" prefHeight="49.0" prefWidth="399.0" promptText="Answer 3" />
-      <TextArea fx:id="answer4Tex" layoutX="204.0" layoutY="528.0" prefHeight="49.0" prefWidth="399.0" promptText="Answer 4" />
-      <TextArea fx:id="questionText" layoutX="204.0" layoutY="276.0" prefHeight="66.0" prefWidth="399.0" />
-      <ComboBox fx:id="diffLevel" layoutX="204.0" layoutY="589.0" prefHeight="39.0" prefWidth="168.0" promptText="Level" />
-      <ComboBox fx:id="CorrectAnswer" layoutX="435.0" layoutY="589.0" prefHeight="39.0" prefWidth="168.0" promptText="Correct Answer" />
-      <ImageView fx:id="addButton" fitHeight="101.0" fitWidth="103.0" layoutX="353.0" layoutY="628.0" onMouseClicked="#handleAdd" pickOnBounds="true" preserveRatio="true">
+      <TextArea fx:id="answer1Tex" layoutX="256.0" layoutY="340.0" prefHeight="50.0" prefWidth="371.0" promptText="OPTION 1" />
+      <TextArea fx:id="answer2Tex" layoutX="256.0" layoutY="402.0" prefHeight="49.0" prefWidth="371.0" promptText="OPTION 2" />
+      <TextArea fx:id="answer3Tex" layoutX="256.0" layoutY="462.0" prefHeight="49.0" prefWidth="371.0" promptText="OPTION 3" />
+      <TextArea fx:id="answer4Tex" layoutX="256.0" layoutY="524.0" prefHeight="49.0" prefWidth="371.0" promptText="OPTION 4" />
+      <TextArea fx:id="questionText" layoutX="239.0" layoutY="264.0" prefHeight="66.0" prefWidth="399.0" promptText="QUESTION" />
+      <ComboBox fx:id="diffLevel" layoutX="217.0" layoutY="590.0" prefHeight="39.0" prefWidth="168.0" promptText="Level" />
+      <ComboBox fx:id="CorrectAnswer" layoutX="487.0" layoutY="589.0" prefHeight="39.0" prefWidth="168.0" promptText="Correct Answer" />
+      <ImageView fx:id="addButton" fitHeight="101.0" fitWidth="103.0" layoutX="383.0" layoutY="612.0" onMouseClicked="#handleAdd" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/addButton.png" />
          </image>
       </ImageView>
+      <Label layoutX="325.0" layoutY="152.0" text="ADD QUESTION">
+         <font>
+            <Font name="Bauhaus 93" size="36.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
