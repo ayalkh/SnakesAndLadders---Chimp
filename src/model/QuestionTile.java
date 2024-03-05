@@ -9,6 +9,7 @@ public class QuestionTile extends Tile{
 	private Question question;
 	private ImageView imageView; // ImageView to hold the questionmark image
 	private int position;
+	
 	public QuestionTile(Question question, int position) {
 		super();
 		this.question = question;

@@ -13,9 +13,11 @@ import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import model.EasyGame;
 import model.GameSession;
 
 public class NumberOfPlayersController {
+    private EasyGame easyGame;
 
 	@FXML
 	private ResourceBundle resources;
@@ -99,7 +101,8 @@ public class NumberOfPlayersController {
 
 	@FXML
 	void initialize() {
-		
+        easyGame = EasyGame.getInstance();
+
 		homeButton.setCursor(Cursor.HAND);
 		homeButton.setOnMouseEntered(event -> homeButton.setOpacity(0.8));
 		homeButton.setOnMouseExited(event -> homeButton.setOpacity(1.5));
@@ -130,7 +133,7 @@ public class NumberOfPlayersController {
 
 			PlayersInfoControl controller = loader.getController();
 			controller.setNumberOfPlayers(number);
-            Main.easygame.setNumberofplayers(number);
+			easyGame.setNumberofplayers(number);
 
 			Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 

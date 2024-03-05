@@ -172,23 +172,23 @@ public class GameBoardEasyController {
 				.get((Main.easygame.getGameplayers().indexOf(currentplayer) + 1) % Main.easygame.getNumberofplayers());
 
 		try {
-			// Load the new FXML page
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/DiceSimulation.fxml"));
-			Parent root = loader.load();
+		    // Load the new FXML page
+		    FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/DiceSimulation.fxml"));
+		    Parent root = loader.load();
 
-			// Create a new stage for the popup
-			Stage newStage = new Stage();
-			newStage.setTitle("Dice Simulation"); // Set the title of the new stage
+		    // Create a new stage for the popup
+		    Stage newStage = new Stage();
+		    newStage.setTitle("Dice Simulation"); // Set the title of the new stage
 
-			// Set the scene to the new stage
-			newStage.setScene(new Scene(root));
+		    // Set the scene to the new stage
+		    newStage.setScene(new Scene(root));
 
-			// Display the new stage
-			newStage.show();
+		    // Display the new stage
+		    newStage.show();
 
 		} catch (IOException e) {
-			e.printStackTrace();
-			// Handle the exception
+		    e.printStackTrace();
+		    // Handle the exception
 		}
 
 	}
