@@ -1,9 +1,8 @@
 .button {
-   -fx-font-size: 10px;
+   -fx-font-size: 5px;
     -fx-text-fill: black;
     -fx-alignment: top-left;
     -fx-padding: 5 0 0 5; /* Top, Right, Bottom, Left */
-      -fx-font-size: 14px; /* Slightly larger font size for better readability */
     -fx-text-fill: #333333; /* Dark text for contrast */
     -fx-font-weight: bold; /* Make the text bold */
     -fx-background-color: #c8c8a9; /* Muted green to match the jungle theme */

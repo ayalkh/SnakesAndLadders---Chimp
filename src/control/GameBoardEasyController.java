@@ -2,7 +2,6 @@ package control;
 
 import java.util.ArrayList;
 
-
 import java.util.List;
 import java.util.Random;
 
@@ -24,10 +23,9 @@ import model.QuestionTile;
 import model.Snake;
 
 public class GameBoardEasyController {
-    private EasyGame easyGame; // The game logic
+	private EasyGame easyGame; // The game logic
 
-    private Player currentplayer; // Moved inside the class, not at declaration
-
+	private Player currentplayer; // Moved inside the class, not at declaration
 
 	@FXML
 	private Label playerNameLabel;
@@ -46,20 +44,19 @@ public class GameBoardEasyController {
 	private ImageView object1;
 	@FXML
 	private Button diceButton;
-	
+
 	public void initialize() {
-        easyGame = EasyGame.getInstance();
-        currentplayer = easyGame.getGameplayers().get(0); // Now it's safe to initialize.
+		easyGame = EasyGame.getInstance();
+		currentplayer = easyGame.getGameplayers().get(0); // Now it's safe to initialize.
 		Overlay.getChildren().clear(); // Clear any existing images
 
 		initializeBoard();
 		updateBoardWithSnakes();
 		updateBoardWithLadders();
-		//updateBoardWithQuestionTiles();
+		// updateBoardWithQuestionTiles();
 	}
-	private Random random = new Random();
-	private int currentPlayer1Position = 0;
-	private int currentPlayer2Position = 0;
+
+
 	private final double TILE_WIDTH = 45.0; // Set the width of your tiles here
 	private final double TILE_HEIGHT = 45.0; // Set the height of your tiles here
 	private boolean isPlayer1Turn = true; // Starts with player 1
@@ -88,74 +85,79 @@ public class GameBoardEasyController {
 			i2j3, i2j4, i2j5, i2j6, i3j0, i3j1, i3j2, i3j3, i3j4, i3j5, i3j6, i4j0, i4j1, i4j2, i4j3, i4j4, i4j5, i4j6,
 			i5j0, i5j1, i5j2, i5j3, i5j4, i5j5, i5j6, i6j0, i6j1, i6j2, i6j3, i6j4, i6j5, i6j6;
 
-	
 	private void initializeBoard() {
 		buttonMatrix = new Button[][] { { i0j0, i0j1, i0j2, i0j3, i0j4, i0j5, i0j6 },
 				{ i1j0, i1j1, i1j2, i1j3, i1j4, i1j5, i1j6 }, { i2j0, i2j1, i2j2, i2j3, i2j4, i2j5, i2j6 },
 				{ i3j0, i3j1, i3j2, i3j3, i3j4, i3j5, i3j6 }, { i4j0, i4j1, i4j2, i4j3, i4j4, i4j5, i4j6 },
 				{ i5j0, i5j1, i5j2, i5j3, i5j4, i5j5, i5j6 }, { i6j0, i6j1, i6j2, i6j3, i6j4, i6j5, i6j6 } };
 	}
+
 	private void updateBoardWithLadders() {
-	    for (Ladder ladder : easyGame.getLaddersMap().values()) {
-	        ImageView ladderImageView = ladder.getImageView();
+		for (Ladder ladder : easyGame.getLaddersMap().values()) {
+			ImageView ladderImageView = ladder.getImageView();
 
-	        // Calculate the grid position for the bottom of the ladder
-	        Point2D ladderBottomGridPosition = calculateGridPosition(ladder.getStartPosition());
-	        System.out.println(" this is the grid position  of the ladder" + ladder.getLength() + " : " + ladderBottomGridPosition);
+			// Calculate the grid position for the bottom of the ladder
+			Point2D ladderBottomGridPosition = calculateGridPosition(ladder.getStartPosition());
+			System.out.println(" this is the grid position  of the ladder" + ladder.getLength() + " : "
+					+ ladderBottomGridPosition);
 
-	        // Convert grid position to pixel position for the bottom
-	        Point2D ladderBottomPixel = calculatePixelPosition(ladderBottomGridPosition);
-	        System.out.println(" this is the pixel position  of the ladder" + ladder.getLength() + " : " + ladderBottomPixel);
+			// Convert grid position to pixel position for the bottom
+			Point2D ladderBottomPixel = calculatePixelPosition(ladderBottomGridPosition);
+			System.out.println(
+					" this is the pixel position  of the ladder" + ladder.getLength() + " : " + ladderBottomPixel);
 
-	        // Calculate the grid position for the top of the ladder
-	        Point2D ladderTopGridPosition = calculateGridPosition(ladder.getEndPosition());
-	        
-	        // Convert grid position to pixel position for the top
-	        Point2D ladderTopPixel = calculatePixelPosition(ladderTopGridPosition);
-	        System.out.println(" this is the start of the ladder" + ladder.getLength() + " : " + ladder.getStartPosition());
-	        System.out.println(" this is the end of the ladder" + ladder.getLength() + " : " + ladder.getEndPosition());
+			// Calculate the grid position for the top of the ladder
+			Point2D ladderTopGridPosition = calculateGridPosition(ladder.getEndPosition());
 
-	        // Since the images are pre-sized, we assume they are the correct height.
-	        // Thus, we only need to center them horizontally on the tiles.
-	        // We get the center X of the bottom tile and subtract half the width of the ladder image.
-	        double ladderImageCenterX = ladderBottomPixel.getX() + TILE_WIDTH / 2 - ladderImageView.getBoundsInParent().getWidth() / 2;
-	        
-	        // The Y position should be set so that the bottom of the ladder image
-	        // aligns with the bottom of the start position tile.
-	        double ladderImageBottomY = ladderBottomPixel.getY() + TILE_HEIGHT - ladderImageView.getBoundsInParent().getHeight();
-	        
-	        // Set the ImageView of the ladder at the calculated positions
-	        ladderImageView.setLayoutX(ladderImageCenterX); // Centered X position
-	        ladderImageView.setLayoutY(ladderImageBottomY); // Bottom aligned Y position
-	        
-	        // Add the ImageView to the overlay
-	        Overlay.getChildren().add(ladderImageView);
-	    }
+			// Convert grid position to pixel position for the top
+			Point2D ladderTopPixel = calculatePixelPosition(ladderTopGridPosition);
+			System.out.println(
+					" this is the start of the ladder" + ladder.getLength() + " : " + ladder.getStartPosition());
+			System.out.println(" this is the end of the ladder" + ladder.getLength() + " : " + ladder.getEndPosition());
+
+			// Since the images are pre-sized, we assume they are the correct height.
+			// Thus, we only need to center them horizontally on the tiles.
+			// We get the center X of the bottom tile and subtract half the width of the
+			// ladder image.
+			double ladderImageCenterX = ladderBottomPixel.getX() + TILE_WIDTH / 2
+					- ladderImageView.getBoundsInParent().getWidth() / 2;
+
+			// The Y position should be set so that the bottom of the ladder image
+			// aligns with the bottom of the start position tile.
+			double ladderImageBottomY = ladderBottomPixel.getY() + TILE_HEIGHT
+					- ladderImageView.getBoundsInParent().getHeight();
+
+			// Set the ImageView of the ladder at the calculated positions
+			ladderImageView.setLayoutX(ladderImageCenterX); // Centered X position
+			ladderImageView.setLayoutY(ladderImageBottomY); // Bottom aligned Y position
+
+			// Add the ImageView to the overlay
+			Overlay.getChildren().add(ladderImageView);
+		}
 	}
-
 
 	private Point2D calculateGridPosition(int boardPosition) {
-	    int size = easyGame.getSize(); // Assuming size is the dimension of the board
-	    int row = (boardPosition - 1) / size;
-	    int col = (boardPosition - 1) % size;
+		int size = easyGame.getSize(); // Assuming size is the dimension of the board
+		int row = (boardPosition - 1) / size;
+		int col = (boardPosition - 1) % size;
 
-	    // Adjust column index for zigzag pattern
-	    if (row % 2 != 0) { // If the row is even when 0-indexed, invert the column calculation
-	        col = (size - 1) - col;
-	    }
+		// Adjust column index for zigzag pattern
+		if (row % 2 != 0) { // If the row is even when 0-indexed, invert the column calculation
+			col = (size - 1) - col;
+		}
 
-	    // Adjust row index to start from the bottom
-	    row = (size - 1) - row;
+		// Adjust row index to start from the bottom
+		row = (size - 1) - row;
 
-	    return new Point2D(col, row);
+		return new Point2D(col, row);
 	}
-
 
 	private Point2D calculatePixelPosition(Point2D gridPosition) {
-	    double x = gridPosition.getX() * TILE_WIDTH;
-	    double y = gridPosition.getY() * TILE_HEIGHT;
-	    return new Point2D(x, y);
+		double x = gridPosition.getX() * TILE_WIDTH;
+		double y = gridPosition.getY() * TILE_HEIGHT;
+		return new Point2D(x, y);
 	}
+
 	@FXML
 	private void rollDiceAndMove() {
 		// Roll the dice to get a number between 1 and 4
@@ -169,6 +171,7 @@ public class GameBoardEasyController {
 		currentplayer = easyGame.getGameplayers()
 				.get((easyGame.getGameplayers().indexOf(currentplayer) + 1) % easyGame.getNumberofplayers());
 	}
+
 	private void updateBoardWithSnakes() {
 
 		for (Snake snake : easyGame.getSnakesMap().values()) {
@@ -191,55 +194,67 @@ public class GameBoardEasyController {
 		}
 	}
 
-	public void movePlayer(int steps) {
-		// Update the current player position
-		System.out.println((currentplayer.getName() + " got: " + steps));
+	public void movePlayer(int diceRoll) {
+	    // Print the dice roll result
+	    System.out.println(currentplayer.getName() + " rolled: " + diceRoll);
 
-		int currentposition = currentplayer.getPosition() + steps;
+	    // Calculate the new position
+	    int newPosition = currentplayer.getPosition() + diceRoll;
 
-		// Check if landed on a snake
-		if (easyGame.getSnakesMap().containsKey(currentposition)) {
-			System.out.println(easyGame.getSnakesMap().keySet());
-			Snake snake = easyGame.getSnakesMap().get(currentposition);
-			String snakeColor = snake.getColor().toLowerCase();
+	    // Check for ladder at the new position
+	    Ladder ladder = easyGame.getLaddersMap().get(newPosition);
+	    if (ladder != null) {
 
-			switch (snakeColor) {
-			case "yellow":
-				currentposition -= 7; // Move back one row
-				break;
-			case "green":
-				currentposition -= 14; // Move back two rows
-				break;
-			case "blue":
-				currentposition -= 21; // Move back three rows
-				break;
-			case "red":
-				currentposition = 0; // Back to start
-				break;
-			}
+	        newPosition = ladder.getEndPosition();
 
-			currentposition = Math.max(0, currentposition); // Ensure not less than 0
-			System.out.println("Hit a " + snakeColor + " snake! Moved to position: " + (currentposition + 1));
-		}
-		// button
-		if (currentposition >= 49) {
-			currentposition = 48; // Zero-based index for 49th button
-			Alerts.alertBox(AlertType.INFORMATION, "Congratulations", "You Win",
-					currentplayer.getName() + "  has won!!");
-		}
-		// Clear the previous position of the current player
-		clearPreviousPlayerPosition(currentplayer);
-		easyGame.getGameplayers().get(easyGame.getGameplayers().indexOf(currentplayer))
-				.setPosition(currentposition);
-		// Convert the currentPlayerPosition to matrix indices
-		int row = currentposition / 7;
-		int col = currentposition % 7;
+	        
+	        System.out.println(currentplayer.getName() + " climbed a ladder to position: " + newPosition);
+	    }
 
-		if (row % 2 == 1) {
-			col = 6 - col;
-		}
+	    // Check for snake at the new position
+	    Snake snake = easyGame.getSnakesMap().get(newPosition);
+	    if (snake != null) {
+	        newPosition = snake.getEndPosition();
+	        System.out.println(currentplayer.getName() + " got bitten by a snake, moved to position: " + newPosition);
+	    }
 
-		buttonMatrix[row][col].setGraphic(currentplayer.getObject());
+	    // Check for question tile at the new position
+	    for (QuestionTile qt : easyGame.getQuestions()) {
+	        if (qt.getPosition() == newPosition) {
+	            System.out.println(currentplayer.getName() + " landed on a question tile at position: " + newPosition);
+	            handleQuestionTileEvent(qt);
+	            break;
+	        }
+	    }
+
+	    // Update the player's logical position
+	    currentplayer.setPosition(newPosition);
+
+	    // Update the visual position of the player
+	    updatePlayerPositionVisuals(newPosition);
+
+	    // Check for win condition
+	    if (newPosition >= easyGame.getSize() * easyGame.getSize()) {
+	        // Handle winning condition (end game, display message, etc.)
+	        System.out.println(currentplayer.getName() + " wins the game!");
+	    }
+	}
+
+	private void updatePlayerPositionVisuals(int newPosition) {
+	    System.out.println("Updating visuals for new position: " + newPosition);
+	    // Clear the previous position
+	    clearPreviousPlayerPosition(currentplayer);
+
+	    // Convert newPosition to matrix indices
+	    int row = newPosition / 7;
+	    int col = newPosition % 7;
+	    if (row % 2 == 1) {
+	        col = 6 - col; // Adjust for zigzag pattern
+	    }
+	    System.out.println("Row: " + row + " Col: " + col);
+
+	    // Update the button matrix to show the player's new position
+	    buttonMatrix[row][col].setGraphic(currentplayer.getObject());
 	}
 
 	private void clearPreviousPlayerPosition(Player currentplayer) {
@@ -260,11 +275,10 @@ public class GameBoardEasyController {
 		}
 	}
 
-	private String capitalize(String input) {
-		if (input == null || input.isEmpty()) {
-			return input;
-		}
-		return input.substring(0, 1).toUpperCase() + input.substring(1);
+	private void handleQuestionTileEvent(QuestionTile qt) {
+		// Logic to display the question to the player and handle their response
+		// This could involve showing a dialog, checking the answer, and applying any
+		// game effects
 	}
 
 	public void setSelectedColors(List<String> colors) {
@@ -321,19 +335,6 @@ public class GameBoardEasyController {
 				break;
 			}
 		}
-	}
-
-	private void updatePlayerPositions() {
-		// Update the player position based on their current state
-		int player1Row = currentplayer.getPosition() / 7;
-		int player1Col = currentplayer.getPosition() % 7;
-		if (player1Row % 2 == 1) {
-			player1Col = 6 - player1Col;
-		}
-
-		// Set the graphics for the new positions
-		buttonMatrix[player1Row][player1Col].setGraphic(currentplayer.getObject());
-
 	}
 
 	private void updateBoardWithQuestionTiles() {
