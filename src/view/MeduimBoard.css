@@ -1,0 +1,32 @@
+.button {
+    -fx-pref-width: 60px;
+    -fx-pref-height: 60px;
+    box-sizing: border-box;
+    -fx-font-size: 10px;
+    -fx-alignment: top-left;
+    -fx-text-fill: #333333; /* Updated, redundant property removed */
+    -fx-font-weight: bold;
+    -fx-background-color: #c8c8a9;
+    -fx-background-radius: 5;
+    -fx-border-color: #767676;
+    -fx-border-radius: 5;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+    -fx-padding: 10px; /* Ensure single padding property for consistency */
+}
+.hbox {
+ -fx-pref-width: 600px;
+    -fx-pref-height: 60px;
+    -fx-background-color: transparent; /* Making it transparent if the HBoxes are part of the board */
+    
+    -fx-alignment: center-left; /* Align items to the left */
+}
+#board {
+    -fx-background-color: #deb887; /* A soft brown, assuming your board is a brownish color */
+    -fx-background-image: url('path_to_board_texture.png'); /* Add texture to your board */
+    -fx-background-size: cover;
+    -fx-background-radius: 10;
+    -fx-border-color: #8b4513;
+    -fx-border-width: 2px;
+    -fx-border-radius: 10;
+    -fx-padding: 10; /* If you want padding inside your board */
+}
