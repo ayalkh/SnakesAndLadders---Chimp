@@ -255,9 +255,6 @@ public class GameBoardEasyController {
 				Alerts.alertBox(Alert.AlertType.INFORMATION, "player won ", "player won", "player won");
 			}
 		}
-		updatePlayerPositionVisuals(newPosition);
-
-		System.out.println(currentplayer.getName() + " climbed a ladder to position: " + newPosition);
 
 		// Check for question tile at the new position
 		for (QuestionTile QT : easyGame.getQuestions()) {// check if the player stepped is on a question tile//
@@ -311,18 +308,8 @@ public class GameBoardEasyController {
 				}
 			}
 		}
-
-		// Update the player's logical position
-		currentplayer.setPosition(newPosition);
-
-		// Update the visual position of the player
 		updatePlayerPositionVisuals(newPosition);
 
-		// Check for win condition
-		if (newPosition >= easyGame.getSize() * easyGame.getSize()) {
-			// Handle winning condition (end game, display message, etc.)
-			System.out.println(currentplayer.getName() + " wins the game!");
-		}
 	}
 
 	private void updatePlayerPositionVisuals(int newPosition) {
