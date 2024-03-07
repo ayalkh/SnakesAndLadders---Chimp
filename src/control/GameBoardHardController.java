@@ -2,6 +2,7 @@ package control;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 
 public class GameBoardHardController {
 
@@ -17,5 +18,14 @@ public class GameBoardHardController {
 			i10j4, i10j5, i10j6, i10j7, i10j8, i10j9, i10j10, i10j11, i10j12, i11j0, i11j1, i11j2, i11j3, i11j4, i11j5,
 			i11j6, i11j7, i11j8, i11j9, i11j10, i11j11, i11j12, i12j0, i12j1, i12j2, i12j3, i12j4, i12j5, i12j6, i12j7,
 			i12j8, i12j9, i12j10, i12j11, i12j12;
+
+	@FXML
+	private ImageView blueAvatar, greenAvatar, greyAvatar, purpleAvatar, redAvatar, yellowAvatar;
+
+	@FXML
+	private ImageView diceButton;
+
+	@FXML
+	private ImageView yellowObject, blueObject, purpleObject, greenObject, redObject, greyObject;
 
 }
