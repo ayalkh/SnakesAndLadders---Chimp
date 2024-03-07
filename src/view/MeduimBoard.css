@@ -30,3 +30,13 @@
     -fx-border-radius: 10;
     -fx-padding: 10; /* If you want padding inside your board */
 }
+.Roll-button{
+	    -fx-pref-width: 91px;
+    -fx-pref-height: 42px;
+	    -fx-font-size: 14px;
+	        -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+	            -fx-font-weight: bold;
+	        
+	    
+	
+}
