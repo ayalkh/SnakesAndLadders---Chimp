@@ -11,18 +11,14 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import model.Dice;
 import model.EasyGame;
 import model.GameLevel;
@@ -37,7 +33,20 @@ public class GameBoardEasyController {
 	private EasyGame easyGame; // The game logic
 	private ArrayList<Question> questions;
 	private Player currentplayer; // Moved inside the class, not at declaration
+	@FXML
+	private ImageView greenAvatar;
+	@FXML
+	private ImageView greyAvatar;
+	@FXML
+	private ImageView purpleAvatar;
+	@FXML
+	private ImageView redAvatar;
 
+	@FXML
+	private ImageView blueAvatar;
+
+	@FXML
+	private ImageView yellowAvatar;
 	@FXML
 	private Label playerNameLabel;
 	@FXML
@@ -393,43 +402,61 @@ if(question.getLevel()==3) {
 		purpleObject.setVisible(false);
 		greyObject.setVisible(false);
 		yellowObject.setVisible(false);
+
+		ColorAdjust desaturate = new ColorAdjust();
+		desaturate.setSaturation(-1);
+		redAvatar.setEffect(desaturate);
+		blueAvatar.setEffect(desaturate);
+		greenAvatar.setEffect(desaturate);
+		purpleAvatar.setEffect(desaturate);
+		greyAvatar.setEffect(desaturate);
+		yellowAvatar.setEffect(desaturate);
 		selectedColors = colors;
+
+		ColorAdjust resetSaturation = new ColorAdjust();
+		resetSaturation.setSaturation(0);
 
 		int i = 0;// Set visible only the objects that match the selected colors
 		for (String color : colors) {
 
 			switch (color.toLowerCase()) {
 			case "red":
+				redAvatar.setEffect(resetSaturation);
 				redObject.setVisible(true);
 				easyGame.getGameplayers().get(i).setColor(color);
 				easyGame.getGameplayers().get(i).setObject(redObject);
 				i++;
 				break;
 			case "blue":
+				blueAvatar.setEffect(resetSaturation);
 				blueObject.setVisible(true);
 				easyGame.getGameplayers().get(i).setColor(color);
 				easyGame.getGameplayers().get(i).setObject(blueObject);
 				i++;
 				break;
 			case "green":
+				greenAvatar.setEffect(resetSaturation);
 				greenObject.setVisible(true);
 				easyGame.getGameplayers().get(i).setColor(color);
 				easyGame.getGameplayers().get(i).setObject(greenObject);
 				i++;
 				break;
 			case "purple":
+				purpleAvatar.setEffect(resetSaturation);
 				purpleObject.setVisible(true);
 				easyGame.getGameplayers().get(i).setColor(color);
 				easyGame.getGameplayers().get(i).setObject(purpleObject);
 				i++;
 				break;
 			case "grey":
+				greyAvatar.setEffect(resetSaturation);
 				greyObject.setVisible(true);
 				easyGame.getGameplayers().get(i).setColor(color);
 				easyGame.getGameplayers().get(i).setObject(greyObject);
 				i++;
 				break;
 			case "yellow":
+				yellowAvatar.setEffect(resetSaturation);
 				yellowObject.setVisible(true);
 				easyGame.getGameplayers().get(i).setColor(color);
 				easyGame.getGameplayers().get(i).setObject(yellowObject);

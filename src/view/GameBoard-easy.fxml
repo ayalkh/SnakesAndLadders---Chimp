@@ -9,7 +9,7 @@
 
 <AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="590.0" prefWidth="906.0" stylesheets="@boardButtons.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.GameBoardEasyController">                      
    <children>
-      <ImageView fitHeight="608.0" fitWidth="1031.0" layoutX="-99.0" layoutY="-1.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="608.0" fitWidth="1031.0" layoutX="-97.0" layoutY="-1.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/image7.png" />
          </image>
@@ -96,35 +96,70 @@
          </children>
       </HBox>
       <AnchorPane fx:id="Overlay" layoutX="295.0" layoutY="118.0" prefHeight="315.0" prefWidth="315.0" />
-      <Button fx:id="diceButton" layoutX="43.0" layoutY="40.0" mnemonicParsing="false" onAction="#rollDiceAndMove" text="Button" />
-      <ImageView fx:id="redObject" fitHeight="20.0" fitWidth="20.0" layoutX="297.0" layoutY="428.0" pickOnBounds="true" preserveRatio="true">
+      <Button fx:id="diceButton" layoutX="503.0" layoutY="503.0" mnemonicParsing="false" onAction="#rollDiceAndMove" text="ROLL DICE" />
+      <ImageView fx:id="redObject" fitHeight="20.0" fitWidth="20.0" layoutX="242.0" layoutY="417.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../images/chessRed.png" />
+            <Image url="@../images/RED.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="yellowObject" fitHeight="20.0" fitWidth="20.0" layoutX="287.0" layoutY="373.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="yellowObject" fitHeight="20.0" fitWidth="20.0" layoutX="247.0" layoutY="392.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../images/chessYellow.png" />
+            <Image url="@../images/YELLOW.png" />
          </image>
       </ImageView>
       <ImageView fx:id="greenObject" fitHeight="20.0" fitWidth="20.0" layoutX="277.0" layoutY="396.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../images/chessGreen.png" />
+            <Image url="@../images/GREEN.png" />
          </image>
       </ImageView>
       <ImageView fx:id="blueObject" fitHeight="20.0" fitWidth="20.0" layoutX="257.0" layoutY="418.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../images/chessBlue.png" />
+            <Image url="@../images/BLUE.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="greyObject" fitHeight="20.0" fitWidth="20.0" layoutX="257.0" layoutY="396.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="greyObject" fitHeight="20.0" fitWidth="20.0" layoutX="262.0" layoutY="392.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../images/chessGrey.png" />
+            <Image url="@../images/GREY.png" />
          </image>
       </ImageView>
       <ImageView fx:id="purpleObject" fitHeight="20.0" fitWidth="20.0" layoutX="277.0" layoutY="418.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../images/chessPurple.png" />
+            <Image url="@../images/PURPLE.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="86.0" fitWidth="102.0" layoutX="402.0" layoutY="481.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/dice4.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="redAvatar" fitHeight="136.0" fitWidth="143.0" layoutX="7.0" layoutY="440.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/redAvatar-removebg-preview.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="greenAvatar" fitHeight="122.0" fitWidth="120.0" layoutX="11.0" layoutY="309.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/greenAvatar-removebg-preview.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="yellowAvatar" fitHeight="120.0" fitWidth="120.0" layoutX="16.0" layoutY="177.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/yelloAvatar-removebg-preview.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="blueAvatar" fitHeight="122.0" fitWidth="120.0" layoutX="14.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/lueAvatar-removebg-preview.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="purpleAvatar" fitHeight="128.0" fitWidth="128.0" layoutX="133.0" layoutY="179.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/purpleAvatar-removebg-preview.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="greyAvatar" fitHeight="136.0" fitWidth="136.0" layoutX="126.0" layoutY="308.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/grey-removebg-preview.png" />
          </image>
       </ImageView>
    </children>
