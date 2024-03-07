@@ -136,6 +136,7 @@ public class QuestionsController {
 
 			// Close the current stage
 			Stage currentStage = (Stage) addButton.getScene().getWindow();
+			currentStage.setTitle("ADD Question");
 			currentStage.close();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -150,7 +151,7 @@ public class QuestionsController {
 
 	@FXML
 	void handleBack() {
-		navigateTo("/popUpMessages/ManagerCode.fxml", "Manager Page");
+		navigateTo("/popUpMessages/ManagerCode.fxml", "Manager Page LOG-IN");
 	}
 
 	void navigateTo(String fxmlPath, String title) {
@@ -170,7 +171,7 @@ public class QuestionsController {
 
 	@FXML
 	void handleHome() {
-		navigateTo("/view/WelcomePage.fxml", "Welcome Page");
+		navigateTo("/view/WelcomePage.fxml", "SNAKES & LADDERS GAME !!");
 	}
 
 }

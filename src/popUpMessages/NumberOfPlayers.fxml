@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.Group?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="443.0" prefWidth="440.0" style="-fx-background-color: #5F9EA0;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.NumberOfPlayersController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="443.0" prefWidth="440.0" style="-fx-background-color: #5F9EA0;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.NumberOfPlayersController">
    <children>
       <ImageView fitHeight="470.0" fitWidth="440.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -168,5 +170,20 @@
             <Image url="@../images/house.png" />
          </image>
       </ImageView>
+      <ImageView fx:id="backButton" fitHeight="94.0" fitWidth="90.0" layoutX="8.0" layoutY="83.0" onMouseClicked="#whenClickButtonHome" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/back.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="111.0" layoutY="33.0" text="SELECT NUMBER " textFill="#151515">
+         <font>
+            <Font name="Bauhaus 93" size="33.0" />
+         </font>
+      </Label>
+      <Label layoutX="155.0" layoutY="60.0" text="OF PLAYERS" textFill="#f240e9">
+         <font>
+            <Font name="Bauhaus 93" size="26.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

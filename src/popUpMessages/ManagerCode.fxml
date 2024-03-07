@@ -7,23 +7,33 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="405.0" prefWidth="652.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.ManagerCodeController">
+<AnchorPane prefHeight="518.0" prefWidth="811.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.ManagerCodeController">
    <children>
-      <ImageView fitHeight="411.0" fitWidth="652.0">
+      <ImageView fitHeight="538.0" fitWidth="811.0">
          <image>
             <Image url="@../images/ManagerBackground.jpeg" />
          </image>
       </ImageView>
-      <ImageView fx:id="enterButton" fitHeight="36.0" fitWidth="116.0" layoutX="278.0" layoutY="248.0" onMouseClicked="#clickOnEnterButton" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="enterButton" fitHeight="51.0" fitWidth="135.0" layoutX="342.0" layoutY="320.0" onMouseClicked="#clickOnEnterButton" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/play.png" />
          </image>
       </ImageView>
-      <Label fx:id="labelButton" layoutX="309.0" layoutY="253.0" onMouseClicked="#clickOnEnterButton" prefHeight="18.0" prefWidth="53.0" text="ENTER">
+      <Label fx:id="labelButton" layoutX="384.0" layoutY="329.0" onMouseClicked="#clickOnEnterButton" prefHeight="18.0" prefWidth="53.0" text="ENTER">
          <font>
-            <Font size="15.0" />
+            <Font name="Bauhaus 93" size="17.0" />
          </font>
       </Label>
-      <PasswordField fx:id="passCode" layoutX="269.0" layoutY="206.0" prefHeight="26.0" prefWidth="123.0" />
+      <PasswordField fx:id="passCode" layoutX="330.0" layoutY="248.0" prefHeight="36.0" prefWidth="160.0" />
+      <ImageView fx:id="backButton" fitHeight="99.0" fitWidth="98.0" layoutX="28.0" layoutY="140.0" onMouseClicked="#handleBackButton" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/backButton.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="homeButton" fitHeight="105.0" fitWidth="107.0" layoutX="26.0" layoutY="33.0" onMouseClicked="#handleBackButton" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/ManagerHomeButton.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

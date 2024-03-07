@@ -1,7 +1,6 @@
 package control;
 
 import java.io.IOException;
-
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -24,7 +23,7 @@ import model.Player;
 
 // ... other imports
 public class PlayerObject {
-    private EasyGame easyGame;
+	private EasyGame easyGame;
 
 	@FXML
 	private ResourceBundle resources;
@@ -66,7 +65,7 @@ public class PlayerObject {
 
 	@FXML
 	void initialize() {
-        easyGame = EasyGame.getInstance();
+		easyGame = EasyGame.getInstance();
 
 		assert blue != null : "fx:id=\"blue\" was not injected: check your FXML file 'PlayersObjects.fxml'.";
 		assert green != null : "fx:id=\"green\" was not injected: check your FXML file 'PlayersObjects.fxml'.";
@@ -117,7 +116,6 @@ public class PlayerObject {
 				selectedColors.add("grey");
 			}
 
-
 			// change Label of the current player when choosing the object
 			updatePlayerNameLabel();
 			currentPlayerIndex++;
@@ -151,7 +149,7 @@ public class PlayerObject {
 			// Create a new stage for the new scene
 			Stage stage = new Stage();
 			stage.setScene(new Scene(root));
-			stage.setTitle("Players Info");
+			stage.setTitle("LETS PLAY - easy level !!");
 
 			// Optional: if you want to block interaction with other windows
 			stage.initModality(Modality.APPLICATION_MODAL);

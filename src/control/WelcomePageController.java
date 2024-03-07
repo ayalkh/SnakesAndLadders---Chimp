@@ -39,15 +39,16 @@ public class WelcomePageController {
 		start.setOnMouseEntered(event -> start.setOpacity(0.8));
 		start.setOnMouseExited(event -> start.setOpacity(1.5));
 		// Set opacity effects for 'viewQuestionImage'
-				viewQuestionImage.setOnMouseEntered(event -> viewQuestionImage.setOpacity(0.8));
-				viewQuestionImage.setOnMouseExited(event -> viewQuestionImage.setOpacity(1.5));
+		viewQuestionImage.setOnMouseEntered(event -> viewQuestionImage.setOpacity(0.8));
+		viewQuestionImage.setOnMouseExited(event -> viewQuestionImage.setOpacity(1.5));
 
-				instructions.setOnMouseEntered(event -> instructions.setOpacity(0.8));
-				instructions.setOnMouseExited(event -> instructions.setOpacity(1.5));
+		instructions.setOnMouseEntered(event -> instructions.setOpacity(0.8));
+		instructions.setOnMouseExited(event -> instructions.setOpacity(1.5));
 
-				historyButton.setOnMouseEntered(event -> historyButton.setOpacity(0.8));
-				historyButton.setOnMouseExited(event -> historyButton.setOpacity(1.5));
-			}
+		historyButton.setOnMouseEntered(event -> historyButton.setOpacity(0.8));
+		historyButton.setOnMouseExited(event -> historyButton.setOpacity(1.5));
+	}
+
 	@FXML
 	private void handleViewQuestionImageClick(MouseEvent event) {
 		try {
@@ -56,6 +57,7 @@ public class WelcomePageController {
 
 			Stage newStage = new Stage();
 			newStage.setScene(new Scene(questionsListView));
+			newStage.setTitle("Manager LOG IN ");
 			newStage.show();
 
 			// Close the current stage
@@ -75,6 +77,7 @@ public class WelcomePageController {
 			Stage newStage = new Stage();
 			newStage.setScene(new Scene(players));
 			newStage.show();
+			newStage.setTitle("Number Of Players ");
 
 			// Close the current stage
 			Stage currentStage = (Stage) start.getScene().getWindow();
@@ -94,7 +97,7 @@ public class WelcomePageController {
 			// Create a new stage for the new scene
 			Stage stage = new Stage();
 			stage.setScene(new Scene(root));
-			stage.setTitle("Players Info");
+			stage.setTitle("INSTRUCTIONS");
 
 			// Optional: if you want to block interaction with other windows
 			stage.initModality(Modality.APPLICATION_MODAL);
@@ -106,6 +109,7 @@ public class WelcomePageController {
 		}
 
 	}
+
 	@FXML
 	void openHistoryWhenButtonClicked(MouseEvent event) {
 
@@ -116,6 +120,7 @@ public class WelcomePageController {
 			Stage newStage = new Stage();
 			newStage.setScene(new Scene(players));
 			newStage.show();
+			newStage.setTitle("History Board");
 
 			// Close the current stage
 			Stage currentStage = (Stage) start.getScene().getWindow();

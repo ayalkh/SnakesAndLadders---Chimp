@@ -7,14 +7,14 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="906.0" stylesheets="@boardButtons.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.GameBoardEasyController">                      
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="590.0" prefWidth="906.0" stylesheets="@boardButtons.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.GameBoardEasyController">                      
    <children>
-      <ImageView fitHeight="634.0" fitWidth="829.0" layoutX="14.0" layoutY="11.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="608.0" fitWidth="1031.0" layoutX="-99.0" layoutY="-1.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/image7.png" />
          </image>
       </ImageView>
-      <HBox layoutX="313.0" layoutY="383.0" prefHeight="45.0" prefWidth="315.0">
+      <HBox layoutX="293.0" layoutY="385.0" prefHeight="45.0" prefWidth="315.0">
          <children>
             <Button fx:id="i0j0" alignment="BOTTOM_LEFT" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="1" textOverrun="CLIP">
                <font>
@@ -29,7 +29,7 @@
             <Button fx:id="i0j6" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="7" />
          </children>
       </HBox>
-      <HBox layoutX="313.0" layoutY="337.0" prefHeight="45.0" prefWidth="315.0">
+      <HBox layoutX="293.0" layoutY="339.0" prefHeight="45.0" prefWidth="315.0">
          <children>
             <Button fx:id="i1j0" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="14" />
             <Button fx:id="i1j1" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="13" />
@@ -40,7 +40,7 @@
             <Button fx:id="i1j6" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="8" />
          </children>
       </HBox>
-      <HBox layoutX="313.0" layoutY="292.0" prefHeight="45.0" prefWidth="315.0">
+      <HBox layoutX="293.0" layoutY="294.0" prefHeight="45.0" prefWidth="315.0">
          <children>
             <Button fx:id="i2j0" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="15" />
             <Button fx:id="i2j1" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="16" />
@@ -51,7 +51,7 @@
             <Button fx:id="i2j6" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="21" />
          </children>
       </HBox>
-      <HBox layoutX="313.0" layoutY="247.0" prefHeight="45.0" prefWidth="315.0">
+      <HBox layoutX="293.0" layoutY="249.0" prefHeight="45.0" prefWidth="315.0">
          <children>
             <Button fx:id="i3j0" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="28" />
             <Button fx:id="i3j1" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="27" />
@@ -62,7 +62,7 @@
             <Button fx:id="i3j6" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="22" />
          </children>
       </HBox>
-      <HBox layoutX="313.0" layoutY="202.0" prefHeight="45.0" prefWidth="315.0">
+      <HBox layoutX="293.0" layoutY="204.0" prefHeight="45.0" prefWidth="315.0">
          <children>
             <Button fx:id="i4j0" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="29" />
             <Button fx:id="i4j1" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="30" />
@@ -73,7 +73,7 @@
             <Button fx:id="i4j6" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="35" />
          </children>
       </HBox>
-      <HBox layoutX="313.0" layoutY="157.0" prefHeight="45.0" prefWidth="315.0">
+      <HBox layoutX="293.0" layoutY="159.0" prefHeight="45.0" prefWidth="315.0">
          <children>
             <Button fx:id="i5j0" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="42" />
             <Button fx:id="i5j1" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="41" />
@@ -84,7 +84,7 @@
             <Button fx:id="i5j6" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="36" />
          </children>
       </HBox>
-      <HBox layoutX="313.0" layoutY="112.0" prefHeight="45.0" prefWidth="315.0">
+      <HBox layoutX="293.0" layoutY="114.0" prefHeight="45.0" prefWidth="315.0">
          <children>
             <Button fx:id="i6j0" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="43" />
             <Button fx:id="i6j1" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="44" />
@@ -95,7 +95,7 @@
             <Button fx:id="i6j6" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="49" />
          </children>
       </HBox>
-      <AnchorPane fx:id="Overlay" layoutX="315.0" layoutY="116.0" prefHeight="315.0" prefWidth="315.0" />
+      <AnchorPane fx:id="Overlay" layoutX="295.0" layoutY="118.0" prefHeight="315.0" prefWidth="315.0" />
       <Button fx:id="diceButton" layoutX="43.0" layoutY="40.0" mnemonicParsing="false" onAction="#rollDiceAndMove" text="Button" />
       <ImageView fx:id="redObject" fitHeight="20.0" fitWidth="20.0" layoutX="297.0" layoutY="428.0" pickOnBounds="true" preserveRatio="true">
          <image>

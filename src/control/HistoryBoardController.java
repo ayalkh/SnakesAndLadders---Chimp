@@ -19,7 +19,9 @@ public class HistoryBoardController {
 
 	@FXML
 	private URL location;
-	
+	@FXML
+	private ImageView backButton;
+
 	@FXML
 	private ImageView homeButton1;
 
@@ -31,6 +33,7 @@ public class HistoryBoardController {
 			Parent x = loader.load();
 
 			Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+			stage.setTitle("SNAKES & LADDERS GAME");
 			stage.setScene(new Scene(x));
 			stage.close();
 
@@ -49,6 +52,10 @@ public class HistoryBoardController {
 		// Set opacity effects for 'start'
 		homeButton1.setOnMouseEntered(event -> homeButton1.setOpacity(0.8));
 		homeButton1.setOnMouseExited(event -> homeButton1.setOpacity(1.5));
+		
+		backButton.setCursor(Cursor.HAND);
+		backButton.setOnMouseEntered(event -> backButton.setOpacity(0.8));
+		backButton.setOnMouseExited(event -> backButton.setOpacity(1.5));
 	}
 
 }

@@ -14,10 +14,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import model.EasyGame;
-import model.GameSession;
 
 public class NumberOfPlayersController {
-    private EasyGame easyGame;
+	private EasyGame easyGame;
 
 	@FXML
 	private ResourceBundle resources;
@@ -43,6 +42,9 @@ public class NumberOfPlayersController {
 	private ImageView homeButton;
 
 	@FXML
+	private ImageView backButton;
+
+	@FXML
 	void whenClickButtonHome(MouseEvent event) {
 		try {
 
@@ -50,6 +52,7 @@ public class NumberOfPlayersController {
 			Parent x = loader.load();
 
 			Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+			stage.setTitle("SNAKES & LADDERS GAME");
 			stage.setScene(new Scene(x));
 			stage.show();
 		} catch (Exception e) {
@@ -58,12 +61,11 @@ public class NumberOfPlayersController {
 	}
 
 	int number;
-	
 
 	@FXML
 	void choose2(MouseEvent event) {
 		this.number = 2;
-		
+
 		loadPlayersInfoView(event);
 
 	}
@@ -72,14 +74,14 @@ public class NumberOfPlayersController {
 	void choose3(MouseEvent event) {
 
 		this.number = 3;
-		
+
 		loadPlayersInfoView(event);
 	}
 
 	@FXML
 	void choose4(MouseEvent event) {
 		this.number = 4;
-		
+
 		loadPlayersInfoView(event);
 
 	}
@@ -87,25 +89,30 @@ public class NumberOfPlayersController {
 	@FXML
 	void choose5(MouseEvent event) {
 		this.number = 5;
-		
+
 		loadPlayersInfoView(event);
 	}
 
 	@FXML
 	void choose6(MouseEvent event) {
 		this.number = 6;
-		
+
 		loadPlayersInfoView(event);
 
 	}
 
 	@FXML
 	void initialize() {
-        easyGame = EasyGame.getInstance();
+		easyGame = EasyGame.getInstance();
 
 		homeButton.setCursor(Cursor.HAND);
 		homeButton.setOnMouseEntered(event -> homeButton.setOpacity(0.8));
 		homeButton.setOnMouseExited(event -> homeButton.setOpacity(1.5));
+
+		backButton.setCursor(Cursor.HAND);
+		backButton.setOnMouseEntered(event -> backButton.setOpacity(0.8));
+		backButton.setOnMouseExited(event -> backButton.setOpacity(1.5));
+
 		assert group1 != null : "fx:id=\"group1\" was not injected: check your FXML file 'NumberOfPlayers.fxml'.";
 		assert group2 != null : "fx:id=\"group2\" was not injected: check your FXML file 'NumberOfPlayers.fxml'.";
 		assert group3 != null : "fx:id=\"group3\" was not injected: check your FXML file 'NumberOfPlayers.fxml'.";
@@ -136,7 +143,7 @@ public class NumberOfPlayersController {
 			easyGame.setNumberofplayers(number);
 
 			Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
+			stage.setTitle("Players Info");
 			// Set the scene with specified width and height
 			Scene scene = new Scene(x, 505, 489);
 

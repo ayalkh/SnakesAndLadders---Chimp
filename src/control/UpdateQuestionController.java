@@ -103,7 +103,7 @@ public class UpdateQuestionController {
 					Stage newStage = new Stage();
 					newStage.setScene(new Scene(players));
 					newStage.show();
-
+					newStage.setTitle("Questions List ");
 					// Close the current stage
 					Stage currentStage = (Stage) home.getScene().getWindow();
 					currentStage.close();
@@ -153,7 +153,7 @@ public class UpdateQuestionController {
 
 			Stage stage = (Stage) back.getScene().getWindow();
 			stage.setScene(scene);
-			stage.setTitle("Home Page");
+			stage.setTitle("Questions List ");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -169,7 +169,7 @@ public class UpdateQuestionController {
 
 			Stage stage = (Stage) back.getScene().getWindow();
 			stage.setScene(scene);
-			stage.setTitle("Home Page");
+			stage.setTitle("SNAKES & LADDERS GAME !!");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

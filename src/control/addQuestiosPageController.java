@@ -111,6 +111,7 @@ public class addQuestiosPageController {
 					Parent players = loader.load();
 
 					Stage newStage = new Stage();
+					newStage.setTitle("Questions List ");
 					newStage.setScene(new Scene(players));
 					newStage.show();
 
@@ -152,6 +153,7 @@ public class addQuestiosPageController {
 			Parent players = loader.load();
 
 			Stage newStage = new Stage();
+			newStage.setTitle("Questions List ");
 			newStage.setScene(new Scene(players));
 			newStage.show();
 
@@ -202,7 +204,7 @@ public class addQuestiosPageController {
 	@FXML
 	void handleHomeButton(MouseEvent event) {
 
-		navigateTo("/view/WelcomePage.fxml", "Welcome Page");
+		navigateTo("/view/WelcomePage.fxml", "SNAKES & LADDERS GAME");
 
 	}
 

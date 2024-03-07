@@ -151,7 +151,7 @@ public class ViewQuestionDetailsController {
 			// Reuse the existing stage
 			Stage stage = (Stage) back.getScene().getWindow();
 			stage.setScene(new Scene(root));
-			stage.setTitle("Questions List");
+			stage.setTitle("SNAKES & LADDERS GAME !!");
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.out.println("Error loading QuestionsList.fxml: " + e.getMessage());
@@ -241,7 +241,7 @@ public class ViewQuestionDetailsController {
 						Stage newStage = new Stage();
 						newStage.setScene(new Scene(players));
 						newStage.show();
-
+						newStage.setTitle("Questions List");
 						// Close the current stage
 						Stage currentStage = (Stage) deleteButton.getScene().getWindow();
 						currentStage.close();
