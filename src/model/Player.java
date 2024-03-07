@@ -76,4 +76,9 @@ public class Player {
 		this.object = object;
 	}
 
+//	public void setPositionAfterClimbing(int newPosition) {
+//		this.position = newPosition;
+//
+//	}
+
 }
