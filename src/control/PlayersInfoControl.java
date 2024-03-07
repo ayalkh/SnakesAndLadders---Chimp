@@ -31,7 +31,7 @@ import model.GameSession;
 import model.Player;
 
 public class PlayersInfoControl {
-    private EasyGame easyGame;
+	private EasyGame easyGame;
 
 	@FXML
 	private ResourceBundle resources;
@@ -42,6 +42,8 @@ public class PlayersInfoControl {
 	@FXML
 	private ComboBox<String> comboBox;
 
+	@FXML
+	private ImageView backButton;
 	@FXML
 	private TextField text1, text2, text3, text4, text5, text6;
 	@FXML
@@ -84,6 +86,7 @@ public class PlayersInfoControl {
 			Parent x = loader.load();
 
 			Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+			stage.setTitle("SNAKES & LADDERS GAME");
 			stage.setScene(new Scene(x));
 			stage.show();
 		} catch (Exception e) {
@@ -93,7 +96,7 @@ public class PlayersInfoControl {
 
 	@FXML
 	void initialize() {
-        easyGame = EasyGame.getInstance();
+		easyGame = EasyGame.getInstance();
 
 		comboBox.setItems(FXCollections.observableArrayList("easy", "medium", "hard"));
 		comboBox.valueProperty().addListener(new ChangeListener<String>() {
@@ -113,6 +116,10 @@ public class PlayersInfoControl {
 		startLabel.setCursor(Cursor.HAND);
 		startLabel.setOnMouseEntered(event -> startLabel.setOpacity(0.8));
 		startLabel.setOnMouseExited(event -> startLabel.setOpacity(1.5));
+
+		backButton.setCursor(Cursor.HAND);
+		backButton.setOnMouseEntered(event -> backButton.setOpacity(0.8));
+		backButton.setOnMouseExited(event -> backButton.setOpacity(1.5));
 		// Initialize visibility of text fields
 		updateTextFieldsVisibility();
 
@@ -208,12 +215,31 @@ public class PlayersInfoControl {
 			PlayerObject controller = loader.getController();
 
 			Stage stage = new Stage();
+			stage.setTitle("Choose player's objects ");
 			stage.setScene(new Scene(root));
 			stage.show();
 
 			// Close the current window
 			((Stage) startButton.getScene().getWindow()).close();
 			((Stage) startLabel.getScene().getWindow()).close();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@FXML
+	void handleBackButton(MouseEvent event) {
+		try {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/popUpMessages/NumberOfPlayers.fxml"));
+			Parent root = loader.load();
+
+			Stage stage = new Stage();
+			stage.setTitle("Choose Number Of Players  ");
+			stage.setScene(new Scene(root));
+			stage.show();
+			// Close the current window
+			((Stage) startButton.getScene().getWindow()).close();
 
 		} catch (IOException e) {
 			e.printStackTrace();
