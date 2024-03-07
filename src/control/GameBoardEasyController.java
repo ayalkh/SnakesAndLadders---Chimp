@@ -1,28 +1,40 @@
 package control;
 
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import model.Dice;
 import model.EasyGame;
 import model.GameLevel;
 import model.GameSession;
 import model.Ladder;
 import model.Player;
+import model.Question;
 import model.QuestionTile;
 import model.Snake;
 
 public class GameBoardEasyController {
 	private EasyGame easyGame; // The game logic
-
+	private ArrayList<Question> questions;
 	private Player currentplayer; // Moved inside the class, not at declaration
 
 	@FXML
@@ -42,6 +54,9 @@ public class GameBoardEasyController {
 	private ImageView object1;
 	@FXML
 	private Button diceButton;
+	private Random random = new Random();
+	
+
 
 	private final double TILE_WIDTH = 45.0; // Set the width of your tiles here
 	private final double TILE_HEIGHT = 45.0; // Set the height of your tiles here
@@ -70,18 +85,19 @@ public class GameBoardEasyController {
 	private Button i0j0, i0j1, i0j2, i0j3, i0j4, i0j5, i0j6, i1j0, i1j1, i1j2, i1j3, i1j4, i1j5, i1j6, i2j0, i2j1, i2j2,
 			i2j3, i2j4, i2j5, i2j6, i3j0, i3j1, i3j2, i3j3, i3j4, i3j5, i3j6, i4j0, i4j1, i4j2, i4j3, i4j4, i4j5, i4j6,
 			i5j0, i5j1, i5j2, i5j3, i5j4, i5j5, i5j6, i6j0, i6j1, i6j2, i6j3, i6j4, i6j5, i6j6;
-
-	public void initialize() {
+public void initialize() {
 		easyGame = EasyGame.getInstance();
 		currentplayer = easyGame.getGameplayers().get(0); // Now it's safe to initialize.
 		Overlay.getChildren().clear(); // Clear any existing images
-
 		initializeBoard();
 		updateBoardWithSnakes();
 		updateBoardWithLadders();
-		// updateBoardWithQuestionTiles();
-	}
+		loadquestions();
+	    updateBoardWithQuestionTiles();
 
+
+	
+	}
 	private void initializeBoard() {
 		buttonMatrix = new Button[][] { { i0j0, i0j1, i0j2, i0j3, i0j4, i0j5, i0j6 },
 				{ i1j0, i1j1, i1j2, i1j3, i1j4, i1j5, i1j6 }, { i2j0, i2j1, i2j2, i2j3, i2j4, i2j5, i2j6 },
@@ -243,6 +259,82 @@ public class GameBoardEasyController {
 		}
 		updatePlayerPositionVisuals(newPosition);
 
+	        
+	        System.out.println(currentplayer.getName() + " climbed a ladder to position: " + newPosition);
+	    }
+
+	    // Check for snake at the new position
+	    Snake snake = easyGame.getSnakesMap().get(newPosition);
+	    if (snake != null) {
+	        newPosition = snake.getEndPosition();
+	        System.out.println(currentplayer.getName() + " got bitten by a snake, moved to position: " + newPosition);
+	    }
+
+	    // Check for question tile at the new position
+for(QuestionTile QT : easyGame.getQuestions()) {//check if the player stepped is on a question tile//
+        	
+        	if(newPosition==QT.getPosition()) {
+        		System.out.println("pop question");
+        		boolean check=false;
+        		
+        	while(check!=true) {
+        	   System.out.println(questions.size() + "size");
+        	   int index=random.nextInt(questions.size());
+        		 Question question=questions.get(index);
+        		 System.out.println(question);
+        		if(question != null && question.getLevel()==QT.getLevel()) {
+        			
+        			try {
+                        // Load the Question pop FXML file
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Questionpop.fxml"));
+                        Parent root = loader.load();
+                        // Get the controller and set the question
+                        QuestionpopController popcontrol = loader.getController();
+                        popcontrol.setQuestion(question);          
+                        Stage stage = new Stage();
+                        stage.setScene(new Scene(root));
+                        stage.initModality(Modality.APPLICATION_MODAL);
+                        stage.showAndWait();
+if(!popcontrol.isCorrect()) {
+	if(question.getLevel()==1) {
+		newPosition-=1;}
+	if(question.getLevel()==2) {
+		newPosition-=2;
+	}
+	if(question.getLevel()==3) {
+		newPosition-=3;
+	}
+	
+}
+else {
+	if(question.getLevel()==3) {
+		newPosition+=1;
+	}
+}
+        		
+          
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        System.out.println("Error opening question pops: " + e.getMessage());
+                    }
+        		check=true;
+        	}
+        		
+        
+        }}}
+	    
+
+	    // Update the player's logical position
+	    currentplayer.setPosition(newPosition);
+
+	    // Update the visual position of the player
+	    updatePlayerPositionVisuals(newPosition);
+
+	    // Check for win condition
+	    if (newPosition >= easyGame.getSize() * easyGame.getSize()) {
+	        // Handle winning condition (end game, display message, etc.)
+	        System.out.println(currentplayer.getName() + " wins the game!");
+	    }
 	}
 
 	private void updatePlayerPositionVisuals(int newPosition) {
@@ -379,5 +471,32 @@ public class GameBoardEasyController {
 			// Add the ImageView to the overlay
 			Overlay.getChildren().add(questiotileImageView);
 		}
+	}
+	private void loadquestions() {
+		questions = new ArrayList<>();
+	    JSONParser parser = new JSONParser();
+
+	    try (FileReader reader = new FileReader("Questions.json")) {
+	        JSONObject jsonObject = (JSONObject) parser.parse(reader);
+	        JSONArray jsonQuestions = (JSONArray) jsonObject.get("questions");
+
+	        for (Object o : jsonQuestions) {
+	            JSONObject jsonQuestion = (JSONObject) o;
+	            Question question = new Question(jsonQuestion);
+	            
+	            
+	            
+	            questions.add(question);
+	            
+	        }
+	        if (questions == null) {
+	            System.err.println("Error: Unable to load questions from JSON file");
+	            // Handle the error gracefully, e.g., by providing default questions or displaying an error message to the user
+	        } else {
+	            System.out.println("Successfully loaded " + questions.size() + " questions");
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 	}
 }
