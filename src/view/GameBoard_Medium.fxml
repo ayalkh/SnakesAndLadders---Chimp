@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1200.0" styleClass="MeduimBoard.css" stylesheets="@MeduimBoard.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="root1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1200.0" styleClass="MeduimBoard.css" stylesheets="@MeduimBoard.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.GameBoardMediumController">
    <children>
-      <ImageView fitHeight="962.0" fitWidth="1029.0" layoutX="72.0" layoutY="76.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="-38.0" AnchorPane.leftAnchor="72.0" AnchorPane.rightAnchor="99.0" AnchorPane.topAnchor="76.0">
+      <ImageView fitHeight="926.0" fitWidth="1096.0" layoutX="134.0" layoutY="49.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="134.0" AnchorPane.rightAnchor="37.111083984375" AnchorPane.topAnchor="49.0">
          <image>
             <Image url="@../images/MediumBackGround.png" />
          </image>
@@ -162,7 +162,7 @@
             <Button fx:id="i9j9" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="91" />
          </children>
       </HBox>
-      <AnchorPane fx:id="Overlay1" layoutX="-283.0" layoutY="456.0" prefHeight="315.0" prefWidth="315.0" />
+      <AnchorPane fx:id="Overlay1" layoutX="285.0" layoutY="215.0" prefHeight="600.0" prefWidth="600.0" />
       <ImageView fx:id="redObject1" fitHeight="20.0" fitWidth="20.0" layoutX="265.0" layoutY="782.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/chessRed.png" />
@@ -193,5 +193,41 @@
             <Image url="@../images/chessPurple.png" />
          </image>
       </ImageView>
+      <ImageView fx:id="blueAvatar" fitHeight="100.0" fitWidth="100.0" layoutX="179.0" layoutY="270.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/lueAvatar-removebg-preview.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="yellowAvatar" fitHeight="100.0" fitWidth="100.0" layoutX="179.0" layoutY="370.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/yelloAvatar-removebg-preview.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="greenAvatar" fitHeight="100.0" fitWidth="100.0" layoutX="175.0" layoutY="552.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/greenAvatar-removebg-preview.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="purpleAvatar" fitHeight="100.0" fitWidth="100.0" layoutX="175.0" layoutY="652.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/purpleAvatar-removebg-preview.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="greyAvatar" fitHeight="100.0" fitWidth="100.0" layoutX="179.0" layoutY="462.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/grey-removebg-preview.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="redAvatar" fitHeight="130.0" fitWidth="130.0" layoutX="164.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/redAvatar-removebg-preview.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="86.0" fitWidth="102.0" layoutX="542.0" layoutY="832.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/dice4.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="diceButton" layoutX="648.0" layoutY="858.0" mnemonicParsing="false" onAction="#rollDiceAndMove" prefHeight="31.0" prefWidth="147.0" styleClass="Roll-button" text="ROLL DICE" />
    </children>
 </AnchorPane>
