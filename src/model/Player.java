@@ -17,7 +17,7 @@ public class Player {
 	}
 
 	public void setPosition(int roll) {
-		this.position += roll;
+		this.position = roll;
 	}
 
 	public void setPositionAfterClimbing(int stairs) {
