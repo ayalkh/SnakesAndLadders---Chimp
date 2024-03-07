@@ -31,7 +31,7 @@ public class Dice {
 
 	public int rollDice() {
 		if (this.gameLevel.equals(GameLevel.EASY)) {
-			currentRollResult = random.nextInt(4) + 1;
+			currentRollResult = random.nextInt(8) + 1;
 		} else if (this.gameLevel.equals(GameLevel.MEDIUM)) {
 			currentRollResult = random.nextInt(4) + 1;
 

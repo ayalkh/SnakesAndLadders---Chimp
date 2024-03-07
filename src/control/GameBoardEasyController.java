@@ -4,6 +4,7 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -204,9 +205,19 @@ public class GameBoardEasyController {
 		// Roll the dice to get a number between 1 and 4
 		Dice result = new Dice(GameLevel.EASY);
 		int diceRoll = result.rollDice();
-
+if(diceRoll>4 && diceRoll<7) {
+	System.out.println("DICERESULT:" +diceRoll);
+	handleQuestionTileEvent(1);
+}
+if(diceRoll>5 && diceRoll<9) {
+	System.out.println("DICERESULT:" +diceRoll);
+	handleQuestionTileEvent(2);
+}
+else {
 		// Move the player
+	System.out.println("DICERESULT:" +diceRoll);
 		movePlayer(diceRoll);
+}
 
 		// Switch turn to the next player
 		currentplayer = easyGame.getGameplayers()
@@ -218,6 +229,9 @@ public class GameBoardEasyController {
 		System.out.println(currentplayer.getName() + " got : " + diceRoll + " steps ");
 		System.out.println(currentplayer.getName() + " previous position is : " + currentplayer.getPosition());
 		int newPosition = currentplayer.getPosition() + diceRoll;
+		if(newPosition<1) {
+			newPosition=1;
+		}
 		currentplayer.setPosition(diceRoll);
 		System.out.println(currentplayer.getName() + " current position is : " + currentplayer.getPosition());
 
@@ -261,53 +275,8 @@ public class GameBoardEasyController {
 
 			if (newPosition == QT.getPosition()) {
 				System.out.println("pop question");
-				boolean check = false;
-
-				while (check != true) {
-					System.out.println(questions.size() + "size");
-					int index = random.nextInt(questions.size());
-					Question question = questions.get(index);
-					System.out.println(question);
-					if (question != null && question.getLevel() == QT.getLevel()) {
-
-						try {
-							// Load the Question pop FXML file
-							FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Questionpop.fxml"));
-							Parent root = loader.load();
-							// Get the controller and set the question
-							QuestionpopController popcontrol = loader.getController();
-							popcontrol.setQuestion(question);
-							Stage stage = new Stage();
-							stage.setScene(new Scene(root));
-							stage.initModality(Modality.APPLICATION_MODAL);
-							stage.showAndWait();
-							if (!popcontrol.isCorrect()) {
-								if (question.getLevel() == 1) {
-									newPosition -= 1;
-								}
-								if (question.getLevel() == 2) {
-									newPosition -= 2;
-								}
-								if (question.getLevel() == 3) {
-									newPosition -= 3;
-								}
-
-							} else {
-								if (question.getLevel() == 3) {
-									newPosition += 1;
-								}
-							}
-
-						} catch (Exception e) {
-							e.printStackTrace();
-							System.out.println("Error opening question pops: " + e.getMessage());
-						}
-						check = true;
-					}
-
-				}
-			}
-		}
+				handleQuestionTileEvent(QT.getLevel());
+			}}
 		updatePlayerPositionVisuals(newPosition);
 
 	}
@@ -368,11 +337,56 @@ public class GameBoardEasyController {
 		}
 	}
 
-	private void handleQuestionTileEvent(QuestionTile qt) {
+	private void handleQuestionTileEvent(int level) {
 		// Logic to display the question to the player and handle their response
 		// This could involve showing a dialog, checking the answer, and applying any
 		// game effects
-	}
+		List<Question> QTlevelQuestions = questions.stream()
+                .filter(question -> question.getLevel() == level)
+                .collect(Collectors.toList());
+ 	   int index=random.nextInt(QTlevelQuestions.size());
+ 		 Question question=QTlevelQuestions.get(index);
+ 		 System.out.println(question);
+ 		if(question != null && question.getLevel()==level) {
+ 			
+ 			try {
+                 // Load the Question pop FXML file
+                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Questionpop.fxml"));
+                 Parent root = loader.load();
+                 // Get the controller and set the question
+                 QuestionpopController popcontrol = loader.getController();
+                 popcontrol.setQuestion(question);          
+                 Stage stage = new Stage();
+                 stage.setScene(new Scene(root));
+                 stage.initModality(Modality.APPLICATION_MODAL);
+                 stage.showAndWait();
+if(!popcontrol.isCorrect()) {
+if(question.getLevel()==1) {
+	movePlayer(-1);}
+if(question.getLevel()==2) {
+	movePlayer(-2);
+}
+if(question.getLevel()==3) {
+	movePlayer(-3);
+}
+
+}
+else {
+if(question.getLevel()==3) {
+	movePlayer(1);
+}
+}
+ 		
+   
+             } catch (Exception e) {
+                 e.printStackTrace();
+                 System.out.println("Error opening question pops: " + e.getMessage());
+             }
+ 	
+ 		
+ 
+ }}
+
 
 	public void setSelectedColors(List<String> colors) {
 		// Initialize all objects to be invisible
