@@ -16,8 +16,12 @@ public class Player {
 		this.color = color;
 	}
 
-	public void setPosition(int position) {
-		this.position += position;
+	public void setPosition(int roll) {
+		this.position += roll;
+	}
+
+	public void setPositionAfterClimbing(int stairs) {
+		this.position = stairs;
 	}
 
 	public Player() {
