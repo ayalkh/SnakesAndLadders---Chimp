@@ -205,14 +205,11 @@ public class GameBoardEasyController {
 		// Roll the dice to get a number between 1 and 4
 		Dice result = new Dice(GameLevel.EASY);
 		int diceRoll = result.rollDice();
-if(diceRoll>4 && diceRoll<7) {
+if(diceRoll>4) {
 	System.out.println("DICERESULT:" +diceRoll);
-	handleQuestionTileEvent(1);
+	handleQuestionTileEvent(random.nextInt(3)+1);
 }
-if(diceRoll>5 && diceRoll<9) {
-	System.out.println("DICERESULT:" +diceRoll);
-	handleQuestionTileEvent(2);
-}
+
 else {
 		// Move the player
 	System.out.println("DICERESULT:" +diceRoll);
