@@ -11,7 +11,10 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -19,6 +22,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import model.Dice;
 import model.EasyGame;
 import model.GameLevel;
@@ -350,6 +355,7 @@ else {
 		List<Question> QTlevelQuestions = questions.stream()
                 .filter(question -> question.getLevel() == level)
                 .collect(Collectors.toList());
+		System.out.println("the numbr of the question that is picked by next random "+ QTlevelQuestions.size());
  	   int index=random.nextInt(QTlevelQuestions.size());
  		 Question question=QTlevelQuestions.get(index);
  		 System.out.println(question);
