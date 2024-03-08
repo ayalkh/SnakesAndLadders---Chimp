@@ -96,7 +96,7 @@ public class PlayersInfoControl {
 
 	@FXML
 	void initialize() {
-	
+		playerObjectInstance=new PlayerObject();
 		comboBox.setItems(FXCollections.observableArrayList("easy", "medium", "hard"));
 		comboBox.valueProperty().addListener(new ChangeListener<String>() {
 			@Override
@@ -177,9 +177,10 @@ public class PlayersInfoControl {
 					textField.setText("");
 					return;
 				}
-
+				
 				playerNames.add(playerName);
 			}
+
 		}
 
 		// Check if all required fields are filled and level is selected
@@ -188,6 +189,9 @@ public class PlayersInfoControl {
 					: "Please select a difficulty level.";
 			showAlert("Missing Information", alertMessage);
 		} else {
+			 // Add players to the game session
+
+			
 			 switch (comboBoxValue.toLowerCase()) {
 	            case "easy":
 	                easyGame = EasyGame.getInstance();
@@ -207,14 +211,15 @@ public class PlayersInfoControl {
 	                showAlert("Invalid Difficulty", "The selected difficulty level is not valid.");
 	                return;
 	        }
-			 // Add players to the game session
 		        for (int i = 0; i < numberOfPlayers; i++) {
 		            Player player = new Player();
 		            player.setName(playerNames.get(i));
+		            easyGame.getGameplayers().add(player);
 		            // Assuming a method to add players to your game session, like easyGame.addPlayer(player);
 		            // You need to adjust this part to work with your specific game session class
 		        }
 
+		        loadPlayerObjectView();
 		    }
 	}
 
@@ -245,9 +250,7 @@ public class PlayersInfoControl {
 			PlayerObject controller = loader.getController();
 	        controller.setComboBoxValue(comboBox.getValue()); 
 	        
-	        playerObjectInstance=controller;
 
-	        playerObjectInstance.openNewWindow(navigationPath);
 
 			Stage stage = new Stage();
 			stage.setTitle("Choose player's objects ");

@@ -80,8 +80,11 @@ public class PlayerObject {
 		applyMouseEffects(yellow);
 		applyMouseEffects(purple);
 		applyMouseEffects(grey);
+		System.out.println("getGameplayers size :" + easyGame.getGameplayers());
 
 		for (Player player : easyGame.getGameplayers()) {
+			System.out.println("getGameplayers size :" + easyGame.getGameplayers());
+
 			playerNames.add(player.getName());
 
 		}
@@ -92,7 +95,7 @@ public class PlayerObject {
 		currentPlayerIndex++;
 
 	}
-
+	String navigationPath;
 	@FXML
 	private void handlePhotoClick(MouseEvent event) {
 	    ImageView clickedPhoto = (ImageView) event.getSource();
@@ -113,8 +116,9 @@ public class PlayerObject {
 	        // Check if all players have made their selections
 	        if (selectedImages.size() == easyGame.getNumberofplayers()) {
 	            // Determine navigation path based on difficulty level selected in ComboBox
-	            String navigationPath = determineNavigationPath(this.diffLevel);
-	            openNewWindow(navigationPath); // Ensure this method accepts a String parameter for the path
+	             navigationPath = determineNavigationPath(this.diffLevel);
+	             openNewWindow(navigationPath); // Ensure this method accepts a String parameter for the path
+
 	        }
 	    }
 	}
@@ -139,11 +143,11 @@ public class PlayerObject {
 	private String determineNavigationPath(String difficultyLevel) {
 	    switch (difficultyLevel.toLowerCase()) {
 	        case "easy":
-	            return "GameBoard-easy.fxml";
+	            return "/view/GameBoard-easy.fxml";
 	        case "medium":
-	            return "GameBoard_Medium.fxml";
+	            return "/view/GameBoard_Medium.fxml";
 	        case "hard":
-	            return "HardBoard.fxml";
+	            return "/view/HardBoard.fxml";
 	        default:
 	            return null; // Or handle default case
 	    }
@@ -156,11 +160,14 @@ public class PlayerObject {
 			playerNameLabel.setText(playerNames.get(currentPlayerIndex));
 		} else {
 			playerNameLabel.setText("All players have selected their colors.");
+
 		}
 	}
 
 	public void openNewWindow(String path) {
 	    try {
+	    	System.out.println("Opening new window with path: " + path);
+
 	        FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
 	        Parent root = loader.load();
 	        
