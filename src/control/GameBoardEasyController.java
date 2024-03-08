@@ -423,6 +423,10 @@ public class GameBoardEasyController {
 		// Filter questions by level
 		List<Question> levelQuestions = questions.stream().filter(question -> question.getLevel() == level)
 				.collect(Collectors.toList());
+		  if (levelQuestions.isEmpty()) {
+		        System.out.println("No questions available for level " + level);
+		        return;
+		    }
 		// Select a random question from the filtered list
 		Question selectedQuestion = levelQuestions.get(random.nextInt(levelQuestions.size()));
 		System.out.println(selectedQuestion);
@@ -444,16 +448,23 @@ public class GameBoardEasyController {
 
 			// React based on the player's answer
 			if (popControl.isCorrect()) {
-				// If the player answered correctly, you might want to reward them or simply
-				// move on
-				System.out.println(currentplayer.getName() + " answered correctly.");
+				   System.out.println(currentplayer.getName() + " answered correctly.");
+		            if (level == 3) { // If the question was hard and answered correctly
+		                movePlayer(1); // Move the player forward 1 tile
+		            }
 				// Optional: Implement any logic for correct answers (e.g., bonus points)
 			} else {
 				// If the player answered incorrectly, you might want to penalize them
 				System.out.println(currentplayer.getName() + " answered incorrectly.");
-				// Move the player back by 1 as a penalty for a wrong answer
-
-				movePlayer(-1); // Ensure this logic matches your game rules
+				  System.out.println(currentplayer.getName() + " answered incorrectly.");
+		            // Move the player back based on the difficulty of the question
+		            if (level == 1) { // Easy question
+		                movePlayer(-1); // Move back 1 tile
+		            } else if (level == 2) { // Medium question
+		                movePlayer(-2); // Move back 2 tiles
+		            } else if (level == 3) { // Hard question
+		                movePlayer(-3); // Move back 3 tiles
+		            }
 			}
 
 		} catch (Exception e) {
@@ -462,7 +473,7 @@ public class GameBoardEasyController {
 		}
 
 		// Regardless of the outcome, switch to the next player
-		// switchToNextPlayer();
+		switchToNextPlayer();
 	}
 
 	public void setSelectedColors(List<String> colors) {

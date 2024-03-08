@@ -181,7 +181,62 @@
       ],
       "team": "Chimp",
       "correctAnswer": 3
-    }
+    },
+    {
+  "questionID": 15,
+  "question": "Which design pattern is best suited for situations where an object should have only one instance throughout the application?",
+  "level": 3,
+  "answers": [
+    "Singleton Pattern",
+    "Factory Method Pattern",
+    "Abstract Factory Pattern",
+    "Builder Pattern"
+  ],
+  "team": "Chimp",
+  "correctAnswer": 1
+},
+{
+  "questionID": 16,
+  "question": "In software engineering, which type of diagram is used to represent the dynamic behavior of a system?",
+  "level": 3,
+  "answers": [
+    "Class Diagram",
+    "Use Case Diagram",
+    "Sequence Diagram",
+    "Activity Diagram"
+  ],
+  "team": "Chimp",
+  "correctAnswer": 3
+},
+   {
+  "questionID": 17,
+  "question": "What is the primary focus of DevOps?",
+  "level": 1,
+  "answers": [
+    "Enhancing security protocols",
+    "Increasing development speed",
+    "Improving collaboration between development and operations",
+    "Reducing the cost of infrastructure"
+  ],
+  "team": "Chimp",
+  "correctAnswer": 3
+},
+{
+  "questionID": 19,
+  "question": "What principle underlies the concept of 'fail fast' in software development?",
+  "level": 3,
+  "answers": [
+    "Delaying testing until the final stages",
+    "Catching and addressing errors in the early stages",
+    "Focusing exclusively on perfecting code before testing",
+    "Increasing time to market for new features"
+  ],
+  "team": "Chimp",
+  "correctAnswer": 2
+}
+
+    
+    
   ]
 }
 
