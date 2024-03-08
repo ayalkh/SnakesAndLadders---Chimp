@@ -94,7 +94,6 @@ public class GameBoardMediumController {
 	public void initialize() {
 		mediumGame = MediumGame.getInstance();
 		currentplayer = mediumGame.getGamePlayers().get(0); // Now it's safe to initialize.
-		Overlay.getChildren().clear(); // Clear any existing images
 		initializeBoard();
 		updateBoardWithSnakes();
 //		updateBoardWithLadders();
@@ -232,5 +231,10 @@ public class GameBoardMediumController {
 		}
 	}
 
+	private void switchToNextPlayer() {
+		currentplayer = mediumGame.getGamePlayers()
+				.get((mediumGame.getGamePlayers().indexOf(currentplayer) + 1) % mediumGame.getNumberOfPlayers());
+		System.out.println("Now it's " + currentplayer.getName() + "'s turn.");
+	}
 
 }

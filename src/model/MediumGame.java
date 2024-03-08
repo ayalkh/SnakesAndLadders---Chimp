@@ -22,7 +22,7 @@ public class MediumGame {
     
     public MediumGame() {
         this.board = new Tile[size][size];
-//        initializeBoard();
+   initializeBoard();
 //        placeSnakes();
 //        placeLadders();
 //        placeSpecialTiles();

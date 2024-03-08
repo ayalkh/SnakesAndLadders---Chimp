@@ -162,33 +162,33 @@
             <Button fx:id="i9j9" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="91" />
          </children>
       </HBox>
-      <AnchorPane fx:id="Overlay1" layoutX="310.0" layoutY="215.0" prefHeight="600.0" prefWidth="600.0" />
-      <ImageView fx:id="redObject1" fitHeight="20.0" fitWidth="20.0" layoutX="265.0" layoutY="782.0" pickOnBounds="true" preserveRatio="true">
+      <AnchorPane fx:id="Overlay" layoutX="310.0" layoutY="215.0" prefHeight="600.0" prefWidth="600.0" />
+      <ImageView fx:id="redObject" fitHeight="20.0" fitWidth="20.0" layoutX="265.0" layoutY="782.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/chessRed.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="yellowObject1" fitHeight="20.0" fitWidth="20.0" layoutX="229.0" layoutY="792.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="yellowObject" fitHeight="20.0" fitWidth="20.0" layoutX="229.0" layoutY="792.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/chessYellow.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="greenObject1" fitHeight="628.0" fitWidth="20.0" layoutX="245.0" layoutY="782.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="greenObject" fitHeight="628.0" fitWidth="20.0" layoutX="245.0" layoutY="782.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/chessGreen.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="blueObject1" fitHeight="20.0" fitWidth="20.0" layoutX="229.0" layoutY="762.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="blueObject" fitHeight="20.0" fitWidth="20.0" layoutX="229.0" layoutY="762.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/chessBlue.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="greyObject1" fitHeight="20.0" fitWidth="20.0" layoutX="265.0" layoutY="812.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="greyObject" fitHeight="20.0" fitWidth="20.0" layoutX="265.0" layoutY="812.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/chessGrey.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="purpleObject1" fitHeight="20.0" fitWidth="20.0" layoutX="255.0" layoutY="752.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="purpleObject" fitHeight="20.0" fitWidth="20.0" layoutX="255.0" layoutY="752.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/chessPurple.png" />
          </image>

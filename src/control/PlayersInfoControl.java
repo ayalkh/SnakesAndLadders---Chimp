@@ -28,10 +28,16 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import model.EasyGame;
 import model.GameSession;
+import model.HardGame;
+import model.MediumGame;
 import model.Player;
 
 public class PlayersInfoControl {
 	private EasyGame easyGame;
+	private MediumGame mediumGame;
+
+	private HardGame hardGame;
+
 
 	@FXML
 	private ResourceBundle resources;
@@ -196,29 +202,47 @@ public class PlayersInfoControl {
 	            case "easy":
 	                easyGame = EasyGame.getInstance();
 	                navigationPath = "/view/GameBoard-easy.fxml";
+	                for (int i = 0; i < numberOfPlayers; i++) {
+			            Player player = new Player();
+			            player.setName(playerNames.get(i));
+			            easyGame.getGameplayers().add(player);
+			            // Assuming a method to add players to your game session, like easyGame.addPlayer(player);
+			            // You need to adjust this part to work with your specific game session class
+			        }
 	                break;
 	            case "medium":
 	                // Assume MediumGame.getInstance() is similar to EasyGame.getInstance()
-	                // mediumGame = MediumGame.getInstance();
+	                mediumGame = MediumGame.getInstance();
 	                navigationPath = "/view/GameBoard_Medium.fxml";
+	                for (int i = 0; i < numberOfPlayers; i++) {
+			            Player player = new Player();
+			            player.setName(playerNames.get(i));
+			            mediumGame.getGamePlayers().add(player);
+			            // Assuming a method to add players to your game session, like easyGame.addPlayer(player);
+			            // You need to adjust this part to work with your specific game session class
+			        }
 	                break;
 	            case "hard":
 	                // Assume HardGame.getInstance() is similar to EasyGame.getInstance()
-	                // hardGame = HardGame.getInstance();
+	                 hardGame = HardGame.getInstance();
 	                navigationPath = "/view/HardBoard.fxml";
+	                for (int i = 0; i < numberOfPlayers; i++) {
+			            Player player = new Player();
+			            player.setName(playerNames.get(i));
+			            hardGame.getGamePlayers().add(player);
+			            // Assuming a method to add players to your game session, like easyGame.addPlayer(player);
+			            // You need to adjust this part to work with your specific game session class
+			        }
+
 	                break;
 	            default:
 	                showAlert("Invalid Difficulty", "The selected difficulty level is not valid.");
 	                return;
 	        }
-		        for (int i = 0; i < numberOfPlayers; i++) {
-		            Player player = new Player();
-		            player.setName(playerNames.get(i));
-		            easyGame.getGameplayers().add(player);
-		            // Assuming a method to add players to your game session, like easyGame.addPlayer(player);
-		            // You need to adjust this part to work with your specific game session class
-		        }
-
+			 
+		       
+		      
+		     
 		        loadPlayerObjectView();
 		    }
 	}
