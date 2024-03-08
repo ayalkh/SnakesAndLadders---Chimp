@@ -214,46 +214,69 @@ public class GameBoardEasyController {
 		}
 	}
 
+//	@FXML
+//	private void rollDiceAndMove() {
+//		// Roll the dice to get a number between 1 and 4
+//		Dice result = new Dice(GameLevel.EASY);
+//		int diceRoll = result.rollDice();
+//		if (diceRoll > 4) {
+//			System.out.println("DICERESULT:" + diceRoll);
+//			handleQuestionTileEvent(random.nextInt(2) + 1);
+//		}
+//
+//		else {
+//			// Move the player
+//			System.out.println("DICERESULT:" + diceRoll);
+//			movePlayer(diceRoll);
+//		}
+//
+//		// Switch turn to the next player
+//		currentplayer = easyGame.getGameplayers()
+//				.get((easyGame.getGameplayers().indexOf(currentplayer) + 1) % easyGame.getNumberofplayers());
+//	}
+
 	@FXML
 	private void rollDiceAndMove() {
-		// Roll the dice to get a number between 1 and 4
 		Dice result = new Dice(GameLevel.EASY);
 		int diceRoll = result.rollDice();
-if(diceRoll>4) {
-	System.out.println("DICERESULT:" +diceRoll);
-	handleQuestionTileEvent(random.nextInt(3)+1);
-}
+		System.out.println("DICERESULT:" + diceRoll);
+		if (diceRoll > 4) { // Assuming 5 requires handling a question tile event
+			handleQuestionTileEvent(random.nextInt(2) + 1);
+			switchToNextPlayer();
+			// Turn switching is handled within this method after
+			// showing the dialog and moving the player accordingly
+		} else {
+			movePlayer(diceRoll);
+			switchToNextPlayer(); // Move the switch turn logic here to ensure it always happens after a move
+		}
+	}
 
-else {
-		// Move the player
-	System.out.println("DICERESULT:" +diceRoll);
-		movePlayer(diceRoll);
-}
-
-		// Switch turn to the next player
+	private void switchToNextPlayer() {
 		currentplayer = easyGame.getGameplayers()
 				.get((easyGame.getGameplayers().indexOf(currentplayer) + 1) % easyGame.getNumberofplayers());
+		System.out.println("Now it's " + currentplayer.getName() + "'s turn.");
 	}
 
 	public void movePlayer(int diceRoll) {
+
 		System.out.println();
 		System.out.println(currentplayer.getName() + " got : " + diceRoll + " steps ");
 		System.out.println(currentplayer.getName() + " previous position is : " + currentplayer.getPosition());
 		int newPosition = currentplayer.getPosition() + diceRoll;
-		if(newPosition<1) {
-			newPosition=1;
-		}
-		currentplayer.setPosition(diceRoll);
-		System.out.println(currentplayer.getName() + " current position is : " + currentplayer.getPosition());
+		System.out.println("new Position before editing the playerPosition is : " + newPosition);
 
-		if (newPosition >= 49) {
-			// Handle winning condition (end game, display message, etc.)
-			Alerts.alertBox(Alert.AlertType.INFORMATION, "player won ", "player won", "player won");
+		// Correctly updating the position
+		if (newPosition < 1) {
+			newPosition = 0; // Ensure the position does not go below the starting point
 		}
+		if (newPosition > 49) {
+			newPosition = 49; // Assuming 49 is the winning tile
+		}
+		currentplayer.setPositionAfterClimbing(newPosition); // Update this line to set the newPosition
+		System.out.println(currentplayer.getName() + " current position is : " + currentplayer.getPosition());
 		// Check for ladder at the new position
 		Ladder ladder = easyGame.getLaddersMap().get(newPosition);
 		if (ladder != null) {
-
 			newPosition = ladder.getEndPosition();
 			System.out.println("player postition before climbing the ladder : " + currentplayer.getPosition());
 			currentplayer.setPositionAfterClimbing(newPosition);
@@ -272,9 +295,6 @@ else {
 			System.out.println("player postition before bitten by a snake : " + currentplayer.getPosition());
 			currentplayer.setPositionAfterClimbing(newPosition);
 			System.out.println("player postition after bitten by a snake : " + currentplayer.getPosition());
-			// System.out.println(currentplayer.getName() + " climbed a ladder to position:
-			// " + newPosition);
-			System.out.println(currentplayer.getName() + " got bitten by a snake, moved to position: " + newPosition);
 			if (newPosition >= 49) {
 				// Handle winning condition (end game, display message, etc.)
 				Alerts.alertBox(Alert.AlertType.INFORMATION, "player won ", "player won", "player won");
@@ -287,7 +307,10 @@ else {
 			if (newPosition == QT.getPosition()) {
 				System.out.println("pop question");
 				handleQuestionTileEvent(QT.getLevel());
-			}}
+				switchToNextPlayer();
+				rollDiceAndMove();
+			}
+		}
 		updatePlayerPositionVisuals(newPosition);
 
 	}
@@ -348,57 +371,99 @@ else {
 		}
 	}
 
+//	private void handleQuestionTileEvent(int level) {
+//		// Logic to display the question to the player and handle their response
+//		// This could involve showing a dialog, checking the answer, and applying any
+//		// game effects
+//		List<Question> QTlevelQuestions = questions.stream().filter(question -> question.getLevel() == level)
+//				.collect(Collectors.toList());
+//		int index = random.nextInt(QTlevelQuestions.size());
+//		Question question = QTlevelQuestions.get(index);
+//		System.out.println(question);
+//		if (question != null && question.getLevel() == level) {
+//
+//			try {
+//				// Load the Question pop FXML file
+//				FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Questionpop.fxml"));
+//				Parent root = loader.load();
+//				// Get the controller and set the question
+//				QuestionpopController popcontrol = loader.getController();
+//				popcontrol.setQuestion(question);
+//				Stage stage = new Stage();
+//				stage.setScene(new Scene(root));
+//				stage.initModality(Modality.APPLICATION_MODAL);
+//				stage.showAndWait();
+//				if (!popcontrol.isCorrect()) {
+//					if (question.getLevel() == 1) {
+//						movePlayer(-1);
+//					}
+//					if (question.getLevel() == 2) {
+//						movePlayer(-2);
+//					}
+//					if (question.getLevel() == 3) {
+//						movePlayer(-3);
+//					}
+//
+//				} else {
+//					if (question.getLevel() == 3) {
+//						movePlayer(1);
+//					} else {
+//						movePlayer(0);
+//					}
+//				}
+//
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//				System.out.println("Error opening question pops: " + e.getMessage());
+//			}
+//
+//		}
+//	}
 	private void handleQuestionTileEvent(int level) {
-		// Logic to display the question to the player and handle their response
-		// This could involve showing a dialog, checking the answer, and applying any
-		// game effects
-		List<Question> QTlevelQuestions = questions.stream()
-                .filter(question -> question.getLevel() == level)
-                .collect(Collectors.toList());
-		System.out.println("the numbr of the question that is picked by next random "+ QTlevelQuestions.size());
- 	   int index=random.nextInt(QTlevelQuestions.size());
- 		 Question question=QTlevelQuestions.get(index);
- 		 System.out.println(question);
- 		if(question != null && question.getLevel()==level) {
- 			
- 			try {
-                 // Load the Question pop FXML file
-                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Questionpop.fxml"));
-                 Parent root = loader.load();
-                 // Get the controller and set the question
-                 QuestionpopController popcontrol = loader.getController();
-                 popcontrol.setQuestion(question);          
-                 Stage stage = new Stage();
-                 stage.setScene(new Scene(root));
-                 stage.initModality(Modality.APPLICATION_MODAL);
-                 stage.showAndWait();
-if(!popcontrol.isCorrect()) {
-if(question.getLevel()==1) {
-	movePlayer(-1);}
-if(question.getLevel()==2) {
-	movePlayer(-2);
-}
-if(question.getLevel()==3) {
-	movePlayer(-3);
-}
+		// Filter questions by level
+		List<Question> levelQuestions = questions.stream().filter(question -> question.getLevel() == level)
+				.collect(Collectors.toList());
+		// Select a random question from the filtered list
+		Question selectedQuestion = levelQuestions.get(random.nextInt(levelQuestions.size()));
+		System.out.println(selectedQuestion);
 
-}
-else {
-if(question.getLevel()==3) {
-	movePlayer(1);
-}
-}
- 		
-   
-             } catch (Exception e) {
-                 e.printStackTrace();
-                 System.out.println("Error opening question pops: " + e.getMessage());
-             }
- 	
- 		
- 
- }}
+		try {
+			// Load the question pop-up FXML
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Questionpop.fxml"));
+			Parent root = loader.load();
 
+			// Get the controller and pass the selected question
+			QuestionpopController popControl = loader.getController();
+			popControl.setQuestion(selectedQuestion);
+
+			// Setting up and displaying the stage
+			Stage stage = new Stage();
+			stage.setScene(new Scene(root));
+			stage.initModality(Modality.APPLICATION_MODAL);
+			stage.showAndWait();
+
+			// React based on the player's answer
+			if (popControl.isCorrect()) {
+				// If the player answered correctly, you might want to reward them or simply
+				// move on
+				System.out.println(currentplayer.getName() + " answered correctly.");
+				// Optional: Implement any logic for correct answers (e.g., bonus points)
+			} else {
+				// If the player answered incorrectly, you might want to penalize them
+				System.out.println(currentplayer.getName() + " answered incorrectly.");
+				// Move the player back by 1 as a penalty for a wrong answer
+
+				movePlayer(-1); // Ensure this logic matches your game rules
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Error loading question dialogue: " + e.getMessage());
+		}
+
+		// Regardless of the outcome, switch to the next player
+		// switchToNextPlayer();
+	}
 
 	public void setSelectedColors(List<String> colors) {
 		// Initialize all objects to be invisible
