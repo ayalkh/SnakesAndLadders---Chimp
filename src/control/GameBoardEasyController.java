@@ -240,15 +240,14 @@ public class GameBoardEasyController {
 		Dice result = new Dice(GameLevel.EASY);
 		int diceRoll = result.rollDice();
 		System.out.println("DICERESULT:" + diceRoll);
-		if (diceRoll > 4) { // Assuming 5 requires handling a question tile event
-			handleQuestionTileEvent(random.nextInt(2) + 1);
-			switchToNextPlayer();
-			// Turn switching is handled within this method after
-			// showing the dialog and moving the player accordingly
-		} else {
-			movePlayer(diceRoll);
-			switchToNextPlayer(); // Move the switch turn logic here to ensure it always happens after a move
-		}
+		 if (diceRoll == 5) { // If dice roll is 5, handle the question event
+		        handleQuestionTileEvent(random.nextInt(2) + 1);
+		    } else {
+		        movePlayer(diceRoll);
+		    }
+		    
+		    // Once everything for this player's turn is done, switch to the next player
+		    switchToNextPlayer();
 	}
 
 	private void switchToNextPlayer() {
@@ -307,8 +306,7 @@ public class GameBoardEasyController {
 			if (newPosition == QT.getPosition()) {
 				System.out.println("pop question");
 				handleQuestionTileEvent(QT.getLevel());
-				switchToNextPlayer();
-				rollDiceAndMove();
+		return;
 			}
 		}
 		updatePlayerPositionVisuals(newPosition);
@@ -452,10 +450,9 @@ public class GameBoardEasyController {
 		            if (level == 3) { // If the question was hard and answered correctly
 		                movePlayer(1); // Move the player forward 1 tile
 		            }
-				// Optional: Implement any logic for correct answers (e.g., bonus points)
+		            
 			} else {
 				// If the player answered incorrectly, you might want to penalize them
-				System.out.println(currentplayer.getName() + " answered incorrectly.");
 				  System.out.println(currentplayer.getName() + " answered incorrectly.");
 		            // Move the player back based on the difficulty of the question
 		            if (level == 1) { // Easy question
@@ -472,8 +469,6 @@ public class GameBoardEasyController {
 			System.out.println("Error loading question dialogue: " + e.getMessage());
 		}
 
-		// Regardless of the outcome, switch to the next player
-		switchToNextPlayer();
 	}
 
 	public void setSelectedColors(List<String> colors) {
