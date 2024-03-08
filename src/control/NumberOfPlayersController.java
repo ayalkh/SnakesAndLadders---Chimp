@@ -14,9 +14,14 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import model.EasyGame;
+import model.HardGame;
+import model.MediumGame;
 
 public class NumberOfPlayersController {
 	private EasyGame easyGame;
+	private MediumGame mediumGame;
+
+	private HardGame hardGame;
 
 	@FXML
 	private ResourceBundle resources;
@@ -104,7 +109,9 @@ public class NumberOfPlayersController {
 	@FXML
 	void initialize() {
 		easyGame = EasyGame.getInstance();
-
+		mediumGame= MediumGame.getInstance();
+		hardGame= HardGame.getInstance();
+		
 		homeButton.setCursor(Cursor.HAND);
 		homeButton.setOnMouseEntered(event -> homeButton.setOpacity(0.8));
 		homeButton.setOnMouseExited(event -> homeButton.setOpacity(1.5));
@@ -141,6 +148,8 @@ public class NumberOfPlayersController {
 			PlayersInfoControl controller = loader.getController();
 			controller.setNumberOfPlayers(number);
 			easyGame.setNumberofplayers(number);
+			mediumGame.setNumberOfPlayers(number);
+			hardGame.setNumberOfPlayers(number);
 
 			Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 			stage.setTitle("Players Info");

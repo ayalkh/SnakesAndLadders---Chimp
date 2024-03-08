@@ -13,18 +13,23 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.EasyGame;
+import model.HardGame;
+import model.MediumGame;
 import model.Player;
 
 // ... other imports
 public class PlayerObject {
 	private EasyGame easyGame;
+	private MediumGame mediumGame;
 
+	private HardGame hardGame;
 	@FXML
 	private ResourceBundle resources;
 
@@ -66,7 +71,8 @@ public class PlayerObject {
 	@FXML
 	void initialize() {
 		easyGame = EasyGame.getInstance();
-
+		mediumGame= MediumGame.getInstance();
+		hardGame= HardGame.getInstance();
 		assert blue != null : "fx:id=\"blue\" was not injected: check your FXML file 'PlayersObjects.fxml'.";
 		assert green != null : "fx:id=\"green\" was not injected: check your FXML file 'PlayersObjects.fxml'.";
 		assert grey != null : "fx:id=\"grey\" was not injected: check your FXML file 'PlayersObjects.fxml'.";
@@ -112,18 +118,53 @@ public class PlayerObject {
 	        // Update label for current player's choice
 	        updatePlayerNameLabel();
 	        currentPlayerIndex++;
+	        switch (this.diffLevel) {
+	       
+            case "easy":
+            	 if (selectedImages.size() == easyGame.getNumberofplayers()) {
+     	            // Determine navigation path based on difficulty level selected in ComboBox
+     	             navigationPath = determineNavigationPath(this.diffLevel);
+     	            openNewWindow(navigationPath); // Ensure this method accepts a String parameter for the path
 
-	        // Check if all players have made their selections
-	        if (selectedImages.size() == easyGame.getNumberofplayers()) {
-	            // Determine navigation path based on difficulty level selected in ComboBox
-	             navigationPath = determineNavigationPath(this.diffLevel);
-	             openNewWindow(navigationPath); // Ensure this method accepts a String parameter for the path
+            	 }
+                break;
+            case "medium":
+
+           	 if (selectedImages.size() == mediumGame.getNumberOfPlayers()) {
+  	            // Determine navigation path based on difficulty level selected in ComboBox
+  	             navigationPath = determineNavigationPath(this.diffLevel);
+  	            openNewWindow(navigationPath); // Ensure this method accepts a String parameter for the path
+}
+           	 
+                break;
+            case "hard":
+                // Assume HardGame.getInstance() is similar to EasyGame.getInstance()
+             	 if (selectedImages.size() == hardGame.getNumberOfPlayers()) {
+       	            // Determine navigation path based on difficulty level selected in ComboBox
+       	             navigationPath = determineNavigationPath(this.diffLevel);
+      	            openNewWindow(navigationPath); // Ensure this method accepts a String parameter for the path
+}
+
+                break;
+            default:
+            	
+                showAlert("Invalid Difficulty", "The selected difficulty level is not valid.");
+                return;
+        }
+	        
+	
 
 	        }
+
 	    }
-	}
 	
-	
+private void showAlert(String title, String content) {
+	Alert alert = new Alert(Alert.AlertType.WARNING);
+	alert.setTitle(title);
+	alert.setHeaderText(null);
+	alert.setContentText(content);
+	alert.showAndWait();
+}
 	private String determineColor(ImageView clickedPhoto) {
 	    if (clickedPhoto.equals(red)) {
 	        return "red";
