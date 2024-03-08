@@ -1,8 +1,15 @@
 package control;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
+import model.HardGame;
+import model.MediumGame;
+import model.Player;
 
 public class GameBoardHardController {
 
@@ -27,5 +34,96 @@ public class GameBoardHardController {
 
 	@FXML
 	private ImageView yellowObject, blueObject, purpleObject, greenObject, redObject, greyObject;
+	
+	private HardGame hardGame;
+	private List<String> selectedColors = new ArrayList<>();	
+	private Player currentplayer; // Moved inside the class, not at declaration
+	
+	public void initialize() {
+		hardGame = HardGame.getInstance();
+		currentplayer = hardGame.getGamePlayers().get(0); // Now it's safe to initialize.
+		//Overlay.getChildren().clear(); // Clear any existing images
+		//initializeBoard();
+		//updateBoardWithSnakes();
+//		updateBoardWithLadders();
+//		loadquestions();
+//		updateBoardWithQuestionTiles();
+
+	}
+	
+	
+	
+	public void setSelectedColors(List<String> colors) {
+		// Initialize all objects to be invisible
+		redObject.setVisible(false);
+		blueObject.setVisible(false);
+		greenObject.setVisible(false);
+		purpleObject.setVisible(false);
+		greyObject.setVisible(false);
+		yellowObject.setVisible(false);
+
+		ColorAdjust desaturate = new ColorAdjust();
+		desaturate.setSaturation(-1);
+		redAvatar.setEffect(desaturate);
+		blueAvatar.setEffect(desaturate);
+		greenAvatar.setEffect(desaturate);
+		purpleAvatar.setEffect(desaturate);
+		greyAvatar.setEffect(desaturate);
+		yellowAvatar.setEffect(desaturate);
+		selectedColors = colors;
+
+		ColorAdjust resetSaturation = new ColorAdjust();
+		resetSaturation.setSaturation(0);
+
+		int i = 0;// Set visible only the objects that match the selected colors
+		for (String color : colors) {
+
+			switch (color.toLowerCase()) {
+			case "red":
+				redAvatar.setEffect(resetSaturation);
+				redObject.setVisible(true);
+				hardGame.getGamePlayers().get(i).setColor(color);
+				hardGame.getGamePlayers().get(i).setObject(redObject);
+				i++;
+				break;
+			case "blue":
+				blueAvatar.setEffect(resetSaturation);
+				blueObject.setVisible(true);
+				hardGame.getGamePlayers().get(i).setColor(color);
+				hardGame.getGamePlayers().get(i).setObject(blueObject);
+				i++;
+				break;
+			case "green":
+				greenAvatar.setEffect(resetSaturation);
+				greenObject.setVisible(true);
+				hardGame.getGamePlayers().get(i).setColor(color);
+				hardGame.getGamePlayers().get(i).setObject(greenObject);
+				i++;
+				break;
+			case "purple":
+				purpleAvatar.setEffect(resetSaturation);
+				purpleObject.setVisible(true);
+				hardGame.getGamePlayers().get(i).setColor(color);
+				hardGame.getGamePlayers().get(i).setObject(purpleObject);
+				i++;
+				break;
+			case "grey":
+				greyAvatar.setEffect(resetSaturation);
+				greyObject.setVisible(true);
+				hardGame.getGamePlayers().get(i).setColor(color);
+				hardGame.getGamePlayers().get(i).setObject(greyObject);
+				i++;
+				break;
+			case "yellow":
+				yellowAvatar.setEffect(resetSaturation);
+				yellowObject.setVisible(true);
+				hardGame.getGamePlayers().get(i).setColor(color);
+				hardGame.getGamePlayers().get(i).setObject(yellowObject);
+				i++;
+				break;
+			}
+		}
+	}
+
 
 }

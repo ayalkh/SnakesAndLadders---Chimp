@@ -95,37 +95,58 @@ public class PlayerObject {
 
 	@FXML
 	private void handlePhotoClick(MouseEvent event) {
+	    ImageView clickedPhoto = (ImageView) event.getSource();
+	    if (!selectedImages.contains(clickedPhoto)) {
+	        clickedPhoto.setVisible(false); // Indicate selection
+	        selectedImages.add(clickedPhoto);
 
-		ImageView clickedPhoto = (ImageView) event.getSource();
-		if (!selectedImages.contains(clickedPhoto)) {
-			clickedPhoto.setVisible(false); // Or set to disabled, etc.
-			selectedImages.add(clickedPhoto);
+	        // Determine color based on the clicked image
+	        String color = determineColor(clickedPhoto);
+	        if (color != null) {
+	            selectedColors.add(color);
+	        }
 
-			// Add color to selectedColors list based on the clicked image
-			if (clickedPhoto == red) {
-				selectedColors.add("red");
-			} else if (clickedPhoto == blue) {
-				selectedColors.add("blue");
-			} else if (clickedPhoto == green) {
-				selectedColors.add("green");
-			} else if (clickedPhoto == yellow) {
-				selectedColors.add("yellow");
-			} else if (clickedPhoto == purple) {
-				selectedColors.add("purple");
-			} else if (clickedPhoto == grey) {
-				selectedColors.add("grey");
-			}
+	        // Update label for current player's choice
+	        updatePlayerNameLabel();
+	        currentPlayerIndex++;
 
-			// change Label of the current player when choosing the object
-			updatePlayerNameLabel();
-			currentPlayerIndex++;
-
-			// Check if this was the last selection needed
-			if (selectedImages.size() == easyGame.getNumberofplayers()) {
-				openNewWindow();
-			}
-
-		}
+	        // Check if all players have made their selections
+	        if (selectedImages.size() == easyGame.getNumberofplayers()) {
+	            // Determine navigation path based on difficulty level selected in ComboBox
+	            String navigationPath = determineNavigationPath(this.diffLevel);
+	            openNewWindow(navigationPath); // Ensure this method accepts a String parameter for the path
+	        }
+	    }
+	}
+	
+	
+	private String determineColor(ImageView clickedPhoto) {
+	    if (clickedPhoto.equals(red)) {
+	        return "red";
+	    } else if (clickedPhoto.equals(blue)) {
+	        return "blue";
+	    } else if (clickedPhoto.equals(green)) {
+	        return "green";
+	    } else if (clickedPhoto.equals(yellow)) {
+	        return "yellow";
+	    } else if (clickedPhoto.equals(purple)) {
+	        return "purple";
+	    } else if (clickedPhoto.equals(grey)) {
+	        return "grey";
+	    }
+	    return null; // Or handle differently
+	}
+	private String determineNavigationPath(String difficultyLevel) {
+	    switch (difficultyLevel.toLowerCase()) {
+	        case "easy":
+	            return "GameBoard-easy.fxml";
+	        case "medium":
+	            return "GameBoard_Medium.fxml";
+	        case "hard":
+	            return "HardBoard.fxml";
+	        default:
+	            return null; // Or handle default case
+	    }
 	}
 
 	private void updatePlayerNameLabel() {
@@ -138,30 +159,45 @@ public class PlayerObject {
 		}
 	}
 
-	private void openNewWindow() {
+	public void openNewWindow(String path) {
+	    try {
+	        FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
+	        Parent root = loader.load();
+	        
+	        // Dynamically set the controller based on the path
+	        Object controller = loader.getController();
+	        if (controller instanceof GameBoardEasyController) {
+	            ((GameBoardEasyController) controller).setSelectedColors(selectedColors);
+	        } else if (controller instanceof GameBoardMediumController) {
+	            ((GameBoardMediumController) controller).setSelectedColors(selectedColors);
+	        } else if (controller instanceof GameBoardHardController) {
+	            ((GameBoardHardController) controller).setSelectedColors(selectedColors);
+	        }
 
-		try {
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/GameBoard-easy.fxml"));
-			Parent root = loader.load();
-			GameBoardEasyController controller = loader.getController();
-			controller.setSelectedColors(selectedColors);
+	        // Create a new stage for the new scene
+	        Stage stage = new Stage();
+	        stage.setScene(new Scene(root));
 
-			// Create a new stage for the new scene
-			Stage stage = new Stage();
-			stage.setScene(new Scene(root));
-			stage.setTitle("LETS PLAY - easy level !!");
+	        // Set title based on difficulty level
+	        if (path.contains("easy")) {
+	            stage.setTitle("LETS PLAY - Easy Level !!");
+	        } else if (path.contains("Medium")) {
+	            stage.setTitle("LETS PLAY - Medium Level !!");
+	        } else if (path.contains("hard")) {
+	            stage.setTitle("LETS PLAY - Hard Level !!");
+	        }
 
-			// Optional: if you want to block interaction with other windows
-			stage.initModality(Modality.APPLICATION_MODAL);
+	        stage.initModality(Modality.APPLICATION_MODAL);
+	        stage.show();
 
-			stage.show();
-
-			// If you want to close the current window:
-			((Stage) blue.getScene().getWindow()).close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	        // Close the current window
+	        // Assuming 'blue' is a component in your current window
+	        ((Stage) blue.getScene().getWindow()).close();
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
 	}
+
 
 	private void applyMouseEffects(ImageView imageView) {
 

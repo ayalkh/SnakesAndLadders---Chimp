@@ -77,7 +77,7 @@ public class PlayersInfoControl {
 
 	@FXML
 	private ImageView homeButton;
-
+	String navigationPath=null ;
 	@FXML
 	void whenClickButtonHome(MouseEvent event) {
 		try {
@@ -96,8 +96,7 @@ public class PlayersInfoControl {
 
 	@FXML
 	void initialize() {
-		easyGame = EasyGame.getInstance();
-
+	
 		comboBox.setItems(FXCollections.observableArrayList("easy", "medium", "hard"));
 		comboBox.valueProperty().addListener(new ChangeListener<String>() {
 			@Override
@@ -122,8 +121,9 @@ public class PlayersInfoControl {
 		backButton.setOnMouseExited(event -> backButton.setOpacity(1.5));
 		// Initialize visibility of text fields
 		updateTextFieldsVisibility();
-
 		startLabel.setOnMouseClicked(event -> goToPlayerObjectPage());
+
+
 	}
 
 	private void updateTextFieldsVisibility() {
@@ -146,7 +146,6 @@ public class PlayersInfoControl {
 			labels.get(i).setVisible(true);
 		}
 	}
-
 	@FXML
 	private void goToPlayerObjectPage() {
 		// Collect data from ComboBox and TextFields
@@ -189,13 +188,42 @@ public class PlayersInfoControl {
 					: "Please select a difficulty level.";
 			showAlert("Missing Information", alertMessage);
 		} else {
-			for (int i = 0; i < numberOfPlayers; i++) {
-				Player player = new Player();
-				player.setName(playerNames.get(i));
-				easyGame.getGameplayers().add(player);
-			}
-			loadPlayerObjectView();
-		}
+			 switch (comboBoxValue.toLowerCase()) {
+	            case "easy":
+	                easyGame = EasyGame.getInstance();
+	                navigationPath = "/view/GameBoard-easy.fxml";
+	                break;
+	            case "medium":
+	                // Assume MediumGame.getInstance() is similar to EasyGame.getInstance()
+	                // mediumGame = MediumGame.getInstance();
+	                navigationPath = "/view/GameBoard_Medium.fxml";
+	                break;
+	            case "hard":
+	                // Assume HardGame.getInstance() is similar to EasyGame.getInstance()
+	                // hardGame = HardGame.getInstance();
+	                navigationPath = "/view/HardBoard.fxml";
+	                break;
+	            default:
+	                showAlert("Invalid Difficulty", "The selected difficulty level is not valid.");
+	                return;
+	        }
+			 // Add players to the game session
+		        for (int i = 0; i < numberOfPlayers; i++) {
+		            Player player = new Player();
+		            player.setName(playerNames.get(i));
+		            // Assuming a method to add players to your game session, like easyGame.addPlayer(player);
+		            // You need to adjust this part to work with your specific game session class
+		        }
+
+		    }
+	}
+
+	public String getNavigationPath() {
+		return navigationPath;
+	}
+
+	public void setNavigationPath(String navigationPath) {
+		this.navigationPath = navigationPath;
 	}
 
 	private void showAlert(String title, String content) {
@@ -205,14 +233,21 @@ public class PlayersInfoControl {
 		alert.setContentText(content);
 		alert.showAndWait();
 	}
+	PlayerObject playerObjectInstance;
 
 	@FXML
 	private void loadPlayerObjectView() {
 		try {
+
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/PlayersObjects.fxml"));
 			Parent root = loader.load();
 
 			PlayerObject controller = loader.getController();
+	        controller.setComboBoxValue(comboBox.getValue()); 
+	        
+	        playerObjectInstance=controller;
+
+	        playerObjectInstance.openNewWindow(navigationPath);
 
 			Stage stage = new Stage();
 			stage.setTitle("Choose player's objects ");

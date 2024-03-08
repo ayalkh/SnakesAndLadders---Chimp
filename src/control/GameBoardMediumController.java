@@ -1,12 +1,14 @@
 package control;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Point2D;
 import javafx.scene.control.Button;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import model.EasyGame;
@@ -82,10 +84,13 @@ public class GameBoardMediumController {
 
     private final double TILE_WIDTH = 60.0; // Set the width of your tiles here
 	private final double TILE_HEIGHT = 60.0; // Set the height of your tiles here
+	private List<String> selectedColors = new ArrayList<>();
+
 	private Button[][] buttonMatrix;
 	private MediumGame mediumGame; // The game logic
 	private ArrayList<Question> questions;
 	private Player currentplayer; // Moved inside the class, not at declaration
+	
 	public void initialize() {
 		mediumGame = MediumGame.getInstance();
 		currentplayer = mediumGame.getGamePlayers().get(0); // Now it's safe to initialize.
@@ -155,5 +160,77 @@ public class GameBoardMediumController {
 		double y = gridPosition.getY() * TILE_HEIGHT;
 		return new Point2D(x, y);
 	}
+	public void setSelectedColors(List<String> colors) {
+		// Initialize all objects to be invisible
+		redObject.setVisible(false);
+		blueObject.setVisible(false);
+		greenObject.setVisible(false);
+		purpleObject.setVisible(false);
+		greyObject.setVisible(false);
+		yellowObject.setVisible(false);
+
+		ColorAdjust desaturate = new ColorAdjust();
+		desaturate.setSaturation(-1);
+		redAvatar.setEffect(desaturate);
+		blueAvatar.setEffect(desaturate);
+		greenAvatar.setEffect(desaturate);
+		purpleAvatar.setEffect(desaturate);
+		greyAvatar.setEffect(desaturate);
+		yellowAvatar.setEffect(desaturate);
+		selectedColors = colors;
+
+		ColorAdjust resetSaturation = new ColorAdjust();
+		resetSaturation.setSaturation(0);
+
+		int i = 0;// Set visible only the objects that match the selected colors
+		for (String color : colors) {
+
+			switch (color.toLowerCase()) {
+			case "red":
+				redAvatar.setEffect(resetSaturation);
+				redObject.setVisible(true);
+				mediumGame.getGamePlayers().get(i).setColor(color);
+				mediumGame.getGamePlayers().get(i).setObject(redObject);
+				i++;
+				break;
+			case "blue":
+				blueAvatar.setEffect(resetSaturation);
+				blueObject.setVisible(true);
+				mediumGame.getGamePlayers().get(i).setColor(color);
+				mediumGame.getGamePlayers().get(i).setObject(blueObject);
+				i++;
+				break;
+			case "green":
+				greenAvatar.setEffect(resetSaturation);
+				greenObject.setVisible(true);
+				mediumGame.getGamePlayers().get(i).setColor(color);
+				mediumGame.getGamePlayers().get(i).setObject(greenObject);
+				i++;
+				break;
+			case "purple":
+				purpleAvatar.setEffect(resetSaturation);
+				purpleObject.setVisible(true);
+				mediumGame.getGamePlayers().get(i).setColor(color);
+				mediumGame.getGamePlayers().get(i).setObject(purpleObject);
+				i++;
+				break;
+			case "grey":
+				greyAvatar.setEffect(resetSaturation);
+				greyObject.setVisible(true);
+				mediumGame.getGamePlayers().get(i).setColor(color);
+				mediumGame.getGamePlayers().get(i).setObject(greyObject);
+				i++;
+				break;
+			case "yellow":
+				yellowAvatar.setEffect(resetSaturation);
+				yellowObject.setVisible(true);
+				mediumGame.getGamePlayers().get(i).setColor(color);
+				mediumGame.getGamePlayers().get(i).setObject(yellowObject);
+				i++;
+				break;
+			}
+		}
+	}
+
 
 }
