@@ -12,6 +12,7 @@ public class Snake extends Tile {
 	private int length;
 	private ImageView imageView; // ImageView to hold the snake's image
 	private ImageView imageView_Med; // ImageView to hold the snake's image Medium level
+	private ImageView imageView_Hard; // ImageView to hold the snake's image hard level
 
 
 	public Snake(int startPosition, int endPosition, String color, int length) {
@@ -31,8 +32,20 @@ public class Snake extends Tile {
 		this.imageView_Med.setImage(image_Med); // Set the image to ImageView
 		
 		
+		String imagePath_hard = "/images/" + color + "SnakeHard.png"; // Ensure this path is correct
+		Image image_hard = new Image(getClass().getResourceAsStream(imagePath_hard));
+		this.imageView_Hard = new ImageView(); // Initialize the ImageView
+		this.imageView_Hard.setImage(image_hard); // Set the image to ImageView
 		
 
+	}
+
+	public ImageView getImageView_Hard() {
+		return imageView_Hard;
+	}
+
+	public void setImageView_Hard(ImageView imageView_Hard) {
+		this.imageView_Hard = imageView_Hard;
 	}
 
 	public ImageView getImageView_Med() {

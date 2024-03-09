@@ -224,9 +224,8 @@ public class EasyGame {
 				startPosition = (randomRowIndex * size) + (size - 1 - column) + 1;
 			}
 
-			System.out.println("Ladder start position found after " + attempts + " attempts: " + startPosition);
-			return startPosition;
-		}
+	        return startPosition;
+	    }
 	}
 
 	private boolean isPositionFree(int startPosition, int ladderLength) {

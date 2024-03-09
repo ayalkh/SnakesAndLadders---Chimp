@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1012.0" prefWidth="1012.0" styleClass="HardButtonsDesign.css" stylesheets="@HardButtonsDesign.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.GameBoardHardController">
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1012.0" prefWidth="1012.0" stylesheets="@HardButtonsDesign.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.GameBoardHardController">
    <children>
       <ImageView fitHeight="1014.0" fitWidth="1034.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -300,5 +300,6 @@
             <Image url="@../images/chessPurple.png" />
          </image>
       </ImageView>
+      <AnchorPane fx:id="Overlay" layoutX="194.0" layoutY="184.0" prefHeight="650.0" prefWidth="650.0" />
    </children>
 </AnchorPane>
