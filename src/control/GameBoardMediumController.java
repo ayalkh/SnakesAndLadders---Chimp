@@ -1,8 +1,13 @@
 package control;
 
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,6 +21,7 @@ import model.Ladder;
 import model.MediumGame;
 import model.Player;
 import model.Question;
+import model.QuestionTile;
 import model.Snake;
 
 public class GameBoardMediumController {
@@ -94,6 +100,11 @@ public class GameBoardMediumController {
 		System.out.println(currentplayer);
 		initializeBoard();
 		updateBoardWithSnakes();
+	updateBoardWithLadders();
+	loadquestions();
+		updateBoardWithQuestionTiles();
+		 updateBoardWithsurpriseTile() ;
+
 		updateBoardWithLadders();
 //		loadquestions();
 //		updateBoardWithQuestionTiles();
@@ -270,5 +281,69 @@ public class GameBoardMediumController {
 				.get((mediumGame.getGamePlayers().indexOf(currentplayer) + 1) % mediumGame.getNumberOfPlayers());
 		System.out.println("Now it's " + currentplayer.getName() + "'s turn.");
 	}
+	private void updateBoardWithQuestionTiles() {
+		for (QuestionTile QT : mediumGame.getQuestions()) {
+			ImageView questiotileImageView = QT.getImageView(); // Assuming Ladder class has getImageView method
 
-}
+			// Calculate the grid position for the bottom and top of the ladder
+			Point2D questiontileGridPosition = calculateGridPosition(QT.getPosition());
+
+			// Convert grid position to pixel position
+			Point2D questiontilePixelPosition = calculatePixelPosition(questiontileGridPosition);
+
+			// Set the ImageView of the ladder at the bottom position
+			questiotileImageView.setLayoutX(questiontilePixelPosition.getX());
+			questiotileImageView.setLayoutY(questiontilePixelPosition.getY());
+			questiotileImageView.setFitWidth(20);
+			questiotileImageView.setFitHeight(20);
+			// Add the ImageView to the overlay
+			Overlay.getChildren().add(questiotileImageView);
+		}
+	}
+	private void updateBoardWithsurpriseTile() {
+		
+			ImageView questiotileImageView = mediumGame.getSurprise().getImageView(); // Assuming Ladder class has getImageView method
+
+			// Calculate the grid position for the bottom and top of the ladder
+			Point2D questiontileGridPosition = calculateGridPosition(mediumGame.getSurprise().getPosition());
+
+			// Convert grid position to pixel position
+			Point2D questiontilePixelPosition = calculatePixelPosition(questiontileGridPosition);
+
+			// Set the ImageView of the ladder at the bottom position
+			questiotileImageView.setLayoutX(questiontilePixelPosition.getX());
+			questiotileImageView.setLayoutY(questiontilePixelPosition.getY());
+			questiotileImageView.setFitWidth(20);
+			questiotileImageView.setFitHeight(20);
+			// Add the ImageView to the overlay
+			Overlay.getChildren().add(questiotileImageView);
+		}
+	private void loadquestions() {
+		questions = new ArrayList<>();
+		JSONParser parser = new JSONParser();
+
+		try (FileReader reader = new FileReader("Questions.json")) {
+			JSONObject jsonObject = (JSONObject) parser.parse(reader);
+			JSONArray jsonQuestions = (JSONArray) jsonObject.get("questions");
+
+			for (Object o : jsonQuestions) {
+				JSONObject jsonQuestion = (JSONObject) o;
+				Question question = new Question(jsonQuestion);
+
+				questions.add(question);
+
+			}
+			if (questions == null) {
+				System.err.println("Error: Unable to load questions from JSON file");
+				// Handle the error gracefully, e.g., by providing default questions or
+				// displaying an error message to the user
+			} else {
+				System.out.println("Successfully loaded " + questions.size() + " questions");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	}
+

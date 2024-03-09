@@ -12,17 +12,23 @@ import java.util.Set;
 public class MediumGame {
     private static MediumGame mediumGameInstance = null;
     private List<QuestionTile> questions = new ArrayList<>();
-    private int numberOfPlayers;
+    
+	private int numberOfPlayers;
     private List<Player> gamePlayers = new ArrayList<>();
     private Tile[][] board;
     private final int size = 10; 
     private final Random random = new Random();
     private Map<Integer, Snake> snakesMap = new HashMap<>();
     private Map<Integer, Ladder> laddersMap = new HashMap<>();
-    
+    private SurpristTile surprise= new SurpristTile(0);
     public MediumGame() {
         this.board = new Tile[size][size];
    initializeBoard();
+//      placeSnakes();
+//     placeLadders();
+       
+       placequestions();
+ placesurprise();
    placeSnakes();
    placeLadders();
 //        placeSpecialTiles();
@@ -380,5 +386,69 @@ public class MediumGame {
 	public Random getRandom() {
 		return random;
 	}
+	private void placequestions() {
+		questions.clear();
 
+		Set<Integer> occupiedPositions = new HashSet<>();
+		int maxPosition = size * size;
+		int i = 0;
+		while (i < 3) {
+			QuestionTile QT = new QuestionTile(getRandomQuestion(),
+					getRandomPosition(size, maxPosition, occupiedPositions),i+1);
+			if (!(snakesMap.containsKey(QT.getPosition()) || snakesMap.containsKey(QT.getPosition())
+					|| laddersMap.containsKey(QT.getPosition()))) {
+				questions.add(QT);
+				occupiedPositions.add(questions.get(i).getPosition());
+				int row = (QT.getPosition()) / size;
+				int col = (QT.getPosition()) % size;
+				board[row][col].setQuestiontile(QT); // Set snake on the tile
+				i++;
+			}
+
+		}
+
+	}
+	private Question getRandomQuestion() {
+
+		return null;
+	}
+	private void placesurprise() {
+		
+		int maxPosition = size * size;
+		int Position=0;
+		
+		while(Position > maxPosition-1 || Position<1 ) { //to make sure to put the surprise in a good and valid position
+			Position=random.nextInt(maxPosition)+1;
+		}
+		 surprise .setPosition(Position);
+			
+			
+				
+				int row = (surprise.getPosition()) / size;
+				int col = (surprise.getPosition()) % size;
+			board[row][col].setSurprise(surprise); // Set surprise on the tile
+			
+
+		}
+private boolean checkposition(int position) {
+	for(QuestionTile qt : questions) {
+		if(qt.getPosition()==position) {
+			return false;
+		}
+	}
+	if((snakesMap.containsKey(position) || snakesMap.containsKey(position)
+|| laddersMap.containsKey(position))) {
+	return false;}
+	return true;
 }
+public SurpristTile getSurprise() {
+	return surprise;
+}
+
+
+public void setSurprise(SurpristTile surprise) {
+	this.surprise = surprise;
+}
+	}
+
+
