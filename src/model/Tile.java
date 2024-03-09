@@ -11,6 +11,7 @@ public class Tile {
 	  private Ladder ladder; // Reference to Ladder
 	    private Snake snake;   // Reference to Snake
 	    private QuestionTile questiontile;
+	    private SurpristTile surprise;
 	// Constructors
 	public Tile() {
 		super();
@@ -83,6 +84,12 @@ public class Tile {
 	}
 	public void setQuestiontile(QuestionTile questiontile) {
 		this.questiontile = questiontile;
+	}
+	public SurpristTile getSurprise() {
+		return surprise;
+	}
+	public void setSurprise(SurpristTile surprise) {
+		this.surprise = surprise;
 	}
 	
 
