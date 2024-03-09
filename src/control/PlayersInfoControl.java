@@ -38,7 +38,6 @@ public class PlayersInfoControl {
 
 	private HardGame hardGame;
 
-
 	@FXML
 	private ResourceBundle resources;
 
@@ -81,9 +80,20 @@ public class PlayersInfoControl {
 	@FXML
 	private Label startLabel;
 
+	private static String difficultyLevel;
+
+	public static String getDifficultyLevel() {
+		return difficultyLevel;
+	}
+
+	public static void setDifficultyLevel(String level) {
+		difficultyLevel = level;
+	}
+
 	@FXML
 	private ImageView homeButton;
-	String navigationPath=null ;
+	String navigationPath = null;
+
 	@FXML
 	void whenClickButtonHome(MouseEvent event) {
 		try {
@@ -102,7 +112,7 @@ public class PlayersInfoControl {
 
 	@FXML
 	void initialize() {
-		playerObjectInstance=new PlayerObject();
+		playerObjectInstance = new PlayerObject();
 		comboBox.setItems(FXCollections.observableArrayList("easy", "medium", "hard"));
 		comboBox.valueProperty().addListener(new ChangeListener<String>() {
 			@Override
@@ -129,7 +139,6 @@ public class PlayersInfoControl {
 		updateTextFieldsVisibility();
 		startLabel.setOnMouseClicked(event -> goToPlayerObjectPage());
 
-
 	}
 
 	private void updateTextFieldsVisibility() {
@@ -152,6 +161,7 @@ public class PlayersInfoControl {
 			labels.get(i).setVisible(true);
 		}
 	}
+
 	@FXML
 	private void goToPlayerObjectPage() {
 		// Collect data from ComboBox and TextFields
@@ -183,7 +193,7 @@ public class PlayersInfoControl {
 					textField.setText("");
 					return;
 				}
-				
+
 				playerNames.add(playerName);
 			}
 
@@ -195,56 +205,49 @@ public class PlayersInfoControl {
 					: "Please select a difficulty level.";
 			showAlert("Missing Information", alertMessage);
 		} else {
-			 // Add players to the game session
+			// Add players to the game session
 
-			
-			 switch (comboBoxValue.toLowerCase()) {
-	            case "easy":
-	                easyGame = EasyGame.getInstance();
-	                navigationPath = "/view/GameBoard-easy.fxml";
-	                for (int i = 0; i < numberOfPlayers; i++) {
-			            Player player = new Player();
-			            player.setName(playerNames.get(i));
-			            easyGame.getGameplayers().add(player);
-			            // Assuming a method to add players to your game session, like easyGame.addPlayer(player);
-			            // You need to adjust this part to work with your specific game session class
-			        }
-	                break;
-	            case "medium":
-	                // Assume MediumGame.getInstance() is similar to EasyGame.getInstance()
-	                mediumGame = MediumGame.getInstance();
-	                navigationPath = "/view/GameBoard_Medium.fxml";
-	                for (int i = 0; i < numberOfPlayers; i++) {
-			            Player player = new Player();
-			            player.setName(playerNames.get(i));
-			            mediumGame.getGamePlayers().add(player);
-			            // Assuming a method to add players to your game session, like easyGame.addPlayer(player);
-			            // You need to adjust this part to work with your specific game session class
-			        }
-	                break;
-	            case "hard":
-	                // Assume HardGame.getInstance() is similar to EasyGame.getInstance()
-	                 hardGame = HardGame.getInstance();
-	                navigationPath = "/view/HardBoard.fxml";
-	                for (int i = 0; i < numberOfPlayers; i++) {
-			            Player player = new Player();
-			            player.setName(playerNames.get(i));
-			            hardGame.getGamePlayers().add(player);
-			            // Assuming a method to add players to your game session, like easyGame.addPlayer(player);
-			            // You need to adjust this part to work with your specific game session class
-			        }
+			switch (comboBoxValue.toLowerCase()) {
+			case "easy":
+				easyGame = EasyGame.getInstance();
+				navigationPath = "/view/GameBoard-easy.fxml";
+				for (int i = 0; i < numberOfPlayers; i++) {
+					Player player = new Player();
+					player.setName(playerNames.get(i));
+					easyGame.getGameplayers().add(player);
+					difficultyLevel = "easy";
+				}
+				break;
+			case "medium":
+				mediumGame = MediumGame.getInstance();
+				navigationPath = "/view/GameBoard_Medium.fxml";
+				for (int i = 0; i < numberOfPlayers; i++) {
+					Player player = new Player();
+					player.setName(playerNames.get(i));
+					mediumGame.getGamePlayers().add(player);
+					difficultyLevel = "medium";
+				}
+//				for (Player p : mediumGame.getGamePlayers())
+//					System.out.println("player : " + p);
+				break;
+			case "hard":
+				hardGame = HardGame.getInstance();
+				navigationPath = "/view/HardBoard.fxml";
+				for (int i = 0; i < numberOfPlayers; i++) {
+					Player player = new Player();
+					player.setName(playerNames.get(i));
+					hardGame.getGameplayers().add(player);
+					difficultyLevel = "hard";
+				}
 
-	                break;
-	            default:
-	                showAlert("Invalid Difficulty", "The selected difficulty level is not valid.");
-	                return;
-	        }
-			 
-		       
-		      
-		     
-		        loadPlayerObjectView();
-		    }
+				break;
+			default:
+				showAlert("Invalid Difficulty", "The selected difficulty level is not valid.");
+				return;
+			}
+			System.out.println("difficulty level in players info is :" + difficultyLevel);
+			loadPlayerObjectView();
+		}
 	}
 
 	public String getNavigationPath() {
@@ -262,19 +265,20 @@ public class PlayersInfoControl {
 		alert.setContentText(content);
 		alert.showAndWait();
 	}
+
 	PlayerObject playerObjectInstance;
 
 	@FXML
 	private void loadPlayerObjectView() {
+
 		try {
 
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/PlayersObjects.fxml"));
 			Parent root = loader.load();
 
 			PlayerObject controller = loader.getController();
-	        controller.setComboBoxValue(comboBox.getValue()); 
-	        
-
+			// controller.setComboBoxValue(comboBox.getValue());
+			controller.setDifficultyLevel(difficultyLevel);
 
 			Stage stage = new Stage();
 			stage.setTitle("Choose player's objects ");

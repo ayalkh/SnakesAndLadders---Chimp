@@ -214,40 +214,19 @@ public class GameBoardEasyController {
 		}
 	}
 
-//	@FXML
-//	private void rollDiceAndMove() {
-//		// Roll the dice to get a number between 1 and 4
-//		Dice result = new Dice(GameLevel.EASY);
-//		int diceRoll = result.rollDice();
-//		if (diceRoll > 4) {
-//			System.out.println("DICERESULT:" + diceRoll);
-//			handleQuestionTileEvent(random.nextInt(2) + 1);
-//		}
-//
-//		else {
-//			// Move the player
-//			System.out.println("DICERESULT:" + diceRoll);
-//			movePlayer(diceRoll);
-//		}
-//
-//		// Switch turn to the next player
-//		currentplayer = easyGame.getGameplayers()
-//				.get((easyGame.getGameplayers().indexOf(currentplayer) + 1) % easyGame.getNumberofplayers());
-//	}
-
 	@FXML
 	private void rollDiceAndMove() {
 		Dice result = new Dice(GameLevel.EASY);
 		int diceRoll = result.rollDice();
 		System.out.println("DICERESULT:" + diceRoll);
-		 if (diceRoll == 5) { // If dice roll is 5, handle the question event
-		        handleQuestionTileEvent(random.nextInt(2) + 1);
-		    } else {
-		        movePlayer(diceRoll);
-		    }
-		    
-		    // Once everything for this player's turn is done, switch to the next player
-		    switchToNextPlayer();
+		if (diceRoll == 5) { // If dice roll is 5, handle the question event
+			handleQuestionTileEvent(random.nextInt(2) + 1);
+		} else {
+			movePlayer(diceRoll);
+		}
+
+		// Once everything for this player's turn is done, switch to the next player
+		switchToNextPlayer();
 	}
 
 	private void switchToNextPlayer() {
@@ -257,7 +236,7 @@ public class GameBoardEasyController {
 	}
 
 	public void movePlayer(int diceRoll) {
-
+		int count = 0;
 		System.out.println();
 		System.out.println(currentplayer.getName() + " got : " + diceRoll + " steps ");
 		System.out.println(currentplayer.getName() + " previous position is : " + currentplayer.getPosition());
@@ -272,10 +251,12 @@ public class GameBoardEasyController {
 			newPosition = 49; // Assuming 49 is the winning tile
 		}
 		currentplayer.setPositionAfterClimbing(newPosition); // Update this line to set the newPosition
+		updatePlayerPositionVisuals(newPosition);
 		System.out.println(currentplayer.getName() + " current position is : " + currentplayer.getPosition());
 		// Check for ladder at the new position
 		Ladder ladder = easyGame.getLaddersMap().get(newPosition);
 		if (ladder != null) {
+			count++;
 			newPosition = ladder.getEndPosition();
 			System.out.println("player postition before climbing the ladder : " + currentplayer.getPosition());
 			currentplayer.setPositionAfterClimbing(newPosition);
@@ -290,6 +271,7 @@ public class GameBoardEasyController {
 		// Check for snake at the new position
 		Snake snake = easyGame.getSnakesMap().get(newPosition);
 		if (snake != null) {
+			count++;
 			newPosition = snake.getEndPosition();
 			System.out.println("player postition before bitten by a snake : " + currentplayer.getPosition());
 			currentplayer.setPositionAfterClimbing(newPosition);
@@ -305,12 +287,16 @@ public class GameBoardEasyController {
 
 			if (newPosition == QT.getPosition()) {
 				System.out.println("pop question");
+				updatePlayerPositionVisuals(newPosition);
 				handleQuestionTileEvent(QT.getLevel());
-		return;
+
+				return;
 			}
 		}
-		updatePlayerPositionVisuals(newPosition);
+		if (count > 0) {
+			updatePlayerPositionVisuals(newPosition);
 
+		}
 	}
 
 	private void updatePlayerPositionVisuals(int newPosition) {
@@ -369,62 +355,14 @@ public class GameBoardEasyController {
 		}
 	}
 
-//	private void handleQuestionTileEvent(int level) {
-//		// Logic to display the question to the player and handle their response
-//		// This could involve showing a dialog, checking the answer, and applying any
-//		// game effects
-//		List<Question> QTlevelQuestions = questions.stream().filter(question -> question.getLevel() == level)
-//				.collect(Collectors.toList());
-//		int index = random.nextInt(QTlevelQuestions.size());
-//		Question question = QTlevelQuestions.get(index);
-//		System.out.println(question);
-//		if (question != null && question.getLevel() == level) {
-//
-//			try {
-//				// Load the Question pop FXML file
-//				FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Questionpop.fxml"));
-//				Parent root = loader.load();
-//				// Get the controller and set the question
-//				QuestionpopController popcontrol = loader.getController();
-//				popcontrol.setQuestion(question);
-//				Stage stage = new Stage();
-//				stage.setScene(new Scene(root));
-//				stage.initModality(Modality.APPLICATION_MODAL);
-//				stage.showAndWait();
-//				if (!popcontrol.isCorrect()) {
-//					if (question.getLevel() == 1) {
-//						movePlayer(-1);
-//					}
-//					if (question.getLevel() == 2) {
-//						movePlayer(-2);
-//					}
-//					if (question.getLevel() == 3) {
-//						movePlayer(-3);
-//					}
-//
-//				} else {
-//					if (question.getLevel() == 3) {
-//						movePlayer(1);
-//					} else {
-//						movePlayer(0);
-//					}
-//				}
-//
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//				System.out.println("Error opening question pops: " + e.getMessage());
-//			}
-//
-//		}
-//	}
 	private void handleQuestionTileEvent(int level) {
 		// Filter questions by level
 		List<Question> levelQuestions = questions.stream().filter(question -> question.getLevel() == level)
 				.collect(Collectors.toList());
-		  if (levelQuestions.isEmpty()) {
-		        System.out.println("No questions available for level " + level);
-		        return;
-		    }
+		if (levelQuestions.isEmpty()) {
+			System.out.println("No questions available for level " + level);
+			return;
+		}
 		// Select a random question from the filtered list
 		Question selectedQuestion = levelQuestions.get(random.nextInt(levelQuestions.size()));
 		System.out.println(selectedQuestion);
@@ -446,22 +384,24 @@ public class GameBoardEasyController {
 
 			// React based on the player's answer
 			if (popControl.isCorrect()) {
-				   System.out.println(currentplayer.getName() + " answered correctly.");
-		            if (level == 3) { // If the question was hard and answered correctly
-		                movePlayer(1); // Move the player forward 1 tile
-		            }
-		            
+				System.out.println(currentplayer.getName() + " answered correctly.");
+				if (level == 3) { // If the question was hard and answered correctly
+					movePlayer(1); // Move the player forward 1 tile
+				} else {
+					movePlayer(0);
+				}
+
 			} else {
 				// If the player answered incorrectly, you might want to penalize them
-				  System.out.println(currentplayer.getName() + " answered incorrectly.");
-		            // Move the player back based on the difficulty of the question
-		            if (level == 1) { // Easy question
-		                movePlayer(-1); // Move back 1 tile
-		            } else if (level == 2) { // Medium question
-		                movePlayer(-2); // Move back 2 tiles
-		            } else if (level == 3) { // Hard question
-		                movePlayer(-3); // Move back 3 tiles
-		            }
+				System.out.println(currentplayer.getName() + " answered incorrectly.");
+				// Move the player back based on the difficulty of the question
+				if (level == 1) { // Easy question
+					movePlayer(-1); // Move back 1 tile
+				} else if (level == 2) { // Medium question
+					movePlayer(-2); // Move back 2 tiles
+				} else if (level == 3) { // Hard question
+					movePlayer(-3); // Move back 3 tiles
+				}
 			}
 
 		} catch (Exception e) {
