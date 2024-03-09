@@ -76,6 +76,11 @@ public class Player {
 		this.object = object;
 	}
 
+	@Override
+	public String toString() {
+		return "Player [name=" + name + ", color=" + color + ", position=" + position + ", object=" + object + "]";
+	}
+
 //	public void setPositionAfterClimbing(int newPosition) {
 //		this.position = newPosition;
 //

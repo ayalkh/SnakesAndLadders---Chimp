@@ -1,0 +1,28 @@
+.button {
+    -fx-min-width: 50px;
+    -fx-min-height: 50px;
+    -fx-max-width: 50px;
+    -fx-max-height: 50px;
+    -fx-pref-width: 50px;
+    -fx-pref-height: 50px;
+    box-sizing: border-box;
+    -fx-font-size: 10px;
+    -fx-alignment: top-left;
+    -fx-text-fill: #333333; /* Updated, redundant property removed */
+    -fx-font-weight: bold;
+    -fx-background-color: #c8c8a9;
+    -fx-background-radius: 5;
+    -fx-border-color: #767676;
+    -fx-border-radius: 5;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+    -fx-padding: 10px; /* Ensure single padding property for consistency */
+    /* Add other styles as needed */
+}
+
+.hbox {
+   -fx-pref-width: 650px;
+    -fx-pref-height: 50px;
+    -fx-background-color: transparent; /* Or any other color */
+
+    -fx-alignment: center-left; /* Adjust if needed */
+}
