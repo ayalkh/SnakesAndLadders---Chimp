@@ -23,8 +23,8 @@ public class MediumGame {
     public MediumGame() {
         this.board = new Tile[size][size];
    initializeBoard();
-//        placeSnakes();
-//        placeLadders();
+   placeSnakes();
+   placeLadders();
 //        placeSpecialTiles();
 //        placeQuestions();
         // Add other initialization as needed
@@ -47,7 +47,7 @@ public class MediumGame {
     
     private void placeLadders() {
         laddersMap.clear();
-        int[] ladderLengths = {1, 2, 3, 4, 5, 6}; // Ladder lengths for medium level
+        int[] ladderLengths = {1, 2, 3, 4,5,6}; // Ladder lengths for medium level
 
         for (int length : ladderLengths) {
             boolean placed = false;
@@ -73,7 +73,7 @@ public class MediumGame {
 
                 if (isOverlapFree) {
                     // Place the ladder
-                    Ladder ladder = new Ladder(startPosition, endPosition, length);
+                    Ladder ladder = new Ladder(startPosition, endPosition, length,"medium");
                     laddersMap.put(startPosition, ladder);
                     board[startRow][col].setLadder(ladder); // Set ladder on the tile
                     placed = true;
@@ -143,7 +143,7 @@ public class MediumGame {
 	            startPosition = (randomRowIndex * size) + (size - 1 - column) + 1;
 	        }
 
-	        System.out.println("Ladder start position found after " + attempts + " attempts: " + startPosition);
+	        System.out.println("Medium Ladder"+ladderLength+" start position found after " + attempts + " attempts: " + startPosition);
 	        return startPosition;
 	    }
 	}
@@ -215,7 +215,18 @@ public class MediumGame {
     }
 
     private SnakePosition generateColoredSnakePosition(String color, int maxPosition, Set<Integer> occupiedPositions) {
-        int startPosition = getRandomPosition(size, maxPosition, occupiedPositions);
+        int startPosition;
+        do {
+            startPosition = getRandomPosition(1, maxPosition, occupiedPositions);
+            // Make sure the snake does not go beyond the board
+            if ((color.equals("yellow") && startPosition > 10 && startPosition <= maxPosition - 10) ||
+                (color.equals("green") && startPosition > 20 && startPosition <= maxPosition - 20) ||
+                (color.equals("blue") && startPosition > 30 && startPosition <= maxPosition - 30) ||
+                (color.equals("red") && startPosition > 1)) {
+                break;
+            }
+        } while (true);
+        
         occupiedPositions.add(startPosition);
         return new SnakePosition(color, startPosition);
     }

@@ -12,6 +12,7 @@ import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import model.EasyGame;
+import model.Ladder;
 import model.MediumGame;
 import model.Player;
 import model.Question;
@@ -96,7 +97,7 @@ public class GameBoardMediumController {
 		currentplayer = mediumGame.getGamePlayers().get(0); // Now it's safe to initialize.
 		initializeBoard();
 		updateBoardWithSnakes();
-//		updateBoardWithLadders();
+		updateBoardWithLadders();
 //		loadquestions();
 //		updateBoardWithQuestionTiles();
 
@@ -116,19 +117,58 @@ public class GameBoardMediumController {
             {i9j0, i9j1, i9j2, i9j3, i9j4, i9j5, i9j6, i9j7, i9j8, i9j9}
         };
     }
-    
+    private void updateBoardWithLadders() {
+		for (Ladder ladder : mediumGame.getLaddersMap().values()) {
+			ImageView ladderImageView = ladder.getImageView_Med();
+
+			// Calculate the grid position for the bottom of the ladder
+			Point2D ladderBottomGridPosition = calculateGridPosition(ladder.getStartPosition());
+			System.out.println(" this is the grid position  of the ladder" + ladder.getLength() + " : "
+					+ ladderBottomGridPosition);
+
+			// Convert grid position to pixel position for the bottom
+			Point2D ladderBottomPixel = calculatePixelPosition(ladderBottomGridPosition);
+			System.out.println(
+					" this is the pixel position  of the ladder" + ladder.getLength() + " : " + ladderBottomPixel);
+
+			// Calculate the grid position for the top of the ladder
+			Point2D ladderTopGridPosition = calculateGridPosition(ladder.getEndPosition());
+
+			// Convert grid position to pixel position for the top
+			Point2D ladderTopPixel = calculatePixelPosition(ladderTopGridPosition);
+			System.out.println(
+					" this is the start of the ladder" + ladder.getLength() + " : " + ladder.getStartPosition());
+			System.out.println(" this is the end of the ladder" + ladder.getLength() + " : " + ladder.getEndPosition());
+
+			// Since the images are pre-sized, we assume they are the correct height.
+			// Thus, we only need to center them horizontally on the tiles.
+			// We get the center X of the bottom tile and subtract half the width of the
+			// ladder image.
+			double ladderImageCenterX = ladderBottomPixel.getX() + TILE_WIDTH / 2
+					- ladderImageView.getBoundsInParent().getWidth() / 2;
+
+			// The Y position should be set so that the bottom of the ladder image
+			// aligns with the bottom of the start position tile.
+			double ladderImageBottomY = ladderBottomPixel.getY() + TILE_HEIGHT
+					- ladderImageView.getBoundsInParent().getHeight();
+
+			// Set the ImageView of the ladder at the calculated positions
+			ladderImageView.setLayoutX(ladderImageCenterX); // Centered X position
+			ladderImageView.setLayoutY(ladderImageBottomY); // Bottom aligned Y position
+
+			// Add the ImageView to the overlay
+			Overlay.getChildren().add(ladderImageView);
+		}
+	}
     private void updateBoardWithSnakes() {
         for (Snake snake : mediumGame.getSnakesMap().values()) {
-            ImageView snakeImageView = snake.getImageView(); // Ensure this method exists
+            ImageView snakeImageView = snake.getImageView_Med(); // Ensure this method exists
 
             Point2D headGridPosition = calculateGridPosition(snake.getStartPosition());
             Point2D headPixel = calculatePixelPosition(headGridPosition);
 
             Point2D tailGridPosition = calculateGridPosition(snake.getEndPosition());
             Point2D tailPixel = calculatePixelPosition(tailGridPosition);
-
-            System.out.println("Snake start: " + snake.getStartPosition());
-            System.out.println("Snake end: " + snake.getEndPosition());
 
             snakeImageView.setLayoutX(headPixel.getX());
             snakeImageView.setLayoutY(headPixel.getY());
@@ -140,8 +180,7 @@ public class GameBoardMediumController {
 		int size = mediumGame.getSize(); 
 		int row = (boardPosition - 1) / size;
 		int col = (boardPosition - 1) % size;
-//		System.out.println("why ???");
-//		System.out.println("player position : row : " + row + "col : " + col);
+
 
 		// Adjust column index for zigzag pattern
 		if (row % 2 != 0) { // If the row is even when 0-indexed, invert the column calculation

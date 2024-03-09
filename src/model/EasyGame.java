@@ -89,7 +89,7 @@ public class EasyGame {
 					System.out.println(" this is end position of the ladder " + length + " : " + endPosition);
 
 
-					Ladder ladder = new Ladder(startPosition, endPosition, length);
+					Ladder ladder = new Ladder(startPosition, endPosition, length,"easy");
 					laddersMap.put(startPosition, ladder);
 					board[startRow][col].setLadder(ladder); // Set ladder on the tile
 					placed = true;

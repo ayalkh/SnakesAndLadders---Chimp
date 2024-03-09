@@ -86,16 +86,13 @@ public class PlayerObject {
 		applyMouseEffects(yellow);
 		applyMouseEffects(purple);
 		applyMouseEffects(grey);
-		System.out.println("getGameplayers size :" + easyGame.getGameplayers());
 
 		for (Player player : easyGame.getGameplayers()) {
-			System.out.println("getGameplayers size :" + easyGame.getGameplayers());
 
 			playerNames.add(player.getName());
 
 		}
-		System.out.println("players size :" + playerNames.size());
-		System.out.println("current player index :" + currentPlayerIndex);
+
 
 		updatePlayerNameLabel();
 		currentPlayerIndex++;
@@ -195,8 +192,7 @@ private void showAlert(String title, String content) {
 	}
 
 	private void updatePlayerNameLabel() {
-		System.out.println("current player index into update method:" + currentPlayerIndex);
-		System.out.println("player names size is " + playerNames.size());
+
 		if (currentPlayerIndex < playerNames.size()) {
 			playerNameLabel.setText(playerNames.get(currentPlayerIndex));
 		} else {
@@ -207,7 +203,7 @@ private void showAlert(String title, String content) {
 
 	public void openNewWindow(String path) {
 	    try {
-	    	System.out.println("Opening new window with path: " + path);
+
 
 	        FXMLLoader loader = new FXMLLoader(getClass().getResource(path));
 	        Parent root = loader.load();
