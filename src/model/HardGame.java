@@ -165,10 +165,10 @@ public class HardGame {
 	}
 
 	public static HardGame getInstance() {
-		if (HardGameInstance == null) {
-			HardGameInstance = new HardGame();
+		if (hardGame == null) {
+			hardGame = new HardGame();
 		}
-		return HardGameInstance;
+		return hardGame;
 	}
 
 
@@ -203,7 +203,7 @@ public class HardGame {
 
 				if (isOverlapFree) {
 					// Place the ladder
-					Ladder ladder = new Ladder(startPosition, endPosition, length);
+					Ladder ladder = new Ladder(startPosition, endPosition, length,"hard");
 					laddersMap.put(startPosition, ladder);
 					board[startRow][col].setLadder(ladder); // Set ladder on the tile
 					placed = true;
@@ -315,16 +315,6 @@ public class HardGame {
 
 
 
-	private class SnakePosition {
-		String color;
-		int startPosition;
-
-		SnakePosition(String color, int startPosition) {
-			this.color = color;
-			this.startPosition = startPosition;
-		}
-	}
-
 
 
 	public Map<Integer, Ladder> getLaddersMap() {
@@ -347,11 +337,11 @@ public class HardGame {
 	
 
 	public static HardGame getHardGameInstance() {
-		return HardGameInstance;
+		return hardGame;
 	}
 
 	public static void setHardGameInstance(HardGame hardGameInstance) {
-		HardGame.HardGameInstance = hardGameInstance;
+		HardGame.hardGame = hardGameInstance;
 	}
 
 	public List<QuestionTile> getQuestions() {
