@@ -46,8 +46,8 @@ public class GameBoardHardController {
 			i11j6, i11j7, i11j8, i11j9, i11j10, i11j11, i11j12, i12j0, i12j1, i12j2, i12j3, i12j4, i12j5, i12j6, i12j7,
 			i12j8, i12j9, i12j10, i12j11, i12j12;
 
-	private final double TILE_WIDTH = 60.0; // Set the width of your tiles here
-	private final double TILE_HEIGHT = 60.0; // Set the height of your tiles here
+	private final double TILE_WIDTH = 50.0; // Set the width of your tiles here
+	private final double TILE_HEIGHT = 50.0; // Set the height of your tiles here
 	@FXML
 	private ImageView blueAvatar, greenAvatar, greyAvatar, purpleAvatar, redAvatar, yellowAvatar;
 
@@ -73,7 +73,7 @@ public class GameBoardHardController {
 		// Overlay.getChildren().clear(); // Clear any existing images
 		initializeBoard();
 		updateBoardWithSnakes();
-//		updateBoardWithLadders();
+	    updateBoardWithLadders();
 //		loadquestions();
 //		updateBoardWithQuestionTiles();
 
@@ -100,8 +100,6 @@ public class GameBoardHardController {
 		int size = hardGame.getSize(); // Assuming size is the dimension of the board
 		int row = (boardPosition - 1) / size;
 		int col = (boardPosition - 1) % size;
-//			System.out.println("why ???");
-//			System.out.println("player position : row : " + row + "col : " + col);
 
 		// Adjust column index for zigzag pattern
 		if (row % 2 != 0) { // If the row is even when 0-indexed, invert the column calculation
@@ -163,10 +161,12 @@ public class GameBoardHardController {
 			Overlay.getChildren().add(ladderImageView);
 		}
 	}
+	
 
 	private void updateBoardWithSnakes() {
 		for (Snake snake : hardGame.getSnakesMap().values()) {
-			ImageView snakeImageView = snake.getImageView(); // Get the ImageView for the snake
+			System.out.println("snake : "+snake);
+			ImageView snakeImageView_hard = snake.getImageView_Hard(); // Get the ImageView for the snake
 
 			// Calculate the grid position for the head of the snake
 			Point2D headGridPosition = calculateGridPosition(snake.getStartPosition());
@@ -177,17 +177,16 @@ public class GameBoardHardController {
 			Point2D tailGridPosition = calculateGridPosition(snake.getEndPosition());
 			// Convert grid position to pixel position for the tail
 			Point2D tailPixel = calculatePixelPosition(tailGridPosition);
-			System.out.println(" this is the start of the snake: " + snake.getStartPosition() + "\n");
-
-			System.out.println();
-			System.out.println(" this is the end of the snake: " + snake.getEndPosition() + "\n");
+			System.out.println("hard Snake start: " + snake.getStartPosition());
+			System.out.println("hard Snake end: " + snake.getEndPosition());
 
 			// Set the ImageView of the snake with the head's position
-			snakeImageView.setLayoutX(headPixel.getX());
-			snakeImageView.setLayoutY(headPixel.getY());
+			snakeImageView_hard.setLayoutX(headPixel.getX());
+			snakeImageView_hard.setLayoutY(headPixel.getY());
 
 			// Add the ImageView to the overlay
-			Overlay.getChildren().add(snakeImageView);
+			System.out.println("this is snake image "+snakeImageView_hard);
+			Overlay.getChildren().add(snakeImageView_hard);
 		}
 	}
 
@@ -327,7 +326,6 @@ public class GameBoardHardController {
 		}
 	}
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////	
 	private void handleQuestionTileEvent(int level) {
 		// Filter questions by level
 		List<Question> levelQuestions = questions.stream().filter(question -> question.getLevel() == level)

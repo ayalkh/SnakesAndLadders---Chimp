@@ -21,11 +21,23 @@ public class HardGame {
     private final Random random = new Random();
     private Map<Integer, Snake> snakesMap = new HashMap<>();
     private Map<Integer, Ladder> laddersMap = new HashMap<>();
+
+	 public static HardGame getHardGame() {
+		return hardGame;
+	}
+
+	public static HardGame getInstance() {
+		if (hardGame == null) {
+			hardGame = new HardGame();
+		}
+		return hardGame;
+	}
     public HardGame() {
+    	
         this.board = new Tile[size][size];
    initializeBoard();
-   //placeSnakes();
- //  placeLadders();
+   placeSnakes();
+  placeLadders();
 //        placeSpecialTiles();
 //        placeQuestions();
         // Add other initialization as needed
@@ -160,16 +172,6 @@ public class HardGame {
 		return position;
 	}
 
-	 public static HardGame getHardGame() {
-		return hardGame;
-	}
-
-	public static HardGame getInstance() {
-		if (hardGame == null) {
-			hardGame = new HardGame();
-		}
-		return hardGame;
-	}
 
 
 	

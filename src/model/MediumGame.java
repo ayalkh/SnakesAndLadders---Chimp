@@ -143,7 +143,6 @@ public class MediumGame {
 	            startPosition = (randomRowIndex * size) + (size - 1 - column) + 1;
 	        }
 
-	        System.out.println("Medium Ladder"+ladderLength+" start position found after " + attempts + " attempts: " + startPosition);
 	        return startPosition;
 	    }
 	}

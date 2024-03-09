@@ -86,8 +86,7 @@ public class EasyGame {
 
 				if (isStartPositionValid && isOverlapFree) {
 					// Place the ladder
-					System.out.println(" this is end position of the ladder " + length + " : " + endPosition);
-
+					
 
 					Ladder ladder = new Ladder(startPosition, endPosition, length,"easy");
 					laddersMap.put(startPosition, ladder);
@@ -186,7 +185,6 @@ public class EasyGame {
 	            startPosition = (randomRowIndex * size) + (size - 1 - column) + 1;
 	        }
 
-	        System.out.println("Ladder start position found after " + attempts + " attempts: " + startPosition);
 	        return startPosition;
 	    }
 	}

@@ -1,5 +1,6 @@
 package model;
 
+import java.io.InputStream;
 import java.util.Objects;
 
 import javafx.scene.image.Image;
@@ -11,6 +12,7 @@ public class Ladder extends Tile {
 	    private int length;
 		private ImageView imageView; // ImageView to hold the snake's image
 		private ImageView imageView_Med; // ImageView to hold the ladders's image Medium level
+		private ImageView imageView_Hard; // ImageView to hold the ladders's image Medium level
 
 		public Ladder(int startPosition, int endPosition, int length,String gameMode) {
 			super();
@@ -18,25 +20,29 @@ public class Ladder extends Tile {
 			this.endPosition = endPosition;
 			this.length = length;
 
+			String basePath = "/images/" + length + "RowLadder";
+		    String imagePath = basePath + (gameMode.equals("medium") ? "Med.png" : gameMode.equals("hard") ? "Hard.png" : ".png");
 
-		    String basePath = "/images/" + length + "RowLadder";
-		    String imagePath = basePath + (gameMode.equals("medium") ? "Med.png" : ".png");
+		    // Debugging statement to verify the imagePath
+		    System.out.println("Attempting to load image from path: " + imagePath);
 
-			System.out.println("path for ladder:"+imagePath);
-			Image image = new Image(getClass().getResourceAsStream(imagePath));
-			this.imageView = new ImageView(); // Initialize the ImageView
-			this.imageView.setImage(image); // Set the image to ImageView
-			
-			
-			String imagePath_Med = "/images/" + length + "RowLadderMed.png"; // Ensure this path is correct
-			Image image_Med = new Image(getClass().getResourceAsStream(imagePath_Med));
-			this.imageView_Med = new ImageView(); // Initialize the ImageView
-			this.imageView_Med.setImage(image_Med); // Set the image to ImageView
-			
-			
-			
+		    InputStream stream = getClass().getResourceAsStream(imagePath);
+		    if (stream == null) {
+		        throw new IllegalArgumentException("Image resource not found: " + imagePath);
+		    }
+
+		    Image image = new Image(stream);
+		    this.imageView = new ImageView(image); // Initialize and set the image to ImageView in one step
 		}
 		
+		public ImageView getImageView_Hard() {
+			return imageView_Hard;
+		}
+
+		public void setImageView_Hard(ImageView imageView_Hard) {
+			this.imageView_Hard = imageView_Hard;
+		}
+
 		public ImageView getImageView_Med() {
 			return imageView_Med;
 		}

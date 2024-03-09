@@ -10,7 +10,6 @@
     -fx-alignment: top-left;
     -fx-text-fill: #333333; /* Updated, redundant property removed */
     -fx-font-weight: bold;
-    -fx-background-color: #c8c8a9;
     -fx-background-radius: 5;
     -fx-border-color: #767676;
     -fx-border-radius: 5;
@@ -18,7 +17,16 @@
     -fx-padding: 10px; /* Ensure single padding property for consistency */
     /* Add other styles as needed */
 }
-
+#board {
+    -fx-background-color: #deb887; /* A soft brown, assuming your board is a brownish color */
+    -fx-background-image: url('path_to_board_texture.png'); /* Add texture to your board */
+    -fx-background-size: cover;
+    -fx-background-radius: 10;
+    -fx-border-color: #8b4513;
+    -fx-border-width: 2px;
+    -fx-border-radius: 10;
+    -fx-padding: 10; /* If you want padding inside your board */
+}
 .hbox {
    -fx-pref-width: 650px;
     -fx-pref-height: 50px;

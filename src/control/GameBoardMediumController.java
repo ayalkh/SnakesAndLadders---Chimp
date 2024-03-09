@@ -116,26 +116,19 @@ public class GameBoardMediumController {
     }
     private void updateBoardWithLadders() {
 		for (Ladder ladder : mediumGame.getLaddersMap().values()) {
-			ImageView ladderImageView = ladder.getImageView_Med();
+			ImageView ladderImageView = ladder.getImageView();
 
 			// Calculate the grid position for the bottom of the ladder
 			Point2D ladderBottomGridPosition = calculateGridPosition(ladder.getStartPosition());
-			System.out.println(" this is the grid position  of the ladder" + ladder.getLength() + " : "
-					+ ladderBottomGridPosition);
 
 			// Convert grid position to pixel position for the bottom
 			Point2D ladderBottomPixel = calculatePixelPosition(ladderBottomGridPosition);
-			System.out.println(
-					" this is the pixel position  of the ladder" + ladder.getLength() + " : " + ladderBottomPixel);
-
+	
 			// Calculate the grid position for the top of the ladder
 			Point2D ladderTopGridPosition = calculateGridPosition(ladder.getEndPosition());
 
 			// Convert grid position to pixel position for the top
 			Point2D ladderTopPixel = calculatePixelPosition(ladderTopGridPosition);
-			System.out.println(
-					" this is the start of the ladder" + ladder.getLength() + " : " + ladder.getStartPosition());
-			System.out.println(" this is the end of the ladder" + ladder.getLength() + " : " + ladder.getEndPosition());
 
 			// Since the images are pre-sized, we assume they are the correct height.
 			// Thus, we only need to center them horizontally on the tiles.
@@ -168,8 +161,7 @@ public class GameBoardMediumController {
 			Point2D tailGridPosition = calculateGridPosition(snake.getEndPosition());
 			Point2D tailPixel = calculatePixelPosition(tailGridPosition);
 
-			System.out.println("Snake start: " + snake.getStartPosition());
-			System.out.println("Snake end: " + snake.getEndPosition());
+	
 
 			snakeImageView.setLayoutX(headPixel.getX());
 			snakeImageView.setLayoutY(headPixel.getY());

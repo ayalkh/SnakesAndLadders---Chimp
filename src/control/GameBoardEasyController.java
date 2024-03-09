@@ -123,8 +123,6 @@ public class GameBoardEasyController {
 		int size = easyGame.getSize(); // Assuming size is the dimension of the board
 		int row = (boardPosition - 1) / size;
 		int col = (boardPosition - 1) % size;
-//		System.out.println("why ???");
-//		System.out.println("player position : row : " + row + "col : " + col);
 
 		// Adjust column index for zigzag pattern
 		if (row % 2 != 0) { // If the row is even when 0-indexed, invert the column calculation
@@ -149,22 +147,15 @@ public class GameBoardEasyController {
 
 			// Calculate the grid position for the bottom of the ladder
 			Point2D ladderBottomGridPosition = calculateGridPosition(ladder.getStartPosition());
-			System.out.println(" this is the grid position  of the ladder" + ladder.getLength() + " : "
-					+ ladderBottomGridPosition);
 
 			// Convert grid position to pixel position for the bottom
 			Point2D ladderBottomPixel = calculatePixelPosition(ladderBottomGridPosition);
-			System.out.println(
-					" this is the pixel position  of the ladder" + ladder.getLength() + " : " + ladderBottomPixel);
 
 			// Calculate the grid position for the top of the ladder
 			Point2D ladderTopGridPosition = calculateGridPosition(ladder.getEndPosition());
 
 			// Convert grid position to pixel position for the top
 			Point2D ladderTopPixel = calculatePixelPosition(ladderTopGridPosition);
-			System.out.println(
-					" this is the start of the ladder" + ladder.getLength() + " : " + ladder.getStartPosition());
-			System.out.println(" this is the end of the ladder" + ladder.getLength() + " : " + ladder.getEndPosition());
 
 			// Since the images are pre-sized, we assume they are the correct height.
 			// Thus, we only need to center them horizontally on the tiles.
@@ -200,11 +191,7 @@ public class GameBoardEasyController {
 			Point2D tailGridPosition = calculateGridPosition(snake.getEndPosition());
 			// Convert grid position to pixel position for the tail
 			Point2D tailPixel = calculatePixelPosition(tailGridPosition);
-			System.out.println(" this is the start of the snake: " + snake.getStartPosition() + "\n");
-
-			System.out.println();
-			System.out.println(" this is the end of the snake: " + snake.getEndPosition() + "\n");
-
+		
 			// Set the ImageView of the snake with the head's position
 			snakeImageView.setLayoutX(headPixel.getX());
 			snakeImageView.setLayoutY(headPixel.getY());
