@@ -6,7 +6,7 @@
     -fx-pref-width: 50px;
     -fx-pref-height: 50px;
     box-sizing: border-box;
-    -fx-font-size: 10px;
+    -fx-font-size: 12px;
     -fx-alignment: top-left;
     -fx-text-fill: #333333; /* Updated, redundant property removed */
     -fx-font-weight: bold;
