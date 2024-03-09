@@ -22,6 +22,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Dice;
@@ -221,6 +223,7 @@ public class GameBoardEasyController {
 		System.out.println("DICERESULT:" + diceRoll);
 		if (diceRoll == 5) { // If dice roll is 5, handle the question event
 			handleQuestionTileEvent(random.nextInt(2) + 1);
+			music("popQuestion.mp3");
 		} else {
 			movePlayer(diceRoll);
 		}
@@ -235,8 +238,17 @@ public class GameBoardEasyController {
 		System.out.println("Now it's " + currentplayer.getName() + "'s turn.");
 	}
 
+	MediaPlayer mediaPlayer;
+
+	public void music(String soundFileName) {
+		String path = "/sound/" + soundFileName;
+		Media h = new Media(getClass().getResource(path).toExternalForm());
+		mediaPlayer = new MediaPlayer(h);
+		mediaPlayer.play();
+	}
+
 	public void movePlayer(int diceRoll) {
-		int count = 0;
+		String soundPath = "";
 		System.out.println();
 		System.out.println(currentplayer.getName() + " got : " + diceRoll + " steps ");
 		System.out.println(currentplayer.getName() + " previous position is : " + currentplayer.getPosition());
@@ -245,58 +257,75 @@ public class GameBoardEasyController {
 
 		// Correctly updating the position
 		if (newPosition < 1) {
-			newPosition = 0; // Ensure the position does not go below the starting point
-		}
-		if (newPosition > 49) {
+			newPosition = 0;
+		} // Ensure the position does not go below the starting point
+		if (newPosition >= 49) {
 			newPosition = 49; // Assuming 49 is the winning tile
+			music("winning.mp3");
+			Alerts.alertBox(Alert.AlertType.INFORMATION, "CONGRATULATIONS !!! ",
+					"Player " + currentplayer.getName() + " WON the game !! ", "Triumphantly victorious !!");
+
 		}
+		if (diceRoll != 0) {
+			music("playerMoving.mp3");
+
+		}
+		// music("playerMoving.mp3");
 		currentplayer.setPositionAfterClimbing(newPosition); // Update this line to set the newPosition
-		updatePlayerPositionVisuals(newPosition);
 		System.out.println(currentplayer.getName() + " current position is : " + currentplayer.getPosition());
+
 		// Check for ladder at the new position
 		Ladder ladder = easyGame.getLaddersMap().get(newPosition);
 		if (ladder != null) {
-			count++;
 			newPosition = ladder.getEndPosition();
 			System.out.println("player postition before climbing the ladder : " + currentplayer.getPosition());
 			currentplayer.setPositionAfterClimbing(newPosition);
 			System.out.println("player postition after climbing the ladder : " + currentplayer.getPosition());
 			System.out.println(currentplayer.getName() + " climbed a ladder to position: " + newPosition);
+			music("ladderClimbing.mp3");
 			if (newPosition >= 49) {
 				// Handle winning condition (end game, display message, etc.)
-				Alerts.alertBox(Alert.AlertType.INFORMATION, "player won ", "player won", "player won");
+				Alerts.alertBox(Alert.AlertType.INFORMATION, "CONGRATULATIONS !!! ",
+						"Player " + currentplayer.getName() + " WON the game !! ", "Triumphantly victorious !!");
+				music("winning.mp3");
+
 			}
+			// soundPath = "ladderClimbing.mp3";
+
 		}
 
 		// Check for snake at the new position
 		Snake snake = easyGame.getSnakesMap().get(newPosition);
 		if (snake != null) {
-			count++;
 			newPosition = snake.getEndPosition();
 			System.out.println("player postition before bitten by a snake : " + currentplayer.getPosition());
 			currentplayer.setPositionAfterClimbing(newPosition);
 			System.out.println("player postition after bitten by a snake : " + currentplayer.getPosition());
-			if (newPosition >= 49) {
-				// Handle winning condition (end game, display message, etc.)
-				Alerts.alertBox(Alert.AlertType.INFORMATION, "player won ", "player won", "player won");
+			music("snakeBite.mp3");
+		}
+		if (diceRoll != 0) {
+			// Check for question tile at the new position
+			for (QuestionTile QT : easyGame.getQuestions()) {// check if the player stepped is on a question tile//
+
+				if (newPosition == QT.getPosition()) {
+					System.out.println("pop question");
+					music("popQuestion.mp3");
+					handleQuestionTileEvent(QT.getLevel());
+
+					if (newPosition >= 49) {
+						// Handle winning condition (end game, display message, etc.)
+						Alerts.alertBox(Alert.AlertType.INFORMATION, "CONGRATULATIONS !!! ",
+								"Player " + currentplayer.getName() + " WON the game !! ",
+								"Triumphantly victorious !!");
+						music("winning.mp3");
+
+					}
+					return;
+				}
 			}
-		}
-
-		// Check for question tile at the new position
-		for (QuestionTile QT : easyGame.getQuestions()) {// check if the player stepped is on a question tile//
-
-			if (newPosition == QT.getPosition()) {
-				System.out.println("pop question");
-				updatePlayerPositionVisuals(newPosition);
-				handleQuestionTileEvent(QT.getLevel());
-
-				return;
-			}
-		}
-		if (count > 0) {
-			updatePlayerPositionVisuals(newPosition);
 
 		}
+		updatePlayerPositionVisuals(newPosition);
 	}
 
 	private void updatePlayerPositionVisuals(int newPosition) {
@@ -331,7 +360,9 @@ public class GameBoardEasyController {
 
 		// Ensure we don't try to access out of bounds indices
 		if (row >= 0 && row < 7 && col >= 0 && col < 7) {
+
 			buttonMatrix[row][col].setGraphic(currentplayer.getObject());
+
 		} else {
 			System.out.println("Calculated position out of bounds: Row " + row + ", Col " + col);
 		}
