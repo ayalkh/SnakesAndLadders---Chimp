@@ -100,12 +100,14 @@ public class GameBoardMediumController {
 		System.out.println(currentplayer);
 		initializeBoard();
 		updateBoardWithSnakes();
-
 	updateBoardWithLadders();
 	loadquestions();
 		updateBoardWithQuestionTiles();
 		 updateBoardWithsurpriseTile() ;
 
+		updateBoardWithLadders();
+//		loadquestions();
+//		updateBoardWithQuestionTiles();
 
 	}
     
