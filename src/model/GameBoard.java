@@ -31,6 +31,7 @@ public abstract class GameBoard {
     protected abstract void placeSnakes();
     protected abstract void placeLadders();
     protected abstract void placequestions();
+    
    
     // Other common methods and abstract methods as necessary
 

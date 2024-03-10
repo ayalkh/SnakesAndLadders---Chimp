@@ -384,6 +384,7 @@ public class MediumGame extends GameBoard{
 	public int getSize() {
 		return size;
 	}
+	
 
 	public Random getRandom() {
 		return random;

@@ -373,6 +373,7 @@ public class EasyGame extends GameBoard {
 		return snakesMap;
 	}
 
+	
 	public void setSnakesMap(Map<Integer, Snake> snakesMap) {
 		this.snakesMap = snakesMap;
 	}

@@ -414,6 +414,7 @@ public class HardGame extends GameBoard {
 				i++;
 			}
 
+			
 		}
 
 	}
