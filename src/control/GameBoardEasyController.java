@@ -2,7 +2,6 @@ package control;
 
 import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -42,7 +41,6 @@ import model.Player;
 import model.Question;
 import model.QuestionTile;
 import model.Snake;
-import model.SysData;
 import model.SysData2;
 import model.game;
 
@@ -251,7 +249,7 @@ public class GameBoardEasyController {
 				System.out.println("DICERESULT:" + diceRoll);
 
 				// Handle specific dice roll outcomes
-				if (diceRoll == 7) { // If dice roll is 5, handle the question event
+				if (diceRoll == 5) { // If dice roll is 5, handle the question event
 					music("popQuestion.mp3");
 					handleQuestionTileEvent(random.nextInt(2) + 1);
 
@@ -296,19 +294,11 @@ public class GameBoardEasyController {
 		} // Ensure the position does not go below the starting point
 		if (newPosition >= 49) {
 			newPosition = 49; // Assuming 49 is the winning tile
+		}
 
-			music("winning.mp3");
-			Alerts.alertBox(Alert.AlertType.INFORMATION, "CONGRATULATIONS !!! ",
-					"Player " + currentplayer.getName() + " WON the game !! ", "Triumphantly victorious !!");
-			game newgame = new game(SysData2.getNextgameID(),1,currentplayer.getName());
+		if (diceRoll != 0 && newPosition > 0)
 
-
-			// Add the new question to SysData
-			if (SysData2.getInstance().addGame(newgame)) {
-				System.out.println("game added successfully");
-//				// Optionally: C
-		}}
-		if (diceRoll != 0 && newPosition > 0) {
+		{
 			music("playerMoving.mp3");
 
 		}
@@ -325,19 +315,6 @@ public class GameBoardEasyController {
 			System.out.println("player postition after climbing the ladder : " + currentplayer.getPosition());
 			System.out.println(currentplayer.getName() + " climbed a ladder to position: " + newPosition);
 			music("ladderClimbing.mp3");
-
-			if (newPosition >= 49) {
-				// Handle winning condition (end game, display message, etc.)
-				Alerts.alertBox(Alert.AlertType.INFORMATION, "CONGRATULATIONS !!! ",
-						"Player " + currentplayer.getName() + " WON the game !! ", "Triumphantly victorious !!");
-				music("winning.mp3");
-				game newgame = new game(SysData2.getNextgameID(),1,currentplayer.getName());
-
-				// Add the new question to SysData
-				if (SysData2.getInstance().addGame(newgame)) {
-					System.out.println("game added successfully");
-			}}
-			// soundPath = "ladderClimbing.mp3";
 
 		}
 
@@ -358,32 +335,22 @@ public class GameBoardEasyController {
 					System.out.println("pop question");
 					music("popQuestion.mp3");
 					handleQuestionTileEvent(QT.getLevel());
-
-
-					if (newPosition >= 49) {
-						// Handle winning condition (end game, display message, etc.)
-						Alerts.alertBox(Alert.AlertType.INFORMATION, "CONGRATULATIONS !!! ",
-								"Player " + currentplayer.getName() + " WON the game !! ",
-								"Triumphantly victorious !!");
-						music("winning.mp3");
-						game newgame = new game(SysData2.getNextgameID(),1,currentplayer.getName());
-
-						// Add the new question to SysData
-						if (SysData2.getInstance().addGame(newgame)) {
-							System.out.println("game added successfully");
-					}
-					}
 					return;
 				}
 			}
 
 		}
+
 		updatePlayerPositionVisuals(newPosition);
 		if (newPosition >= 49) {
 			music("winning.mp3");
 			// Handle winning condition (end game, display message, etc.)
 			Alerts.alertBox(Alert.AlertType.INFORMATION, "CONGRATULATIONS !!! ",
 					"Player " + currentplayer.getName() + " WON the game !! ", "Triumphantly victorious !!");
+			game newGame = new game(SysData2.getNextgameID(), 1, currentplayer.getName());
+			if (SysData2.getInstance().addGame(newGame)) {
+				System.out.println("game added successfully!");
+			}
 
 			try {
 				// Load the QuestionView FXML file
