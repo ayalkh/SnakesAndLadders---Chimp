@@ -54,5 +54,10 @@
             <Image url="@../images/back.png" />
          </image>
       </ImageView>
+      <ImageView fx:id="toggleMusicButton" fitHeight="62.0" fitWidth="72.0" layoutX="19.0" layoutY="166.0" onMouseClicked="#handleToggleMusic" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/soundButton.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
