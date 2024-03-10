@@ -2,6 +2,7 @@ package control;
 
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -41,6 +42,9 @@ import model.Player;
 import model.Question;
 import model.QuestionTile;
 import model.Snake;
+import model.SysData;
+import model.SysData2;
+import model.game;
 
 public class GameBoardEasyController {
 	private EasyGame easyGame; // The game logic
@@ -312,13 +316,18 @@ public class GameBoardEasyController {
 		if (newPosition < 1) {
 			newPosition = 0;
 		} // Ensure the position does not go below the starting point
-		if (newPosition >= 169) {
-			newPosition = 169; // Assuming 49 is the winning tile
+		if (newPosition >= 49) {
+			newPosition = 49; // Assuming 49 is the winning tile
 			music("winning.mp3");
 			Alerts.alertBox(Alert.AlertType.INFORMATION, "CONGRATULATIONS !!! ",
 					"Player " + currentplayer.getName() + " WON the game !! ", "Triumphantly victorious !!");
+			game newgame = new game(SysData2.getNextgameID(),1,currentplayer.getName());
 
-		}
+			// Add the new question to SysData
+			if (SysData2.getInstance().addGame(newgame)) {
+				System.out.println("game added successfully");
+//				// Optionally: C
+		}}
 		if (diceRoll != 0 && newPosition > 0) {
 			music("playerMoving.mp3");
 
@@ -341,8 +350,12 @@ public class GameBoardEasyController {
 				Alerts.alertBox(Alert.AlertType.INFORMATION, "CONGRATULATIONS !!! ",
 						"Player " + currentplayer.getName() + " WON the game !! ", "Triumphantly victorious !!");
 				music("winning.mp3");
+				game newgame = new game(SysData2.getNextgameID(),1,currentplayer.getName());
 
-			}
+				// Add the new question to SysData
+				if (SysData2.getInstance().addGame(newgame)) {
+					System.out.println("game added successfully");
+			}}
 			// soundPath = "ladderClimbing.mp3";
 
 		}
@@ -371,7 +384,12 @@ public class GameBoardEasyController {
 								"Player " + currentplayer.getName() + " WON the game !! ",
 								"Triumphantly victorious !!");
 						music("winning.mp3");
+						game newgame = new game(SysData2.getNextgameID(),1,currentplayer.getName());
 
+						// Add the new question to SysData
+						if (SysData2.getInstance().addGame(newgame)) {
+							System.out.println("game added successfully");
+					}
 					}
 					return;
 				}
