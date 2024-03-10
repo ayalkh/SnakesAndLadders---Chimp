@@ -36,7 +36,7 @@ public class Dice {
 			currentRollResult = random.nextInt(18) + 1;
 
 		} else
-			currentRollResult = random.nextInt(4) + 1;
+			currentRollResult = random.nextInt(24) + 1;
 
 		return currentRollResult;
 	}
