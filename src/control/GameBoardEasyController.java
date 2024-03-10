@@ -10,9 +10,12 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import javafx.animation.RotateTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
+import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -20,12 +23,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.effect.ColorAdjust;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import model.Dice;
 import model.EasyGame;
 import model.GameLevel;
@@ -95,6 +101,17 @@ public class GameBoardEasyController {
 	private ImageView yellowObject;
 	private GameSession gameSession;
 
+	@FXML
+	private ImageView rollDiceImage;
+	@FXML
+	ImageView toggleMusicButton;
+
+	@FXML
+	void handleToggleMusic(MouseEvent event) {
+		BackgroundMusicPlayer.getInstance().toggleMusic();
+
+	}
+
 	// 49buttons
 	@FXML
 	private Button i0j0, i0j1, i0j2, i0j3, i0j4, i0j5, i0j6, i1j0, i1j1, i1j2, i1j3, i1j4, i1j5, i1j6, i2j0, i2j1, i2j2,
@@ -111,6 +128,10 @@ public class GameBoardEasyController {
 		loadquestions();
 		updateBoardWithQuestionTiles();
 
+		toggleMusicButton.setCursor(Cursor.HAND);
+		toggleMusicButton.setOnMouseEntered(event -> toggleMusicButton.setOpacity(0.8));
+		toggleMusicButton.setOnMouseExited(event -> toggleMusicButton.setOpacity(1.5));
+		rollDiceImage.setCursor(Cursor.HAND);
 	}
 
 	private void initializeBoard() {
@@ -193,7 +214,7 @@ public class GameBoardEasyController {
 			Point2D tailGridPosition = calculateGridPosition(snake.getEndPosition());
 			// Convert grid position to pixel position for the tail
 			Point2D tailPixel = calculatePixelPosition(tailGridPosition);
-		
+
 			// Set the ImageView of the snake with the head's position
 			snakeImageView.setLayoutX(headPixel.getX());
 			snakeImageView.setLayoutY(headPixel.getY());
@@ -207,17 +228,63 @@ public class GameBoardEasyController {
 	private void rollDiceAndMove() {
 		Dice result = new Dice(GameLevel.EASY);
 		int diceRoll = result.rollDice();
-		System.out.println("DICERESULT:" + diceRoll);
-		if (diceRoll == 5) { // If dice roll is 5, handle the question event
-			handleQuestionTileEvent(random.nextInt(2) + 1);
-			music("popQuestion.mp3");
-		} else {
-			movePlayer(diceRoll);
-		}
+		System.out.println("rolling dice result : " + diceRoll);
 
-		// Once everything for this player's turn is done, switch to the next player
-		switchToNextPlayer();
+		// Start dice rolling sound
+		music("rollingDice.mp3");
+
+		// Configure rotation animation
+		RotateTransition rotateTransition = new RotateTransition(Duration.seconds(1), rollDiceImage);
+		rotateTransition.setByAngle(360 * 3); // Rotate 3 times
+		rotateTransition.setCycleCount(1);
+		rotateTransition.setAutoReverse(false);
+
+		rotateTransition.setOnFinished(event -> {
+			// After rotation finishes, execute the remaining operations in the next pulse
+			// of the JavaFX Application Thread
+			Platform.runLater(() -> {
+				// Set the dice image to the result
+				Image diceImage = new Image(getClass().getResourceAsStream("/images/dice" + diceRoll + ".png"));
+				rollDiceImage.setImage(diceImage);
+				System.out.println("DICERESULT:" + diceRoll);
+
+				// Handle specific dice roll outcomes
+				if (diceRoll == 5) { // If dice roll is 5, handle the question event
+					music("popQuestion.mp3");
+					handleQuestionTileEvent(random.nextInt(2) + 1);
+
+				} else {
+					movePlayer(diceRoll);
+				}
+
+				// Once everything for this player's turn is done, switch to the next player
+				switchToNextPlayer();
+			});
+		});
+
+		// Start the rotation animation
+		rotateTransition.play();
 	}
+
+//	@FXML
+//	private void rollDiceAndMove() {
+//		Dice result = new Dice(GameLevel.EASY);
+//		int diceRoll = result.rollDice();
+//		System.out.println("rolling dice result : " + diceRoll);
+//		music("rollingDice.mp3");
+//		Image diceImage = new Image(getClass().getResourceAsStream("/images/dice" + diceRoll + ".png"));
+//		rollDiceImage.setImage(diceImage);
+//		System.out.println("DICERESULT:" + diceRoll);
+//		if (diceRoll == 5) { // If dice roll is 5, handle the question event
+//			handleQuestionTileEvent(random.nextInt(2) + 1);
+//			music("popQuestion.mp3");
+//		} else {
+//			movePlayer(diceRoll);
+//		}
+//
+//		// Once everything for this player's turn is done, switch to the next player
+//		switchToNextPlayer();
+//	}
 
 	private void switchToNextPlayer() {
 		currentplayer = easyGame.getGameplayers()
@@ -235,7 +302,6 @@ public class GameBoardEasyController {
 	}
 
 	public void movePlayer(int diceRoll) {
-		String soundPath = "";
 		System.out.println();
 		System.out.println(currentplayer.getName() + " got : " + diceRoll + " steps ");
 		System.out.println(currentplayer.getName() + " previous position is : " + currentplayer.getPosition());
@@ -246,14 +312,14 @@ public class GameBoardEasyController {
 		if (newPosition < 1) {
 			newPosition = 0;
 		} // Ensure the position does not go below the starting point
-		if (newPosition >= 49) {
-			newPosition = 49; // Assuming 49 is the winning tile
+		if (newPosition >= 169) {
+			newPosition = 169; // Assuming 49 is the winning tile
 			music("winning.mp3");
 			Alerts.alertBox(Alert.AlertType.INFORMATION, "CONGRATULATIONS !!! ",
 					"Player " + currentplayer.getName() + " WON the game !! ", "Triumphantly victorious !!");
 
 		}
-		if (diceRoll != 0) {
+		if (diceRoll != 0 && newPosition > 0) {
 			music("playerMoving.mp3");
 
 		}

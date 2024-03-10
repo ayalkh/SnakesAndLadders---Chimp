@@ -13,13 +13,17 @@ import org.json.simple.parser.JSONParser;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
+import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Dice;
@@ -52,7 +56,10 @@ public class GameBoardHardController {
 	private ImageView blueAvatar, greenAvatar, greyAvatar, purpleAvatar, redAvatar, yellowAvatar;
 
 	@FXML
-	private ImageView diceButton;
+	private Button diceButton;
+
+	@FXML
+	private ImageView diceButton1;
 
 	@FXML
 	private ImageView yellowObject, blueObject, purpleObject, greenObject, redObject, greyObject;
@@ -67,16 +74,39 @@ public class GameBoardHardController {
 
 	private Random random = new Random();
 
+	@FXML
+	ImageView toggleMusicButton;
+
+	@FXML
+	void handleToggleMusic(MouseEvent event) {
+		BackgroundMusicPlayer.getInstance().toggleMusic();
+	}
+
 	public void initialize() {
+
+		toggleMusicButton.setCursor(Cursor.HAND);
+		toggleMusicButton.setOnMouseEntered(event -> toggleMusicButton.setOpacity(0.8));
+		toggleMusicButton.setOnMouseExited(event -> toggleMusicButton.setOpacity(1.5));
+
 		hardGame = HardGame.getInstance();
-		currentplayer = hardGame.getGameplayers().get(0); // Now it's safe to initialize.
-		// Overlay.getChildren().clear(); // Clear any existing images
+		currentplayer = hardGame.getGamePlayers().get(0); // Now it's safe to initialize.
+		Overlay.getChildren().clear(); // Clear any existing images
 		initializeBoard();
 		updateBoardWithSnakes();
-	    updateBoardWithLadders();
-//		loadquestions();
-//		updateBoardWithQuestionTiles();
+		updateBoardWithLadders();
+		loadquestions();
+		updateBoardWithQuestionTiles();
+		updateBoardWithsurpriseTile();
 
+	}
+
+	MediaPlayer mediaPlayer;
+
+	public void music(String soundFileName) {
+		String path = "/sound/" + soundFileName;
+		Media h = new Media(getClass().getResource(path).toExternalForm());
+		mediaPlayer = new MediaPlayer(h);
+		mediaPlayer.play();
 	}
 
 	private void initializeBoard() {
@@ -161,11 +191,10 @@ public class GameBoardHardController {
 			Overlay.getChildren().add(ladderImageView);
 		}
 	}
-	
 
 	private void updateBoardWithSnakes() {
 		for (Snake snake : hardGame.getSnakesMap().values()) {
-			System.out.println("snake : "+snake);
+			System.out.println("snake : " + snake);
 			ImageView snakeImageView_hard = snake.getImageView_Hard(); // Get the ImageView for the snake
 
 			// Calculate the grid position for the head of the snake
@@ -185,24 +214,21 @@ public class GameBoardHardController {
 			snakeImageView_hard.setLayoutY(headPixel.getY());
 
 			// Add the ImageView to the overlay
-			System.out.println("this is snake image "+snakeImageView_hard);
+			System.out.println("this is snake image " + snakeImageView_hard);
 			Overlay.getChildren().add(snakeImageView_hard);
 		}
 	}
 
-	private void switchToNextPlayer() {
-		currentplayer = hardGame.getGameplayers()
-				.get((hardGame.getGameplayers().indexOf(currentplayer) + 1) % hardGame.getNumberOfPlayers());
-		System.out.println("Now it's " + currentplayer.getName() + "'s turn.");
-	}
-
 	@FXML
 	private void rollDiceAndMove() {
+		music("rollingDice.mp3");
 		Dice result = new Dice(GameLevel.HARD);
 		int diceRoll = result.rollDice();
 		System.out.println("DICERESULT:" + diceRoll);
-		if (diceRoll == 5) { // If dice roll is 5, handle the question event
+		if (diceRoll > 6) { // If dice roll is 5, handle the question event
+			music("popQuestion.mp3");
 			handleQuestionTileEvent(random.nextInt(2) + 1);
+
 		} else {
 			movePlayer(diceRoll);
 		}
@@ -211,8 +237,13 @@ public class GameBoardHardController {
 		switchToNextPlayer();
 	}
 
-	public void movePlayer(int diceRoll) {
+	private void switchToNextPlayer() {
+		currentplayer = hardGame.getGamePlayers()
+				.get((hardGame.getGamePlayers().indexOf(currentplayer) + 1) % hardGame.getNumberOfPlayers());
+		System.out.println("Now it's " + currentplayer.getName() + "'s turn.");
+	}
 
+	public void movePlayer(int diceRoll) {
 		System.out.println();
 		System.out.println(currentplayer.getName() + " got : " + diceRoll + " steps ");
 		System.out.println(currentplayer.getName() + " previous position is : " + currentplayer.getPosition());
@@ -221,24 +252,38 @@ public class GameBoardHardController {
 
 		// Correctly updating the position
 		if (newPosition < 1) {
-			newPosition = 0; // Ensure the position does not go below the starting point
-		}
-		if (newPosition > 49) {
-			newPosition = 49; // Assuming 49 is the winning tile
+			newPosition = 0;
+		} // Ensure the position does not go below the starting point
+		if (newPosition >= 169) {
+			newPosition = 169; // Assuming 49 is the winning tile
+			music("winning.mp3");
+			Alerts.alertBox(Alert.AlertType.INFORMATION, "CONGRATULATIONS !!! ",
+					"Player " + currentplayer.getName() + " WON the game !! ", "Triumphantly victorious !!");
+
 		}
 		currentplayer.setPositionAfterClimbing(newPosition); // Update this line to set the newPosition
+		if (diceRoll != 0 && newPosition > 0) {
+			music("playerMoving.mp3");
+
+		}
+
 		System.out.println(currentplayer.getName() + " current position is : " + currentplayer.getPosition());
+
 		// Check for ladder at the new position
 		Ladder ladder = hardGame.getLaddersMap().get(newPosition);
 		if (ladder != null) {
 			newPosition = ladder.getEndPosition();
+			System.out.println();
 			System.out.println("player postition before climbing the ladder : " + currentplayer.getPosition());
 			currentplayer.setPositionAfterClimbing(newPosition);
 			System.out.println("player postition after climbing the ladder : " + currentplayer.getPosition());
 			System.out.println(currentplayer.getName() + " climbed a ladder to position: " + newPosition);
-			if (newPosition >= 49) {
+			music("ladderClimbing.mp3");
+			if (newPosition >= 169) {
 				// Handle winning condition (end game, display message, etc.)
-				Alerts.alertBox(Alert.AlertType.INFORMATION, "player won ", "player won", "player won");
+				Alerts.alertBox(Alert.AlertType.INFORMATION, "CONGRATULATIONS !!! ",
+						"Player " + currentplayer.getName() + " WON the game !! ", "Triumphantly victorious !!");
+				music("winning.mp3");
 			}
 		}
 
@@ -249,25 +294,29 @@ public class GameBoardHardController {
 			System.out.println("player postition before bitten by a snake : " + currentplayer.getPosition());
 			currentplayer.setPositionAfterClimbing(newPosition);
 			System.out.println("player postition after bitten by a snake : " + currentplayer.getPosition());
-			if (newPosition >= 49) {
-				// Handle winning condition (end game, display message, etc.)
-				Alerts.alertBox(Alert.AlertType.INFORMATION, "player won ", "player won", "player won");
-			}
+			music("snakeBite.mp3");
 		}
+		if (diceRoll != 0) {
+			// Check for question tile at the new position
+			for (QuestionTile QT : hardGame.getQuestions()) {// check if the player stepped is on a question tile//
+				if (newPosition == QT.getPosition()) {
+					System.out.println("pop question");
+					music("popQuestion.mp3");
+					handleQuestionTileEvent(QT.getLevel());
+					if (newPosition >= 169) {
+						// Handle winning condition (end game, display message, etc.)
+						Alerts.alertBox(Alert.AlertType.INFORMATION, "CONGRATULATIONS !!! ",
+								"Player " + currentplayer.getName() + " WON the game !! ",
+								"Triumphantly victorious !!");
+						music("winning.mp3");
 
-		// Check for question tile at the new position
-		for (QuestionTile QT : hardGame.getQuestions()) {// check if the player stepped is on a question tile//
-
-			if (newPosition == QT.getPosition()) {
-				System.out.println("pop question");
-				handleQuestionTileEvent(QT.getLevel());
-				updatePlayerPositionVisuals(newPosition);
-
-				return;
+					}
+					return;
+				}
 			}
+
 		}
 		updatePlayerPositionVisuals(newPosition);
-
 	}
 
 	private void updatePlayerPositionVisuals(int newPosition) {
@@ -284,14 +333,14 @@ public class GameBoardHardController {
 		System.out.println("zeroIndexedPosition is : " + zeroIndexedPosition);
 
 		// Determine the row and column based on zeroIndexedPosition
-		int row = zeroIndexedPosition / 7;
-		int col = zeroIndexedPosition % 7;
+		int row = zeroIndexedPosition / 13;
+		int col = zeroIndexedPosition % 13;
 		System.out.println("col is : " + col);
 		System.out.println("row is : " + row);
 
 		// Adjust for zigzag pattern by checking if the row number is odd
 		if (row % 2 != 0) {// number of row is odd
-			col = 6 - col; // 6 is used instead of 7 here due to zero-indexing of col
+			col = 12 - col; // 6 is used instead of 7 here due to zero-indexing of col
 		}
 
 		// Debugging output
@@ -301,11 +350,31 @@ public class GameBoardHardController {
 		clearPreviousPlayerPosition(currentplayer);
 
 		// Ensure we don't try to access out of bounds indices
-		if (row >= 0 && row < 7 && col >= 0 && col < 7) {
+		if (row >= 0 && row < 13 && col >= 0 && col < 13) {
 			buttonMatrix[row][col].setGraphic(currentplayer.getObject());
 		} else {
 			System.out.println("Calculated position out of bounds: Row " + row + ", Col " + col);
 		}
+	}
+
+	private void updateBoardWithsurpriseTile() {
+
+		ImageView questiotileImageView = hardGame.getSurprise().getImageView(); // Assuming Ladder class has
+																				// getImageView method
+
+		// Calculate the grid position for the bottom and top of the ladder
+		Point2D questiontileGridPosition = calculateGridPosition(hardGame.getSurprise().getPosition());
+
+		// Convert grid position to pixel position
+		Point2D questiontilePixelPosition = calculatePixelPosition(questiontileGridPosition);
+
+		// Set the ImageView of the ladder at the bottom position
+		questiotileImageView.setLayoutX(questiontilePixelPosition.getX());
+		questiotileImageView.setLayoutY(questiontilePixelPosition.getY());
+		questiotileImageView.setFitWidth(40);
+		questiotileImageView.setFitHeight(40);
+		// Add the ImageView to the overlay
+		Overlay.getChildren().add(questiotileImageView);
 	}
 
 	private void clearPreviousPlayerPosition(Player currentplayer) {
@@ -409,43 +478,43 @@ public class GameBoardHardController {
 			case "red":
 				redAvatar.setEffect(resetSaturation);
 				redObject.setVisible(true);
-				hardGame.getGameplayers().get(i).setColor(color);
-				hardGame.getGameplayers().get(i).setObject(redObject);
+				hardGame.getGamePlayers().get(i).setColor(color);
+				hardGame.getGamePlayers().get(i).setObject(redObject);
 				i++;
 				break;
 			case "blue":
 				blueAvatar.setEffect(resetSaturation);
 				blueObject.setVisible(true);
-				hardGame.getGameplayers().get(i).setColor(color);
-				hardGame.getGameplayers().get(i).setObject(blueObject);
+				hardGame.getGamePlayers().get(i).setColor(color);
+				hardGame.getGamePlayers().get(i).setObject(blueObject);
 				i++;
 				break;
 			case "green":
 				greenAvatar.setEffect(resetSaturation);
 				greenObject.setVisible(true);
-				hardGame.getGameplayers().get(i).setColor(color);
-				hardGame.getGameplayers().get(i).setObject(greenObject);
+				hardGame.getGamePlayers().get(i).setColor(color);
+				hardGame.getGamePlayers().get(i).setObject(greenObject);
 				i++;
 				break;
 			case "purple":
 				purpleAvatar.setEffect(resetSaturation);
 				purpleObject.setVisible(true);
-				hardGame.getGameplayers().get(i).setColor(color);
-				hardGame.getGameplayers().get(i).setObject(purpleObject);
+				hardGame.getGamePlayers().get(i).setColor(color);
+				hardGame.getGamePlayers().get(i).setObject(purpleObject);
 				i++;
 				break;
 			case "grey":
 				greyAvatar.setEffect(resetSaturation);
 				greyObject.setVisible(true);
-				hardGame.getGameplayers().get(i).setColor(color);
-				hardGame.getGameplayers().get(i).setObject(greyObject);
+				hardGame.getGamePlayers().get(i).setColor(color);
+				hardGame.getGamePlayers().get(i).setObject(greyObject);
 				i++;
 				break;
 			case "yellow":
 				yellowAvatar.setEffect(resetSaturation);
 				yellowObject.setVisible(true);
-				hardGame.getGameplayers().get(i).setColor(color);
-				hardGame.getGameplayers().get(i).setObject(yellowObject);
+				hardGame.getGamePlayers().get(i).setColor(color);
+				hardGame.getGamePlayers().get(i).setObject(yellowObject);
 				i++;
 				break;
 			}

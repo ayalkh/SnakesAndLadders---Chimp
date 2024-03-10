@@ -1,7 +1,6 @@
 package model;
 
 import java.util.ArrayList;
-
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -10,19 +9,23 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
-
 public class HardGame {
-    private static HardGame hardGame = null;
-    private List<QuestionTile> questions = new ArrayList<>();
-    private int numberOfPlayers;
-    private List<Player> gamePlayers = new ArrayList<>();
-    private Tile[][] board;
-    private final int size = 13; 
-    private final Random random = new Random();
-    private Map<Integer, Snake> snakesMap = new HashMap<>();
-    private Map<Integer, Ladder> laddersMap = new HashMap<>();
+	private static HardGame hardGame = null;
+	private List<QuestionTile> questions = new ArrayList<>();
+	private int numberOfPlayers;
+	private List<Player> gamePlayers = new ArrayList<>();
+	private Tile[][] board;
+	private final int size = 13;
+	private final Random random = new Random();
+	private Map<Integer, Snake> snakesMap = new HashMap<>();
+	private Map<Integer, Ladder> laddersMap = new HashMap<>();
+	private SurpristTile surprise = new SurpristTile(0);
 
-	 public static HardGame getHardGame() {
+	public static void setHardGame(HardGame hardGame) {
+		HardGame.hardGame = hardGame;
+	}
+
+	public static HardGame getHardGame() {
 		return hardGame;
 	}
 
@@ -32,160 +35,36 @@ public class HardGame {
 		}
 		return hardGame;
 	}
-    public HardGame() {
-    	
-        this.board = new Tile[size][size];
-   initializeBoard();
-   placeSnakes();
-  placeLadders();
-//        placeSpecialTiles();
-//        placeQuestions();
-        // Add other initialization as needed
-    }
-    private void initializeBoard() {
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
-                board[i][j] = new Tile(i, j); 
-            }
-        }
-    }
-    private void placeSnakes() {
-        snakesMap.clear();
-        List<SnakePosition> snakePositions = generateSnakePositions();
 
-        for (SnakePosition snakePosition : snakePositions) {
-            String color = snakePosition.color;
-            int startPosition = snakePosition.startPosition;
-            int endPosition = calculateEndPosition(startPosition, color);
+	public HardGame() {
 
-            Snake snake = new Snake(startPosition, endPosition, color, Math.abs(startPosition - endPosition));
-            snakesMap.put(startPosition, snake);
-            int row = startPosition / size;
-            int col = startPosition % size;
-            board[row][col].setSnake(snake); // Set snake on the tile
-        }
-    }
-
-    private List<SnakePosition> generateSnakePositions() {
-        List<SnakePosition> positions = new ArrayList<>();
-        Set<Integer> occupiedPositions = new HashSet<>();
-        int maxPosition = size * size;
-
-        // Adjustments to generate two red and two green snakes, along with one blue and one yellow
-        positions.addAll(generateColoredSnakePositions("red", 2, maxPosition, occupiedPositions));
-        positions.addAll(generateColoredSnakePositions("green", 2, maxPosition, occupiedPositions));
-        positions.addAll(generateColoredSnakePositions("blue",2, maxPosition, occupiedPositions));
-        positions.addAll(generateColoredSnakePositions("yellow",2, maxPosition, occupiedPositions));
-
-        return positions;
-    }
-
-    private List<SnakePosition> generateColoredSnakePositions(String color, int count, int maxPosition, Set<Integer> occupiedPositions) {
-        List<SnakePosition> coloredPositions = new ArrayList<>();
-        for (int i = 0; i < count; i++) {
-            coloredPositions.add(generateColoredSnakePosition(color, maxPosition, occupiedPositions));
-        }
-        return coloredPositions;
-    }
-
-    private SnakePosition generateColoredSnakePosition(String color, int maxPosition, Set<Integer> occupiedPositions) {
-        int startPosition;
-        do {
-            startPosition = getRandomPosition(1, maxPosition, occupiedPositions);
-            // Adjusted constraints for a 13x13 board
-            if ((color.equals("yellow") && startPosition > 13 && startPosition <= maxPosition - 13) || // Adjust for yellow snakes
-                (color.equals("green") && startPosition > 26 && startPosition <= maxPosition - 26) || // Adjust for green snakes
-                (color.equals("blue") && startPosition > 39 && startPosition <= maxPosition - 39) || // Adjust for blue snakes
-                (color.equals("red") && startPosition > 1 && startPosition <= maxPosition - 1)) { // Minor adjustment for red snakes
-                break;
-            }
-        } while (true);
-        
-        occupiedPositions.add(startPosition);
-        return new SnakePosition(color, startPosition);
-    }
-    private int calculateEndPosition(int startPosition, String color) {
-	    int endPosition = startPosition; // Default
-
-	    // Calculate the number of rows to move back based on the color
-	    int rowsToMoveBack = 0;
-	    switch (color.toLowerCase()) {
-	        case "yellow":
-	            rowsToMoveBack = 1;
-	            break;
-	        case "green":
-	            rowsToMoveBack = 2;
-	            break;
-	        case "blue":
-	            rowsToMoveBack = 3;
-	            break;
-	        case "red":
-	        	endPosition = 1; // Move back to start of the board
-	    	    return endPosition;
-
-	    }
-
-	    // Calculate the row and column position
-	    int currentRow = (startPosition - 1) / size;
-	    int currentColumn = (startPosition - 1) % size;
-
-	    // Calculate the end row
-	    int endRow = currentRow - rowsToMoveBack;
-
-	    // If moving back stays within the board
-	    if (endRow >= 0) {
-	        // Check if the current row is even or odd to account for the zigzag pattern
-	        boolean isCurrentRowOdd = currentRow % 2 == 0;
-	        boolean isEndRowOdd = endRow % 2 == 0;
-
-	        // If the direction changes, we need to mirror the column as well.
-	        if (isCurrentRowOdd != isEndRowOdd) {
-	            currentColumn = size - 1 - currentColumn;
-	        }
-
-	        // Calculate the new end position based on the end row and column
-	        endPosition = endRow * size + currentColumn + 1;
-	    } else {
-	        // If moving back would go off the board, set to the first position
-	        endPosition = 1;
-	    }
-
-	    return endPosition;
+		this.board = new Tile[size][size];
+		initializeBoard();
+		placeSnakes();
+		placeLadders();
+		placequestions();
+		placesurprise();
 	}
 
-
-
-    private class SnakePosition {
-        String color;
-        int startPosition;
-
-        SnakePosition(String color, int startPosition) {
-            this.color = color;
-            this.startPosition = startPosition;
-        }
-    }
-    private int getRandomPosition(int min, int max, Set<Integer> occupiedPositions) {
-		int position;
-		do {
-			position = random.nextInt(max - min + 1) + min;
-		} while (occupiedPositions.contains(position) || position % size == 0);
-		return position;
+	private void initializeBoard() {
+		for (int i = 0; i < size; i++) {
+			for (int j = 0; j < size; j++) {
+				board[i][j] = new Tile(i, j);
+			}
+		}
 	}
-
-
-
-	
 
 	private void placeLadders() {
+		System.out.println("Placing ladders : ");
 		laddersMap.clear();
-		int[] ladderLengths = { 1, 2, 3, 4, 5, 6, 7, 8 }; // Ladder lengths for hard level
+		int[] ladderLengths = { 1, 2, 3, 4, 5, 6, 7, 8 }; // Ladder lengths for medium level
 
 		for (int length : ladderLengths) {
 			boolean placed = false;
 			while (!placed) {
 				int startPosition = getRandomLadderStartPosition(length);
 				int endPosition = calculateLaddersEndPosition(startPosition, length);
-
+				System.out.println("Iam in medium game");
 				// Check if endPosition is not valid (e.g., out of bounds), then skip this
 				// attempt
 				if (endPosition == -1) {
@@ -204,8 +83,11 @@ public class HardGame {
 						|| laddersMap.containsKey(endPosition));
 
 				if (isOverlapFree) {
+					System.out.println();
+//					System.out.println("Ladder start position at : " + startPosition);
+//					System.out.println("Ladder end position at : " + endPosition);
 					// Place the ladder
-					Ladder ladder = new Ladder(startPosition, endPosition, length,"hard");
+					Ladder ladder = new Ladder(startPosition, endPosition, length, "hard");
 					laddersMap.put(startPosition, ladder);
 					board[startRow][col].setLadder(ladder); // Set ladder on the tile
 					placed = true;
@@ -280,7 +162,6 @@ public class HardGame {
 				startPosition = (randomRowIndex * size) + (size - 1 - column) + 1;
 			}
 
-			System.out.println("Ladder start position found after " + attempts + " attempts: " + startPosition);
 			return startPosition;
 		}
 	}
@@ -312,12 +193,85 @@ public class HardGame {
 		return !snakesMap.containsKey(endPosition) && !laddersMap.containsKey(endPosition);
 	}
 
+	private void placeSnakes() {
+		System.out.println("Placing snakes : ");
+		snakesMap.clear();
+		List<SnakePosition> snakePositions = generateSnakePositions();
 
+		for (SnakePosition snakePosition : snakePositions) {
+			String color = snakePosition.color;
+			int startPosition = snakePosition.startPosition;
+			int endPosition = calculateEndPosition(startPosition, color);
+			System.out.println();
+			System.out.println("Snake start position : " + startPosition);
+			System.out.println("Snake end position : " + endPosition);
+			System.out.println();
+			Snake snake = new Snake(startPosition, endPosition, color, Math.abs(startPosition - endPosition));
+			snakesMap.put(startPosition, snake);
+			int row = startPosition / size;
+			int col = startPosition % size;
+			board[row][col].setSnake(snake); // Set snake on the tile
+		}
+	}
 
+	private List<SnakePosition> generateSnakePositions() {
+		List<SnakePosition> positions = new ArrayList<>();
+		Set<Integer> occupiedPositions = new HashSet<>();
+		int maxPosition = size * size;
 
+		// Adjustments to generate two red and two green snakes, along with one blue and
+		// one yellow
+		positions.addAll(generateColoredSnakePositions("red", 2, maxPosition, occupiedPositions));
+		positions.addAll(generateColoredSnakePositions("green", 2, maxPosition, occupiedPositions));
+		positions.addAll(generateColoredSnakePositions("blue", 2, maxPosition, occupiedPositions));
+		positions.addAll(generateColoredSnakePositions("yellow", 2, maxPosition, occupiedPositions));
 
+		return positions;
+	}
 
+	private List<SnakePosition> generateColoredSnakePositions(String color, int count, int maxPosition,
+			Set<Integer> occupiedPositions) {
+		List<SnakePosition> coloredPositions = new ArrayList<>();
+		for (int i = 0; i < count; i++) {
+			coloredPositions.add(generateColoredSnakePosition(color, maxPosition, occupiedPositions));
+		}
+		return coloredPositions;
+	}
 
+	private SnakePosition generateColoredSnakePosition(String color, int maxPosition, Set<Integer> occupiedPositions) {
+		int startPosition;
+		do {
+			startPosition = getRandomPosition(1, maxPosition, occupiedPositions);
+			// Make sure the snake does not go beyond the board
+			if ((color.equals("yellow") && startPosition > 13 && startPosition <= maxPosition - 13)
+					|| (color.equals("green") && startPosition > 26 && startPosition <= maxPosition - 26)
+					|| (color.equals("blue") && startPosition > 39 && startPosition <= maxPosition - 39)
+					|| (color.equals("red") && startPosition > 1)) {
+				break;
+			}
+		} while (true);
+
+		occupiedPositions.add(startPosition);
+		return new SnakePosition(color, startPosition);
+	}
+
+	private class SnakePosition {
+		String color;
+		int startPosition;
+
+		SnakePosition(String color, int startPosition) {
+			this.color = color;
+			this.startPosition = startPosition;
+		}
+	}
+
+	private int getRandomPosition(int min, int max, Set<Integer> occupiedPositions) {
+		int position;
+		do {
+			position = random.nextInt(max - min + 1) + min;
+		} while (occupiedPositions.contains(position) || position % size == 0);
+		return position;
+	}
 
 	public Map<Integer, Ladder> getLaddersMap() {
 		return laddersMap;
@@ -336,7 +290,54 @@ public class HardGame {
 		return iter.next();
 	}
 
-	
+	private int calculateEndPosition(int startPosition, String color) {
+		int endPosition = startPosition; // Default
+
+		// Calculate the number of rows to move back based on the color
+		int rowsToMoveBack = 0;
+		switch (color.toLowerCase()) {
+		case "yellow":
+			rowsToMoveBack = 1;
+			break;
+		case "green":
+			rowsToMoveBack = 2;
+			break;
+		case "blue":
+			rowsToMoveBack = 3;
+			break;
+		case "red":
+			endPosition = 1; // Move back to start of the board
+			return endPosition;
+
+		}
+
+		// Calculate the row and column position
+		int currentRow = (startPosition - 1) / size;
+		int currentColumn = (startPosition - 1) % size;
+
+		// Calculate the end row
+		int endRow = currentRow - rowsToMoveBack;
+
+		// If moving back stays within the board
+		if (endRow >= 0) {
+			// Check if the current row is even or odd to account for the zigzag pattern
+			boolean isCurrentRowOdd = currentRow % 2 == 0;
+			boolean isEndRowOdd = endRow % 2 == 0;
+
+			// If the direction changes, we need to mirror the column as well.
+			if (isCurrentRowOdd != isEndRowOdd) {
+				currentColumn = size - 1 - currentColumn;
+			}
+
+			// Calculate the new end position based on the end row and column
+			endPosition = endRow * size + currentColumn + 1;
+		} else {
+			// If moving back would go off the board, set to the first position
+			endPosition = 1;
+		}
+
+		return endPosition;
+	}
 
 	public static HardGame getHardGameInstance() {
 		return hardGame;
@@ -362,7 +363,7 @@ public class HardGame {
 		this.numberOfPlayers = numberOfPlayers;
 	}
 
-	public List<Player> getGameplayers() {
+	public List<Player> getGamePlayers() {
 		return gamePlayers;
 	}
 
@@ -394,4 +395,68 @@ public class HardGame {
 		return random;
 	}
 
+	private void placequestions() {
+		questions.clear();
+
+		Set<Integer> occupiedPositions = new HashSet<>();
+		int maxPosition = size * size;
+		int i = 0;
+		while (i < 3) {
+			QuestionTile QT = new QuestionTile(getRandomQuestion(),
+					getRandomPosition(size, maxPosition, occupiedPositions), i + 1);
+			if (!(snakesMap.containsKey(QT.getPosition()) || snakesMap.containsKey(QT.getPosition())
+					|| laddersMap.containsKey(QT.getPosition()))) {
+				questions.add(QT);
+				occupiedPositions.add(questions.get(i).getPosition());
+				int row = (QT.getPosition()) / size;
+				int col = (QT.getPosition()) % size;
+				board[row][col].setQuestiontile(QT); // Set snake on the tile
+				i++;
+			}
+
+		}
+
+	}
+
+	private Question getRandomQuestion() {
+
+		return null;
+	}
+
+	private void placesurprise() {
+
+		int maxPosition = size * size;
+		int Position = 0;
+
+		while (Position > maxPosition - 1 || Position < 1) { // to make sure to put the surprise in a good and valid
+																// position
+			Position = random.nextInt(maxPosition) + 1;
+		}
+		surprise.setPosition(Position);
+
+		int row = (surprise.getPosition()) / size;
+		int col = (surprise.getPosition()) % size;
+		board[row][col].setSurprise(surprise); // Set surprise on the tile
+
+	}
+
+	private boolean checkposition(int position) {
+		for (QuestionTile qt : questions) {
+			if (qt.getPosition() == position) {
+				return false;
+			}
+		}
+		if ((snakesMap.containsKey(position) || snakesMap.containsKey(position) || laddersMap.containsKey(position))) {
+			return false;
+		}
+		return true;
+	}
+
+	public SurpristTile getSurprise() {
+		return surprise;
+	}
+
+	public void setSurprise(SurpristTile surprise) {
+		this.surprise = surprise;
+	}
 }

@@ -66,42 +66,8 @@ public class EasyGame {
 		}
 	}
 
-//	private void placeLadders() {
-//		laddersMap.clear();
-//		int[] ladderLengths = { 1,2,3,4}; // Ladder lengths
-//
-//		for (int length : ladderLengths) {
-//			boolean placed = false;
-//			while (!placed) {
-//				int startPosition = getRandomLadderStartPosition(length);
-//	
-//
-//				int endPosition = calculateLaddersEndPosition(startPosition,length);
-//				int startRow = (startPosition) / size;
-//				int col = (startPosition) % size;
-//
-//				// Adjust constraints for ladder start position based on ladder length
-//				boolean isStartPositionValid = startRow >= 0 && startRow <= size - length;
-//
-//				// Check constraints for snake and ladder overlap
-//				boolean isOverlapFree = !(snakesMap.containsKey(startPosition) || snakesMap.containsKey(endPosition)
-//						|| laddersMap.containsKey(endPosition));
-//
-//				if (isStartPositionValid && isOverlapFree) {
-//					// Place the ladder
-//					System.out.println(" this is end position of the ladder " + length + " : " + endPosition);
-//
-//
-//					Ladder ladder = new Ladder(startPosition, endPosition, length,"easy");
-//					laddersMap.put(startPosition, ladder);
-//					board[startRow][col].setLadder(ladder); // Set ladder on the tile
-//					placed = true;
-//				}
-//			}
-//		}
-//	}
-
 	private void placeLadders() {
+		// System.out.println("Placing Ladders : ");
 		laddersMap.clear();
 		int[] ladderLengths = { 1, 2, 3, 4 }; // Ladder lengths
 
@@ -120,6 +86,9 @@ public class EasyGame {
 				boolean isOverlapFree = isPositionOverlapFree(startPosition, endPosition);
 
 				if (isStartPositionValid && isOverlapFree) {
+//					System.out.println();
+//					System.out.println("Ladder start position at : " + startPosition);
+//					System.out.println("Ladder end position at : " + endPosition);
 					Ladder ladder = new Ladder(startPosition, endPosition, length, "easy");
 					laddersMap.put(startPosition, ladder);
 					board[startRow][startCol].setLadder(ladder); // Set ladder on the tile
@@ -224,8 +193,8 @@ public class EasyGame {
 				startPosition = (randomRowIndex * size) + (size - 1 - column) + 1;
 			}
 
-	        return startPosition;
-	    }
+			return startPosition;
+		}
 	}
 
 	private boolean isPositionFree(int startPosition, int ladderLength) {
@@ -249,6 +218,7 @@ public class EasyGame {
 	}
 
 	private void placeSnakes() {
+		System.out.println("Placing snakes :");
 		snakesMap.clear();
 		Map<String, Integer> snakePositions = generateSnakePositions();
 
@@ -256,6 +226,11 @@ public class EasyGame {
 			String color = entry.getKey();
 			int startPosition = entry.getValue();
 			int endPosition = calculateEndPosition(startPosition, color);
+			System.out.println();
+			System.out.println("Snake start position : " + startPosition);
+			System.out.println("i am here");
+			System.out.println("Snake end position : " + endPosition);
+			System.out.println();
 
 			Snake snake = new Snake(startPosition, endPosition, color, Math.abs(startPosition - endPosition));
 			snakesMap.put(startPosition, snake);
@@ -358,14 +333,6 @@ public class EasyGame {
 		return iter.next();
 	}
 
-//	private int getRandomPosition(int min, int max, Set<Integer> occupiedPositions) {
-//		int position;
-//		do {
-//			position = random.nextInt(max - min + 1) + min;
-//		} while (occupiedPositions.contains(position) || position % size == 0);
-//		return position;
-//	}
-
 	private int getRandomPosition(int min, int max, Set<Integer> occupiedPositions) {
 		List<Integer> availablePositions = IntStream.rangeClosed(min, max).boxed().collect(Collectors.toList());
 		availablePositions.removeAll(occupiedPositions);
@@ -409,29 +376,6 @@ public class EasyGame {
 	public void setSnakesMap(Map<Integer, Snake> snakesMap) {
 		this.snakesMap = snakesMap;
 	}
-
-//	private void placequestions() {
-//		questions.clear();
-//
-//		Set<Integer> occupiedPositions = new HashSet<>();
-//		int maxPosition = size * size;
-//		int i = 0;
-//		while (i < 3) {
-//			QuestionTile QT = new QuestionTile(getRandomQuestion(),
-//					getRandomPosition(size, maxPosition, occupiedPositions), i + 1);
-//			if (!(snakesMap.containsKey(QT.getPosition()) || snakesMap.containsKey(QT.getPosition())
-//					|| laddersMap.containsKey(QT.getPosition()))) {
-//				questions.add(QT);
-//				occupiedPositions.add(questions.get(i).getPosition());
-//				int row = (QT.getPosition()) / size;
-//				int col = (QT.getPosition()) % size;
-//				board[row][col].setQuestiontile(QT); // Set snake on the tile
-//				i++;
-//			}
-//
-//		}
-//
-//	}
 
 	private void placeQuestions() {
 		questions.clear();
