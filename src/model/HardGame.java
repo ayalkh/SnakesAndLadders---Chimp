@@ -19,7 +19,7 @@ public class HardGame extends GameBoard {
 	private final Random random = new Random();
 	private Map<Integer, Snake> snakesMap = new HashMap<>();
 	private Map<Integer, Ladder> laddersMap = new HashMap<>();
-	private SurpristTile surprise = new SurpristTile(0);
+	private List<SurpristTile> surprises = new ArrayList<>();
 
 	public static void setHardGame(HardGame hardGame) {
 		HardGame.hardGame = hardGame;
@@ -425,20 +425,74 @@ public class HardGame extends GameBoard {
 	}
 
 	private void placesurprise() {
-
 		int maxPosition = size * size;
-		int Position = 0;
 
-		while (Position > maxPosition - 1 || Position < 1) { // to make sure to put the surprise in a good and valid
-																// position
-			Position = random.nextInt(maxPosition) + 1;
+		// Clear existing surprises before placing new ones
+		surprises.clear();
+
+		for (int i = 0; i < 2; i++) { // Place two surprises
+			int position;
+			do {
+				position = random.nextInt(maxPosition) + 1;
+			} while (!isPositionFreeForSurprise(position));
+
+			SurpristTile newSurprise = new SurpristTile(position); // Create new surprise with the position
+			surprises.add(newSurprise); // Add to surprises list
+
+			int row = position / size;
+			int col = position % size;
+			board[row][col].setSurprise(newSurprise); // Set surprise on the tile
 		}
-		surprise.setPosition(Position);
+	}
 
-		int row = (surprise.getPosition()) / size;
-		int col = (surprise.getPosition()) % size;
-		board[row][col].setSurprise(surprise); // Set surprise on the tile
+	private boolean isPositionFreeForSurprise(int position) {
+		// Check if the specific position is free
+		if (!isPositionClear(position)) {
+			return false;
+		}
 
+		// Calculate positions +10 and -10, ensuring they are within the board bounds
+		int positionPlus10 = position + 10 <= size * size ? position + 10 : 100;
+		int positionMinus10 = position - 10 >= 1 ? position - 10 : 1;
+
+		// Check if the positions +10 and -10 are free
+		if (positionPlus10 != 100 && !isPositionClear(positionPlus10)) {
+			return false;
+		}
+		if (positionMinus10 != 1 && !isPositionClear(positionMinus10)) {
+			return false;
+		}
+
+		return true; // All positions are free
+	}
+
+	private boolean isPositionClear(int position) {
+		if (snakesMap.containsKey(position) || laddersMap.containsKey(position) || checkIfQuestionTile(position)) {
+			return false;
+		}
+
+		// Check for snake and ladder end positions as well
+		for (Snake snake : snakesMap.values()) {
+			if (snake.getEndPosition() == position || snake.getStartPosition() == position) {
+				return false;
+			}
+		}
+		for (Ladder ladder : laddersMap.values()) {
+			if (ladder.getEndPosition() == position || ladder.getStartPosition() == position) {
+				return false;
+			}
+		}
+		return true; // The specific position is free
+	}
+
+	// Method to check if a position is occupied by a question tile
+	private boolean checkIfQuestionTile(int position) {
+		for (QuestionTile qt : questions) {
+			if (qt.getPosition() == position) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private boolean checkposition(int position) {
@@ -453,12 +507,12 @@ public class HardGame extends GameBoard {
 		return true;
 	}
 
-	public SurpristTile getSurprise() {
-		return surprise;
+	public List<SurpristTile> getSurprises() {
+		return surprises;
 	}
 
-	public void setSurprise(SurpristTile surprise) {
-		this.surprise = surprise;
+	public void setSurprises(List<SurpristTile> surprises) {
+		this.surprises = surprises;
 	}
 }
 

@@ -2,6 +2,7 @@ package control;
 
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -41,6 +42,9 @@ import model.Player;
 import model.Question;
 import model.QuestionTile;
 import model.Snake;
+import model.SysData;
+import model.SysData2;
+import model.game;
 
 public class GameBoardEasyController {
 	private EasyGame easyGame; // The game logic
@@ -229,10 +233,8 @@ public class GameBoardEasyController {
 		Dice result = new Dice(GameLevel.EASY);
 		int diceRoll = result.rollDice();
 		System.out.println("rolling dice result : " + diceRoll);
-
 		// Start dice rolling sound
 		music("rollingDice.mp3");
-
 		// Configure rotation animation
 		RotateTransition rotateTransition = new RotateTransition(Duration.seconds(1), rollDiceImage);
 		rotateTransition.setByAngle(360 * 3); // Rotate 3 times
@@ -249,7 +251,7 @@ public class GameBoardEasyController {
 				System.out.println("DICERESULT:" + diceRoll);
 
 				// Handle specific dice roll outcomes
-				if (diceRoll == 5) { // If dice roll is 5, handle the question event
+				if (diceRoll == 7) { // If dice roll is 5, handle the question event
 					music("popQuestion.mp3");
 					handleQuestionTileEvent(random.nextInt(2) + 1);
 
@@ -265,26 +267,6 @@ public class GameBoardEasyController {
 		// Start the rotation animation
 		rotateTransition.play();
 	}
-
-//	@FXML
-//	private void rollDiceAndMove() {
-//		Dice result = new Dice(GameLevel.EASY);
-//		int diceRoll = result.rollDice();
-//		System.out.println("rolling dice result : " + diceRoll);
-//		music("rollingDice.mp3");
-//		Image diceImage = new Image(getClass().getResourceAsStream("/images/dice" + diceRoll + ".png"));
-//		rollDiceImage.setImage(diceImage);
-//		System.out.println("DICERESULT:" + diceRoll);
-//		if (diceRoll == 5) { // If dice roll is 5, handle the question event
-//			handleQuestionTileEvent(random.nextInt(2) + 1);
-//			music("popQuestion.mp3");
-//		} else {
-//			movePlayer(diceRoll);
-//		}
-//
-//		// Once everything for this player's turn is done, switch to the next player
-//		switchToNextPlayer();
-//	}
 
 	private void switchToNextPlayer() {
 		currentplayer = easyGame.getGameplayers()
@@ -312,13 +294,20 @@ public class GameBoardEasyController {
 		if (newPosition < 1) {
 			newPosition = 0;
 		} // Ensure the position does not go below the starting point
-		if (newPosition >= 169) {
-			newPosition = 169; // Assuming 49 is the winning tile
+		if (newPosition >= 49) {
+			newPosition = 49; // Assuming 49 is the winning tile
+
 			music("winning.mp3");
 			Alerts.alertBox(Alert.AlertType.INFORMATION, "CONGRATULATIONS !!! ",
 					"Player " + currentplayer.getName() + " WON the game !! ", "Triumphantly victorious !!");
+			game newgame = new game(SysData2.getNextgameID(),1,currentplayer.getName());
 
-		}
+
+			// Add the new question to SysData
+			if (SysData2.getInstance().addGame(newgame)) {
+				System.out.println("game added successfully");
+//				// Optionally: C
+		}}
 		if (diceRoll != 0 && newPosition > 0) {
 			music("playerMoving.mp3");
 
@@ -336,13 +325,18 @@ public class GameBoardEasyController {
 			System.out.println("player postition after climbing the ladder : " + currentplayer.getPosition());
 			System.out.println(currentplayer.getName() + " climbed a ladder to position: " + newPosition);
 			music("ladderClimbing.mp3");
+
 			if (newPosition >= 49) {
 				// Handle winning condition (end game, display message, etc.)
 				Alerts.alertBox(Alert.AlertType.INFORMATION, "CONGRATULATIONS !!! ",
 						"Player " + currentplayer.getName() + " WON the game !! ", "Triumphantly victorious !!");
 				music("winning.mp3");
+				game newgame = new game(SysData2.getNextgameID(),1,currentplayer.getName());
 
-			}
+				// Add the new question to SysData
+				if (SysData2.getInstance().addGame(newgame)) {
+					System.out.println("game added successfully");
+			}}
 			// soundPath = "ladderClimbing.mp3";
 
 		}
@@ -365,13 +359,19 @@ public class GameBoardEasyController {
 					music("popQuestion.mp3");
 					handleQuestionTileEvent(QT.getLevel());
 
+
 					if (newPosition >= 49) {
 						// Handle winning condition (end game, display message, etc.)
 						Alerts.alertBox(Alert.AlertType.INFORMATION, "CONGRATULATIONS !!! ",
 								"Player " + currentplayer.getName() + " WON the game !! ",
 								"Triumphantly victorious !!");
 						music("winning.mp3");
+						game newgame = new game(SysData2.getNextgameID(),1,currentplayer.getName());
 
+						// Add the new question to SysData
+						if (SysData2.getInstance().addGame(newgame)) {
+							System.out.println("game added successfully");
+					}
 					}
 					return;
 				}
@@ -379,6 +379,29 @@ public class GameBoardEasyController {
 
 		}
 		updatePlayerPositionVisuals(newPosition);
+		if (newPosition >= 49) {
+			music("winning.mp3");
+			// Handle winning condition (end game, display message, etc.)
+			Alerts.alertBox(Alert.AlertType.INFORMATION, "CONGRATULATIONS !!! ",
+					"Player " + currentplayer.getName() + " WON the game !! ", "Triumphantly victorious !!");
+
+			try {
+				// Load the QuestionView FXML file
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/HistoryBoard.fxml"));
+				Parent root = loader.load();
+
+				// Use the existing stage instead of creating a new one
+				Stage currentStage = new Stage();
+
+				currentStage.setTitle("History Board");
+				currentStage.setScene(new Scene(root));
+				currentStage.show(); // This line actually displays the stage
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("Error opening history view: " + e.getMessage());
+			}
+
+		}
 	}
 
 	private void updatePlayerPositionVisuals(int newPosition) {

@@ -419,20 +419,77 @@ public class MediumGame extends GameBoard{
 	}
 
 	private void placesurprise() {
-
 		int maxPosition = size * size;
-		int Position = 0;
+		int position;
 
-		while (Position > maxPosition - 1 || Position < 1) { // to make sure to put the surprise in a good and valid
-																// position
-			Position = random.nextInt(maxPosition) + 1;
+		do {
+			position = random.nextInt(maxPosition) + 1; // Generate a random position
+			// Check if this position is not already occupied by a ladder, snake, or
+			// question tile
+			// Adjust the checkposition method or create a new one to include checks for
+			// snake end positions as well
+		} while (!isPositionFreeForSurprise(position));
+
+		surprise.setPosition(position);
+
+		int row = position / size;
+		int col = position % size;
+		if (row % 2 == 1) { // adjust for zigzag if necessary
+			col = size - 1 - col;
 		}
-		surprise.setPosition(Position);
-
-		int row = (surprise.getPosition()) / size;
-		int col = (surprise.getPosition()) % size;
 		board[row][col].setSurprise(surprise); // Set surprise on the tile
+	}
 
+	private boolean isPositionFreeForSurprise(int position) {
+		// Check if the specific position is free
+		if (!isPositionClear(position)) {
+			return false;
+		}
+
+		// Calculate positions +10 and -10, ensuring they are within the board bounds
+		int positionPlus10 = position + 10 <= size * size ? position + 10 : 100;
+		int positionMinus10 = position - 10 >= 1 ? position - 10 : 1;
+
+		// Check if the positions +10 and -10 are free
+		if (positionPlus10 != 100 && !isPositionClear(positionPlus10)) {
+			return false;
+		}
+		if (positionMinus10 != 1 && !isPositionClear(positionMinus10)) {
+			return false;
+		}
+
+		return true; // All positions are free
+	}
+
+	// Helper method to check if a given position is not occupied by snakes,
+	// ladders, or question tiles
+	private boolean isPositionClear(int position) {
+		if (snakesMap.containsKey(position) || laddersMap.containsKey(position) || checkIfQuestionTile(position)) {
+			return false;
+		}
+
+		// Check for snake and ladder end positions as well
+		for (Snake snake : snakesMap.values()) {
+			if (snake.getEndPosition() == position || snake.getStartPosition() == position) {
+				return false;
+			}
+		}
+		for (Ladder ladder : laddersMap.values()) {
+			if (ladder.getEndPosition() == position || ladder.getStartPosition() == position) {
+				return false;
+			}
+		}
+		return true; // The specific position is free
+	}
+
+	// Method to check if a position is occupied by a question tile
+	private boolean checkIfQuestionTile(int position) {
+		for (QuestionTile qt : questions) {
+			if (qt.getPosition() == position) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private boolean checkposition(int position) {
