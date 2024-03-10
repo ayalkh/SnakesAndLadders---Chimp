@@ -9,7 +9,8 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
-public class MediumGame {
+public class MediumGame extends GameBoard{
+	
 	private static MediumGame mediumGameInstance = null;
 	private List<QuestionTile> questions = new ArrayList<>();
 
@@ -39,15 +40,15 @@ public class MediumGame {
 		return mediumGameInstance;
 	}
 
-	private void initializeBoard() {
+	protected void initializeBoard() {
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
 				board[i][j] = new Tile(i, j);
 			}
 		}
 	}
-
-	private void placeLadders() {
+	@Override
+	protected void placeLadders() {
 		System.out.println("Placing ladders : ");
 		laddersMap.clear();
 		int[] ladderLengths = { 1, 2, 3, 4, 5, 6 }; // Ladder lengths for medium level
@@ -185,8 +186,8 @@ public class MediumGame {
 
 		return !snakesMap.containsKey(endPosition) && !laddersMap.containsKey(endPosition);
 	}
-
-	private void placeSnakes() {
+	@Override
+	protected void placeSnakes() {
 		System.out.println("Placing snakes : ");
 		snakesMap.clear();
 		List<SnakePosition> snakePositions = generateSnakePositions();
@@ -383,12 +384,13 @@ public class MediumGame {
 	public int getSize() {
 		return size;
 	}
+	
 
 	public Random getRandom() {
 		return random;
 	}
-
-	private void placequestions() {
+	@Override
+	protected void placequestions() {
 		questions.clear();
 
 		Set<Integer> occupiedPositions = new HashSet<>();
@@ -509,4 +511,6 @@ public class MediumGame {
 	public void setSurprise(SurpristTile surprise) {
 		this.surprise = surprise;
 	}
+
+	
 }

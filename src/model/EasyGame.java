@@ -12,7 +12,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-public class EasyGame {
+public class EasyGame extends GameBoard {
 	private static EasyGame easyGameInstance = null;
 
 	private List<QuestionTile> questions = new ArrayList<>();
@@ -31,7 +31,7 @@ public class EasyGame {
 		placeSnakes();
 		placeLadders();
 		placeSpecialTiles();
-		placeQuestions();
+		placequestions();
 
 	}
 
@@ -58,15 +58,15 @@ public class EasyGame {
 		this.gameplayers = gameplayers;
 	}
 
-	private void initializeBoard() {
+	protected void initializeBoard() {
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
 				board[i][j] = new Tile(i, j); // Assuming your Tile constructor takes row and column as arguments
 			}
 		}
 	}
-
-	private void placeLadders() {
+	@Override
+	protected void placeLadders() {
 		// System.out.println("Placing Ladders : ");
 		laddersMap.clear();
 		int[] ladderLengths = { 1, 2, 3, 4 }; // Ladder lengths
@@ -216,8 +216,8 @@ public class EasyGame {
 	private void placeSpecialTiles() {
 		// Place question tiles and surprise tiles, if any
 	}
-
-	private void placeSnakes() {
+	@Override
+	protected void placeSnakes() {
 		System.out.println("Placing snakes :");
 		snakesMap.clear();
 		Map<String, Integer> snakePositions = generateSnakePositions();
@@ -373,11 +373,12 @@ public class EasyGame {
 		return snakesMap;
 	}
 
+	
 	public void setSnakesMap(Map<Integer, Snake> snakesMap) {
 		this.snakesMap = snakesMap;
 	}
-
-	private void placeQuestions() {
+	@Override
+	protected void placequestions() {
 		questions.clear();
 
 		Set<Integer> occupiedPositions = new HashSet<>();
