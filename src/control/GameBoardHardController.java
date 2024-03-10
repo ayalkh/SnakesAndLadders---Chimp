@@ -10,6 +10,8 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import javafx.animation.RotateTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
@@ -19,6 +21,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.effect.ColorAdjust;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -26,6 +29,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import model.Dice;
 import model.GameLevel;
 import model.HardGame;
@@ -34,6 +38,7 @@ import model.Player;
 import model.Question;
 import model.QuestionTile;
 import model.Snake;
+import model.SurpristTile;
 
 public class GameBoardHardController {
 
@@ -58,8 +63,8 @@ public class GameBoardHardController {
 	@FXML
 	private Button diceButton;
 
-	@FXML
-	private ImageView diceButton1;
+//	@FXML
+//	private ImageView diceButton1;
 
 	@FXML
 	private ImageView yellowObject, blueObject, purpleObject, greenObject, redObject, greyObject;
@@ -96,7 +101,7 @@ public class GameBoardHardController {
 		updateBoardWithLadders();
 		loadquestions();
 		updateBoardWithQuestionTiles();
-		updateBoardWithsurpriseTile();
+		updateBoardWithSurpriseTiles();
 
 	}
 
@@ -220,21 +225,58 @@ public class GameBoardHardController {
 	}
 
 	@FXML
+	private ImageView rollDiceImage;
+
+	@FXML
 	private void rollDiceAndMove() {
 		music("rollingDice.mp3");
 		Dice result = new Dice(GameLevel.HARD);
 		int diceRoll = result.rollDice();
-		System.out.println("DICERESULT:" + diceRoll);
-		if (diceRoll > 6) { // If dice roll is 5, handle the question event
-			music("popQuestion.mp3");
-			handleQuestionTileEvent(random.nextInt(2) + 1);
+		System.out.println("rolling dice result : " + diceRoll);
 
+		if (diceRoll >= 1 && diceRoll <= 6) {
+			// Configure rotation animation only for rolls 1-6
+			RotateTransition rotateTransition = new RotateTransition(Duration.seconds(1), rollDiceImage);
+			rotateTransition.setByAngle(360 * 3); // Rotate 3 times
+			rotateTransition.setCycleCount(1);
+			rotateTransition.setAutoReverse(false);
+
+			rotateTransition.setOnFinished(event -> {
+				// After rotation finishes, execute the remaining operations in the next pulse
+				// of the JavaFX Application Thread
+				Platform.runLater(() -> {
+					// Set the dice image to the result
+					try {
+						Image diceImage = new Image(getClass().getResourceAsStream("/images/dice" + diceRoll + ".png"));
+						rollDiceImage.setImage(diceImage);
+					} catch (NullPointerException e) {
+						System.out.println("Error: Unable to load dice image.");
+					}
+					movePlayer(diceRoll);
+					// Once everything for this player's turn is done, switch to the next player
+					switchToNextPlayer();
+				});
+			});
+
+			// Start the rotation animation
+			rotateTransition.play();
 		} else {
-			movePlayer(diceRoll);
+			Alerts.alertBox(Alert.AlertType.INFORMATION, "Question  !!! ",
+					"Player " + currentplayer.getName() + " You got number : " + diceRoll + "",
+					"A question will be displayed !!");
+			// Handle rolls outside 1-6 without rotation
+			if (diceRoll >= 7 && diceRoll <= 18) {
+				music("popQuestion.mp3");
+				// Randomly choose between level 1 and 2 questions
+				int questionLevel = (Math.random() < 0.5) ? 1 : 2;
+				handleQuestionTileEvent(questionLevel);
+			} else if (diceRoll >= 19 && diceRoll <= 24) {
+				music("popQuestion.mp3");
+				handleQuestionTileEvent(3);
+			}
+			// Immediate switch to next player without rotation
+			switchToNextPlayer();
 		}
-
-		// Once everything for this player's turn is done, switch to the next player
-		switchToNextPlayer();
 	}
 
 	private void switchToNextPlayer() {
@@ -256,9 +298,6 @@ public class GameBoardHardController {
 		} // Ensure the position does not go below the starting point
 		if (newPosition >= 169) {
 			newPosition = 169; // Assuming 49 is the winning tile
-			music("winning.mp3");
-			Alerts.alertBox(Alert.AlertType.INFORMATION, "CONGRATULATIONS !!! ",
-					"Player " + currentplayer.getName() + " WON the game !! ", "Triumphantly victorious !!");
 
 		}
 		currentplayer.setPositionAfterClimbing(newPosition); // Update this line to set the newPosition
@@ -279,12 +318,7 @@ public class GameBoardHardController {
 			System.out.println("player postition after climbing the ladder : " + currentplayer.getPosition());
 			System.out.println(currentplayer.getName() + " climbed a ladder to position: " + newPosition);
 			music("ladderClimbing.mp3");
-			if (newPosition >= 169) {
-				// Handle winning condition (end game, display message, etc.)
-				Alerts.alertBox(Alert.AlertType.INFORMATION, "CONGRATULATIONS !!! ",
-						"Player " + currentplayer.getName() + " WON the game !! ", "Triumphantly victorious !!");
-				music("winning.mp3");
-			}
+
 		}
 
 		// Check for snake at the new position
@@ -296,6 +330,30 @@ public class GameBoardHardController {
 			System.out.println("player postition after bitten by a snake : " + currentplayer.getPosition());
 			music("snakeBite.mp3");
 		}
+
+		for (SurpristTile surprise : hardGame.getSurprises()) {
+			if (newPosition == surprise.getPosition()) {
+				System.out.println(currentplayer.getName() + " has found a surprise tile at position: " + newPosition);
+				int randomNumber = random.nextInt(2) + 1;
+				// if the random is 1 then the player gets 10 steps forward,2 it gets 10 steps
+				// backward
+				if (randomNumber == 1) {
+					Alerts.alertBox(Alert.AlertType.INFORMATION, "CONGRATULATIONS !!! ",
+							currentplayer.getName() + " GOT 10 STEPS FORWARD !! ", null);
+					newPosition = currentplayer.getPosition() + 10;
+					currentplayer.setPosition(10);
+				} else {
+					Alerts.alertBox(Alert.AlertType.INFORMATION, "OOPS !!! ",
+							currentplayer.getName() + " GOT 10 STEPS BACKWARD !! ", null);
+					newPosition = currentplayer.getPosition() + 10;
+					if (newPosition <= 1)
+						currentplayer.setPositionAfterClimbing(1);
+
+				}
+
+				break;
+			}
+		}
 		if (diceRoll != 0) {
 			// Check for question tile at the new position
 			for (QuestionTile QT : hardGame.getQuestions()) {// check if the player stepped is on a question tile//
@@ -303,20 +361,35 @@ public class GameBoardHardController {
 					System.out.println("pop question");
 					music("popQuestion.mp3");
 					handleQuestionTileEvent(QT.getLevel());
-					if (newPosition >= 169) {
-						// Handle winning condition (end game, display message, etc.)
-						Alerts.alertBox(Alert.AlertType.INFORMATION, "CONGRATULATIONS !!! ",
-								"Player " + currentplayer.getName() + " WON the game !! ",
-								"Triumphantly victorious !!");
-						music("winning.mp3");
-
-					}
 					return;
 				}
 			}
 
 		}
 		updatePlayerPositionVisuals(newPosition);
+		if (newPosition >= 169) {
+			// Handle winning condition (end game, display message, etc.)
+			Alerts.alertBox(Alert.AlertType.INFORMATION, "CONGRATULATIONS !!! ",
+					"Player " + currentplayer.getName() + " WON the game !! ", "Triumphantly victorious !!");
+			music("winning.mp3");
+
+			try {
+				// Load the QuestionView FXML file
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/HistoryBoard.fxml"));
+				Parent root = loader.load();
+
+				// Use the existing stage instead of creating a new one
+				Stage currentStage = new Stage();
+
+				currentStage.setTitle("History Board");
+				currentStage.setScene(new Scene(root));
+				currentStage.show(); // This line actually displays the stage
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("Error opening history view: " + e.getMessage());
+			}
+
+		}
 	}
 
 	private void updatePlayerPositionVisuals(int newPosition) {
@@ -357,24 +430,29 @@ public class GameBoardHardController {
 		}
 	}
 
-	private void updateBoardWithsurpriseTile() {
+	private void updateBoardWithSurpriseTiles() {
+		// Assuming each SurpristTile has a getImageView() method and the surprises are
+		// stored in a List
+		List<SurpristTile> surprises = hardGame.getSurprises(); // Get the list of surprise tiles
 
-		ImageView questiotileImageView = hardGame.getSurprise().getImageView(); // Assuming Ladder class has
-																				// getImageView method
+		for (SurpristTile surprise : surprises) {
+			ImageView surpriseTileImageView = surprise.getImageView(); // Get the ImageView for the surprise tile
 
-		// Calculate the grid position for the bottom and top of the ladder
-		Point2D questiontileGridPosition = calculateGridPosition(hardGame.getSurprise().getPosition());
+			// Calculate the grid position for the surprise tile based on its position
+			Point2D surpriseTileGridPosition = calculateGridPosition(surprise.getPosition());
 
-		// Convert grid position to pixel position
-		Point2D questiontilePixelPosition = calculatePixelPosition(questiontileGridPosition);
+			// Convert grid position to pixel position
+			Point2D surpriseTilePixelPosition = calculatePixelPosition(surpriseTileGridPosition);
 
-		// Set the ImageView of the ladder at the bottom position
-		questiotileImageView.setLayoutX(questiontilePixelPosition.getX());
-		questiotileImageView.setLayoutY(questiontilePixelPosition.getY());
-		questiotileImageView.setFitWidth(40);
-		questiotileImageView.setFitHeight(40);
-		// Add the ImageView to the overlay
-		Overlay.getChildren().add(questiotileImageView);
+			// Set the ImageView of the surprise tile at the calculated position
+			surpriseTileImageView.setLayoutX(surpriseTilePixelPosition.getX());
+			surpriseTileImageView.setLayoutY(surpriseTilePixelPosition.getY());
+			surpriseTileImageView.setFitWidth(40); // Adjust width as needed
+			surpriseTileImageView.setFitHeight(40); // Adjust height as needed
+
+			// Add the ImageView to the board or overlay
+			Overlay.getChildren().add(surpriseTileImageView);
+		}
 	}
 
 	private void clearPreviousPlayerPosition(Player currentplayer) {
@@ -552,7 +630,6 @@ public class GameBoardHardController {
 			for (Object o : jsonQuestions) {
 				JSONObject jsonQuestion = (JSONObject) o;
 				Question question = new Question(jsonQuestion);
-
 				questions.add(question);
 
 			}

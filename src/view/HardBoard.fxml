@@ -264,7 +264,7 @@
             <Image url="@../images/grey-removebg-preview.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="diceButton1" fitHeight="82.0" fitWidth="81.0" layoutX="436.0" layoutY="807.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="rollDiceImage" fitHeight="82.0" fitWidth="81.0" layoutX="436.0" layoutY="807.0" onMouseClicked="#rollDiceAndMove" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/dice4.png" />
          </image>
@@ -300,7 +300,6 @@
          </image>
       </ImageView>
       <AnchorPane fx:id="Overlay" layoutX="164.0" layoutY="126.0" prefHeight="655.0" prefWidth="662.0" />
-      <Button fx:id="diceButton" layoutX="50.0" layoutY="678.0" maxWidth="156.0" mnemonicParsing="false" onAction="#rollDiceAndMove" prefHeight="31.0" prefWidth="156.0" text="ROLL DICE" />
       <ImageView fx:id="toggleMusicButton" fitHeight="100.0" fitWidth="100.0" layoutX="841.0" layoutY="21.0" onMouseClicked="#handleToggleMusic" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/soundButton.png" />

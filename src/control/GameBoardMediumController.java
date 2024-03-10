@@ -10,6 +10,8 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import javafx.animation.RotateTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Point2D;
@@ -19,6 +21,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.effect.ColorAdjust;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -26,6 +29,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import model.Dice;
 import model.GameLevel;
 import model.Ladder;
@@ -99,6 +103,8 @@ public class GameBoardMediumController {
 	}
 
 	@FXML
+	private ImageView rollDiceImage;
+	@FXML
 	ImageView toggleMusicButton;
 
 	@FXML
@@ -132,6 +138,8 @@ public class GameBoardMediumController {
 		toggleMusicButton.setCursor(Cursor.HAND);
 		toggleMusicButton.setOnMouseEntered(event -> toggleMusicButton.setOpacity(0.8));
 		toggleMusicButton.setOnMouseExited(event -> toggleMusicButton.setOpacity(1.5));
+
+		rollDiceImage.setCursor(Cursor.HAND);
 	}
 
 	private void initializeBoard() {
@@ -364,20 +372,46 @@ public class GameBoardMediumController {
 
 	@FXML
 	private void rollDiceAndMove() {
+
 		music("rollingDice.mp3");
-		Dice result = new Dice(GameLevel.MEDIUM);
+		Dice result = new Dice(GameLevel.HARD);
 		int diceRoll = result.rollDice();
-		System.out.println("DICERESULT:" + diceRoll);
-		if (diceRoll > 6) { // If dice roll is 5, handle the question event
+		System.out.println("rolling dice result : " + diceRoll);
+
+		if (diceRoll >= 1 && diceRoll <= 6) {
+			// Configure rotation animation only for rolls 1-6
+			RotateTransition rotateTransition = new RotateTransition(Duration.seconds(1), rollDiceImage);
+			rotateTransition.setByAngle(360 * 3); // Rotate 3 times
+			rotateTransition.setCycleCount(1);
+			rotateTransition.setAutoReverse(false);
+
+			rotateTransition.setOnFinished(event -> {
+				// After rotation finishes, execute the remaining operations in the next pulse
+				// of the JavaFX Application Thread
+				Platform.runLater(() -> {
+					// Set the dice image to the result
+					try {
+						Image diceImage = new Image(getClass().getResourceAsStream("/images/dice" + diceRoll + ".png"));
+						rollDiceImage.setImage(diceImage);
+					} catch (NullPointerException e) {
+						System.out.println("Error: Unable to load dice image.");
+					}
+					movePlayer(diceRoll);
+					// Once everything for this player's turn is done, switch to the next player
+					switchToNextPlayer();
+				});
+			});
+
+			// Start the rotation animation
+			rotateTransition.play();
+		} else {
+
 			music("popQuestion.mp3");
 			handleQuestionTileEvent(random.nextInt(2) + 1);
+			switchToNextPlayer();
 
-		} else {
-			movePlayer(diceRoll);
 		}
 
-		// Once everything for this player's turn is done, switch to the next player
-		switchToNextPlayer();
 	}
 
 	private void switchToNextPlayer() {
@@ -400,9 +434,6 @@ public class GameBoardMediumController {
 		} // Ensure the position does not go below the starting point
 		if (newPosition >= 100) {
 			newPosition = 100; // Assuming 49 is the winning tile
-			music("winning.mp3");
-			Alerts.alertBox(Alert.AlertType.INFORMATION, "CONGRATULATIONS !!! ",
-					"Player " + currentplayer.getName() + " WON the game !! ", "Triumphantly victorious !!");
 
 		}
 		if (diceRoll != 0 && newPosition > 0) {
@@ -421,15 +452,6 @@ public class GameBoardMediumController {
 			currentplayer.setPositionAfterClimbing(newPosition);
 			System.out.println("player postition after climbing the ladder : " + currentplayer.getPosition());
 			System.out.println(currentplayer.getName() + " climbed a ladder to position: " + newPosition);
-			music("ladderClimbing.mp3");
-			if (newPosition >= 100) {
-				// Handle winning condition (end game, display message, etc.)
-				Alerts.alertBox(Alert.AlertType.INFORMATION, "CONGRATULATIONS !!! ",
-						"Player " + currentplayer.getName() + " WON the game !! ", "Triumphantly victorious !!");
-				music("winning.mp3");
-
-			}
-			// soundPath = "ladderClimbing.mp3";
 
 		}
 
@@ -441,6 +463,26 @@ public class GameBoardMediumController {
 			currentplayer.setPositionAfterClimbing(newPosition);
 			System.out.println("player postition after bitten by a snake : " + currentplayer.getPosition());
 			music("snakeBite.mp3");
+		}
+
+		int surprise = mediumGame.getSurprise().getPosition();
+		if (surprise == newPosition) {
+			int randomNumber = random.nextInt(2) + 1;
+			// if the random is 1 then the player gets 10 steps forward
+			if (randomNumber == 1) {
+				Alerts.alertBox(Alert.AlertType.INFORMATION, "CONGRATULATIONS !!! ",
+						currentplayer.getName() + " GOT 10 STEPS FORWARD !! ", null);
+				newPosition = currentplayer.getPosition() + 10;
+				currentplayer.setPosition(10);
+			} else {
+				Alerts.alertBox(Alert.AlertType.INFORMATION, "OOPS !!! ",
+						currentplayer.getName() + " GOT 10 STEPS BACKWARD !! ", null);
+				newPosition = currentplayer.getPosition() + 10;
+				if (newPosition <= 1)
+					currentplayer.setPositionAfterClimbing(1);
+
+			}
+
 		}
 		if (diceRoll != 0) {
 			// Check for question tile at the new position
@@ -463,6 +505,29 @@ public class GameBoardMediumController {
 
 		}
 		updatePlayerPositionVisuals(newPosition);
+		if (newPosition >= 49) {
+			music("winning.mp3");
+			// Handle winning condition (end game, display message, etc.)
+			Alerts.alertBox(Alert.AlertType.INFORMATION, "CONGRATULATIONS !!! ",
+					"Player " + currentplayer.getName() + " WON the game !! ", "Triumphantly victorious !!");
+
+			try {
+				// Load the QuestionView FXML file
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/HistoryBoard.fxml"));
+				Parent root = loader.load();
+
+				// Use the existing stage instead of creating a new one
+				Stage currentStage = new Stage();
+
+				currentStage.setTitle("History Board");
+				currentStage.setScene(new Scene(root));
+				currentStage.show(); // This line actually displays the stage
+			} catch (Exception e) {
+				e.printStackTrace();
+				System.out.println("Error opening history view: " + e.getMessage());
+			}
+
+		}
 	}
 
 	private void handleQuestionTileEvent(int level) {
