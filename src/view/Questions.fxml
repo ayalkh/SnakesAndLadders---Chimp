@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="592.0" prefWidth="775.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.QuestionsController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="592.0" prefWidth="775.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.QuestionsController">
    <children>
       <ImageView fitHeight="592.0" fitWidth="807.0" layoutX="-1.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -38,5 +39,6 @@
             <Image url="@../images/soundButton.png" />
          </image>
       </ImageView>
+      <PieChart fx:id="chart" prefHeight="155.0" prefWidth="173.0" />
    </children>
 </AnchorPane>

@@ -2,242 +2,345 @@
   "questions": [
     {
       "questionID": 1,
-      "question": "In Agile development, which ceremony is crucial for refining the product backlog to ensure alignment with customer needs?",
+      "question": "In Agile development, what is the primary approach to software delivery?",
       "level": 1,
       "answers": [
-        "Sprint Planning",
-        "Backlog Grooming",
-        "Daily Stand-up",
-        "Sprint Retrospective"
+        "A. Delivering all functionality at the end of the project.",
+        "B. Incrementally building software from the start of the project.",
+        "C. Prioritizing user stories in one large cycle.",
+        "D. Completing software delivery all at once near the end."
       ],
       "team": "Chimp",
       "correctAnswer": 2
     },
     {
       "questionID": 2,
-      "question": "What Agile metric measures the team's work rate and helps in future sprint planning?",
+      "question": "What is the role of user stories in Agile development?",
       "level": 1,
       "answers": [
-        "Velocity",
-        "Burn-up Chart",
-        "Cumulative Flow Diagram",
-        "Lead Time"
-      ],
-      "team": "Chimp",
-      "correctAnswer": 1
-    },
-    {
-      "questionID": 3,
-      "question": "When documenting software requirements, which format emphasizes user interaction with the system?",
-      "level": 1,
-      "answers": [
-        "Technical Specification",
-        "User Stories",
-        "Function Points",
-        "Use Cases"
-      ],
-      "team": "Chimp",
-      "correctAnswer": 2
-    },
-    {
-      "questionID": 4,
-      "question": "Which approach ensures that non-functional requirements are consistently met throughout the development process?",
-      "level": 1,
-      "answers": [
-        "Acceptance Testing",
-        "Performance Benchmarking",
-        "Continuous Integration",
-        "Quality Gates"
+        "A. To serve as documentation for stakeholders.",
+        "B. To define the project scope.",
+        "C. To prioritize tasks for developers.",
+        "D. To represent little bits of user functionality in projects."
       ],
       "team": "Chimp",
       "correctAnswer": 4
     },
     {
-      "questionID": 5,
-      "question": "What is the primary goal of user surveys in the context of software development?",
-      "level": 1,
+      "questionID": 3,
+      "question": "How does Agile handle project priorities?",
+      "level": 2,
       "answers": [
-        "Identifying user preferences and pain points",
-        "Estimating the project budget",
-        "Determining the project timeline",
-        "Assessing team performance"
+        "A. Completing tasks in a random order.",
+        "B. Following a strict sequential plan.",
+        "C. Prioritizing user stories based on customer input.",
+        "D. Avoiding the need for prioritization."
+      ],
+      "team": "Chimp",
+      "correctAnswer": 3
+    },
+    {
+      "questionID": 4,
+      "question": "In Agile development, what happens if there is too much to do and not enough time?",
+      "level": 2,
+      "answers": [
+        "A. Prioritize and cut scope (recommended).",
+        "B. Extend the project deadline.",
+        "C. Decrease the quality of the delivered product.",
+        "D. Request more resources."
       ],
       "team": "Chimp",
       "correctAnswer": 1
+    },
+    {
+      "questionID": 5,
+      "question": "What is one of the benefits of Software Requirements Specification (SRS)?",
+      "level": 1,
+      "answers": [
+        "A. Increasing development effort.",
+        "B. Reducing the basis for agreement.",
+        "C. Establishing the basis for agreement between customers and suppliers.",
+        "D. Eliminating the need for validation."
+      ],
+      "team": "Chimp",
+      "correctAnswer": 3
     },
     {
       "questionID": 6,
-      "question": "How can surveys contribute to the iterative development process?",
+      "question": "What does SRS provide as a baseline?",
       "level": 1,
       "answers": [
-        "By providing a platform for stakeholder feedback",
-        "Facilitating daily stand-ups",
-        "Guiding sprint retrospectives",
-        "Setting sprint goals"
+        "A. A basis for increasing costs.",
+        "B. A baseline for reducing schedules.",
+        "C. A baseline for validation and verification.",
+        "D. A basis for decreasing enhancement."
       ],
       "team": "Chimp",
-      "correctAnswer": 1
+      "correctAnswer": 3
     },
     {
       "questionID": 7,
-      "question": "Which principle of software architecture aims at reducing rework and simplifying expansion?",
-      "level": 1,
+      "question": "What is one of the roles of IEEE?",
+      "level": 2,
       "answers": [
-        "Modularity",
-        "Scalability",
-        "Performance",
-        "Security"
-      ],
-      "team": "Chimp",
-      "correctAnswer": 1
-    },
-    {
-      "questionID": 8,
-      "question": "In the context of software architecture, what does the term 'separation of concerns' refer to?",
-      "level": 1,
-      "answers": [
-        "Dividing the application into distinct features that overlap in functionality",
-        "Organizing the system into layers, each with a specific responsibility",
-        "The process of integrating third-party services into the application",
-        "Ensuring that the application can scale horizontally and vertically"
+        "A. Advocating for reduced technological excellence.",
+        "B. Advancing innovation and technological excellence.",
+        "C. Limiting access to global community resources.",
+        "D. Ignoring the development of technology standards."
       ],
       "team": "Chimp",
       "correctAnswer": 2
     },
     {
+      "questionID": 8,
+      "question": "How many IEEE members are there globally?",
+      "level": 2,
+      "answers": [
+        "A. Less than 100,000.",
+        "B. Around 200,000.",
+        "C. More than 430,000.",
+        "D. Exactly 500,000."
+      ],
+      "team": "Chimp",
+      "correctAnswer": 3
+    },
+    {
       "questionID": 9,
-      "question": "What type of software maintenance addresses changes in the environment in which the software operates?",
+      "question": "Who is responsible for documenting the survey during the System Requirement Review (SRR)?",
       "level": 1,
       "answers": [
-        "Corrective",
-        "Adaptive",
-        "Perfective",
-        "Preventive"
+        "A. Survey Manager.",
+        "B. Survey Presenter.",
+        "C. Survey Reviewer.",
+        "D. Survey Team Size."
       ],
       "team": "Chimp",
       "correctAnswer": 2
     },
     {
       "questionID": 10,
-      "question": "Which maintenance activity is primarily concerned with improving the software's performance and maintainability?",
+      "question": "What is the recommended team size for the System Requirement Review (SRR)?",
       "level": 1,
       "answers": [
-        "Corrective Maintenance",
-        "Adaptive Maintenance",
-        "Perfective Maintenance",
-        "Preventive Maintenance"
+        "A. 1-3 members.",
+        "B. 3-7 members.",
+        "C. 7-15 members.",
+        "D. 15 members or more."
       ],
       "team": "Chimp",
       "correctAnswer": 3
     },
     {
       "questionID": 11,
-      "question": "In Agile testing, what practice involves continuously integrating and testing changes to ensure compatibility?",
-      "level": 1,
+      "question": "Which type of errors are challenging to identify in requirement specifications?",
+      "level": 2,
       "answers": [
-        "Unit Testing",
-        "Integration Testing",
-        "Continuous Integration Testing",
-        "Regression Testing"
+        "A. Missing requirements.",
+        "B. Clearly described general requirements.",
+        "C. Partial requirements.",
+        "D. Comprehensive functional requirements."
       ],
       "team": "Chimp",
       "correctAnswer": 3
     },
     {
       "questionID": 12,
-      "question": "Which testing strategy involves testing the application from an end-user perspective?",
+      "question": "Why are partial requirements considered challenging to identify?",
+      "level": 2,
+      "answers": [
+        "A. Because they are comprehensive.",
+        "B. Because they cover specific functionalities.",
+        "C. Because they lack a full description of required functionality.",
+        "D. Because they are always clearly stated."
+      ],
+      "team": "Chimp",
+      "correctAnswer": 3
+    },
+    {
+      "questionID": 13,
+      "question": "What is a design pattern?",
       "level": 1,
       "answers": [
-        "Black Box Testing",
-        "White Box Testing",
-        "Gray Box Testing",
-        "User Acceptance Testing"
+        "A. A single solution to a design problem.",
+        "B. A set of rules for designing objects.",
+        "C. A decision-making process for designers.",
+        "D. A documented entry with a recognized solution to a design problem."
       ],
       "team": "Chimp",
       "correctAnswer": 4
-    }, 
-  {
-   "questionID": 13,
-      "question": "What testing technique is best suited for identifying memory leaks, bottlenecks, and performance issues in a software application?",
-      "level": 2,
-      "answers": [
-        "Load Testing",
-        "Stress Testing",
-        "Performance Testing",
-        "Security Testing"
-      ],
-      "team": "Chimp",
-      "correctAnswer": 3
     },
     {
       "questionID": 14,
-      "question": "In the context of TDD (Test Driven Development), which of the following best describes the cycle of operations?",
+      "question": "What is the intent of the Factory Method Pattern?",
+      "level": 1,
+      "answers": [
+        "A. To define an interface for creating objects.",
+        "B. To retain control of class instantiation.",
+        "C. To encapsulate object creation code on the client side.",
+        "D. All of the above."
+      ],
+      "team": "Chimp",
+      "correctAnswer": 4
+    },
+    {
+      "questionID": 15,
+      "question": "How does the Factory Design pattern relate to encapsulation?",
       "level": 2,
       "answers": [
-        "Write a test, refactor code, write code to pass the test",
-        "Write code, write a test, refactor code",
-        "Write a test, write code to pass the test, refactor code",
-        "Refactor code, write a test, write code to pass the test"
+        "A. It avoids encapsulation.",
+        "B. It ignores encapsulation principles.",
+        "C. It encapsulates object creation code inside a Factory method.",
+        "D. It relies on client-side encapsulation."
       ],
       "team": "Chimp",
       "correctAnswer": 3
     },
     {
-  "questionID": 15,
-  "question": "Which design pattern is best suited for situations where an object should have only one instance throughout the application?",
-  "level": 3,
-  "answers": [
-    "Singleton Pattern",
-    "Factory Method Pattern",
-    "Abstract Factory Pattern",
-    "Builder Pattern"
-  ],
-  "team": "Chimp",
-  "correctAnswer": 1
-},
-{
-  "questionID": 16,
-  "question": "In software engineering, which type of diagram is used to represent the dynamic behavior of a system?",
-  "level": 3,
-  "answers": [
-    "Class Diagram",
-    "Use Case Diagram",
-    "Sequence Diagram",
-    "Activity Diagram"
-  ],
-  "team": "Chimp",
-  "correctAnswer": 3
-},
-   {
-  "questionID": 17,
-  "question": "What is the primary focus of DevOps?",
-  "level": 1,
-  "answers": [
-    "Enhancing security protocols",
-    "Increasing development speed",
-    "Improving collaboration between development and operations",
-    "Reducing the cost of infrastructure"
-  ],
-  "team": "Chimp",
-  "correctAnswer": 3
-},
-{
-  "questionID": 19,
-  "question": "What principle underlies the concept of 'fail fast' in software development?",
-  "level": 3,
-  "answers": [
-    "Delaying testing until the final stages",
-    "Catching and addressing errors in the early stages",
-    "Focusing exclusively on perfecting code before testing",
-    "Increasing time to market for new features"
-  ],
-  "team": "Chimp",
-  "correctAnswer": 2
-}
-
-    
-    
+      "questionID": 20,
+      "question": "In the Observer pattern, what is the common example provided in graphical user interfaces?",
+      "level": 2,
+      "answers": [
+        "A. Creating objects sequentially.",
+        "B. Encapsulating object creation code.",
+        "C. Notifying objects when another object changes.",
+        "D. Accessing elements of a collection."
+      ],
+      "team": "Chimp",
+      "correctAnswer": 3
+    },
+    {
+      "questionID": 21,
+      "question": "What is a Test Case in the context of software testing?",
+      "level": 1,
+      "answers": [
+        "A. A piece of code that executes specific functionality.",
+        "B. A document describing the approach for software development.",
+        "C. A unique identification number for software applications.",
+        "D. A document describing how testing will be performed for a specific application."
+      ],
+      "team": "Chimp",
+      "correctAnswer": 4
+    },
+    {
+      "questionID": 22,
+      "question": "What information should be included in a Test Case document?",
+      "level": 1,
+      "answers": [
+        "A. Test Case Id, Test Description, and Test Steps.",
+        "B. Organization name, Test Case Owner, and Creation Date.",
+        "C. Test Steps, Expected Value, and Result.",
+        "D. All of the above."
+      ],
+      "team": "Chimp",
+      "correctAnswer": 4
+    },
+    {
+      "questionID": 23,
+      "question": "What is the purpose of the 'Expected Value' field in a Test Case document?",
+      "level": 2,
+      "answers": [
+        "A. To specify the code changes.",
+        "B. To document the ideal value for the test case.",
+        "C. To record the steps to execute the test case.",
+        "D. To identify the owner of the test case."
+      ],
+      "team": "Chimp",
+      "correctAnswer": 2
+    },
+    {
+      "questionID": 24,
+      "question": "In Unit Testing, what is the main purpose of a unit test?",
+      "level": 2,
+      "answers": [
+        "A. To execute specific functionality in the code under test.",
+        "B. To validate the creation date of the test case.",
+        "C. To mix normal code with test code.",
+        "D. To create a unique identification number for software applications."
+      ],
+      "team": "Chimp",
+      "correctAnswer": 1
+    },
+    {
+      "questionID": 25,
+      "question": "What is Git primarily used for in the context of version control?",
+      "level": 1,
+      "answers": [
+        "A. Managing local directories.",
+        "B. Synchronizing repositories on a server.",
+        "C. Organizing files on your local machine.",
+        "D. Keeping track of the history of commits."
+      ],
+      "team": "Chimp",
+      "correctAnswer": 2
+    },
+    {
+      "questionID": 26,
+      "question": "How does Git handle synchronization between different machines?",
+      "level": 1,
+      "answers": [
+        "A. Automatically uploads changes to a central server.",
+        "B. Manually copying files between machines.",
+        "C. Synchronizing with the server to pick up changes.",
+        "D. Ignoring changes when moving between machines."
+      ],
+      "team": "Chimp",
+      "correctAnswer": 3
+    },
+    {
+      "questionID": 27,
+      "question": "What advantage does Git provide in terms of commit history?",
+      "level": 2,
+      "answers": [
+        "A. Automatically discarding commit history.",
+        "B. Allowing only the latest version to be visible.",
+        "C. Keeping track of the history of commits for reference.",
+        "D. Erasing all commit history for better performance."
+      ],
+      "team": "Chimp",
+      "correctAnswer": 3
+    },
+    {
+      "questionID": 28,
+      "question": "What additional directory does a Git repository have?",
+      "level": 2,
+      "answers": [
+        "A. .docs",
+        "B. .data",
+        "C. .info",
+        "D. .git"
+      ],
+      "team": "Chimp",
+      "correctAnswer": 4
+    },
+    {
+      "questionID": 29,
+      "question": "What is the purpose of the .git directory in a Git repository?",
+      "level": 2,
+      "answers": [
+        "A. Storing user documentation.",
+        "B. Containing the actual project files.",
+        "C. Maintaining a mini-filesystem with versioning information.",
+        "D. Managing server synchronization."
+      ],
+      "team": "Chimp",
+      "correctAnswer": 3
+    },
+    {
+      "questionID": 30,
+      "question": "What role does the Git client play in managing the .git directory?",
+      "level": 2,
+      "answers": [
+        "A. Displaying commit history.",
+        "B. Optimizing the mini-filesystem.",
+        "C. Synchronizing with the server.",
+        "D. Creating and managing the .git directory."
+      ],
+      "team": "Chimp",
+      "correctAnswer": 4
+    }
   ]
 }
+
+
 
 
