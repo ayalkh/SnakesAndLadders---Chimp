@@ -91,6 +91,15 @@ public class PlayersInfoControl {
 	}
 
 	@FXML
+	ImageView toggleMusicButton;
+
+	@FXML
+	void handleToggleMusic(MouseEvent event) {
+		BackgroundMusicPlayer.getInstance().toggleMusic();
+
+	}
+
+	@FXML
 	private ImageView homeButton;
 	String navigationPath = null;
 
@@ -135,6 +144,10 @@ public class PlayersInfoControl {
 		backButton.setCursor(Cursor.HAND);
 		backButton.setOnMouseEntered(event -> backButton.setOpacity(0.8));
 		backButton.setOnMouseExited(event -> backButton.setOpacity(1.5));
+
+		toggleMusicButton.setCursor(Cursor.HAND);
+		toggleMusicButton.setOnMouseEntered(event -> toggleMusicButton.setOpacity(0.8));
+		toggleMusicButton.setOnMouseExited(event -> toggleMusicButton.setOpacity(1.5));
 		// Initialize visibility of text fields
 		updateTextFieldsVisibility();
 		startLabel.setOnMouseClicked(event -> goToPlayerObjectPage());
@@ -227,8 +240,7 @@ public class PlayersInfoControl {
 					mediumGame.getGamePlayers().add(player);
 					difficultyLevel = "medium";
 				}
-//				for (Player p : mediumGame.getGamePlayers())
-//					System.out.println("player : " + p);
+
 				break;
 			case "hard":
 				hardGame = HardGame.getInstance();
@@ -236,7 +248,7 @@ public class PlayersInfoControl {
 				for (int i = 0; i < numberOfPlayers; i++) {
 					Player player = new Player();
 					player.setName(playerNames.get(i));
-					hardGame.getGameplayers().add(player);
+					hardGame.getGamePlayers().add(player);
 					difficultyLevel = "hard";
 				}
 
@@ -278,7 +290,7 @@ public class PlayersInfoControl {
 
 			PlayerObject controller = loader.getController();
 			// controller.setComboBoxValue(comboBox.getValue());
-			controller.setDifficultyLevel(difficultyLevel);
+			// controller.setDifficultyLevel(difficultyLevel);
 
 			Stage stage = new Stage();
 			stage.setTitle("Choose player's objects ");

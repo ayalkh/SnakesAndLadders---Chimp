@@ -27,7 +27,7 @@
             <Image url="@../images/questionsButton.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="87.0" fitWidth="105.0" layoutX="1074.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="toggleMusicButton" fitHeight="87.0" fitWidth="105.0" layoutX="1074.0" layoutY="26.0" onMouseClicked="#handleToggleMusic" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/soundButton.png" />
          </image>

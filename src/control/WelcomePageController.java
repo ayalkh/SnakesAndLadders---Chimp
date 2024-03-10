@@ -27,6 +27,8 @@ public class WelcomePageController {
 	private ImageView instructions;
 	@FXML
 	private ImageView historyButton;
+	@FXML
+	private ImageView toggleMusicButton;
 
 	@FXML
 	void initialize() {
@@ -34,7 +36,7 @@ public class WelcomePageController {
 		viewQuestionImage.setCursor(Cursor.HAND);
 		instructions.setCursor(Cursor.HAND);
 		historyButton.setCursor(Cursor.HAND);
-
+		toggleMusicButton.setCursor(Cursor.HAND);
 		// Set opacity effects for 'start'
 		start.setOnMouseEntered(event -> start.setOpacity(0.8));
 		start.setOnMouseExited(event -> start.setOpacity(1.5));
@@ -47,6 +49,9 @@ public class WelcomePageController {
 
 		historyButton.setOnMouseEntered(event -> historyButton.setOpacity(0.8));
 		historyButton.setOnMouseExited(event -> historyButton.setOpacity(1.5));
+
+		toggleMusicButton.setOnMouseEntered(event -> toggleMusicButton.setOpacity(0.8));
+		toggleMusicButton.setOnMouseExited(event -> toggleMusicButton.setOpacity(1.5));
 	}
 
 	@FXML
@@ -128,6 +133,12 @@ public class WelcomePageController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+
+	}
+
+	@FXML
+	void handleToggleMusic(MouseEvent event) {
+		BackgroundMusicPlayer.getInstance().toggleMusic();
 
 	}
 }

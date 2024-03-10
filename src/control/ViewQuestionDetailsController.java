@@ -53,6 +53,13 @@ public class ViewQuestionDetailsController {
 	private TextArea questionText;
 	@FXML
 	private Label teamLabel;
+	@FXML
+	ImageView toggleMusicButton;
+
+	@FXML
+	void handleToggleMusic(MouseEvent event) {
+		BackgroundMusicPlayer.getInstance().toggleMusic();
+	}
 
 	private int correctAnswer;
 	private int questionID;
@@ -189,6 +196,10 @@ public class ViewQuestionDetailsController {
 		updateButton.setCursor(Cursor.HAND);
 		updateButton.setOnMouseEntered(event -> updateButton.setOpacity(0.8));
 		updateButton.setOnMouseExited(event -> updateButton.setOpacity(1.5));
+
+		toggleMusicButton.setCursor(Cursor.HAND);
+		toggleMusicButton.setOnMouseEntered(event -> toggleMusicButton.setOpacity(0.8));
+		toggleMusicButton.setOnMouseExited(event -> toggleMusicButton.setOpacity(1.5));
 
 	}
 

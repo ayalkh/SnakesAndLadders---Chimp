@@ -58,6 +58,14 @@ public class PlayerObject {
 	private ImageView yellow;
 	private String diffLevel;
 	private int numberOfPlayers;
+	@FXML
+	ImageView toggleMusicButton;
+
+	@FXML
+	void handleToggleMusic(MouseEvent event) {
+		BackgroundMusicPlayer.getInstance().toggleMusic();
+	}
+
 	// A Set to keep track of selected Images
 	private Set<ImageView> selectedImages = new HashSet<>();
 	private List<String> playerNames = new ArrayList<>();
@@ -79,7 +87,9 @@ public class PlayerObject {
 		assert purple != null : "fx:id=\"purple\" was not injected: check your FXML file 'PlayersObjects.fxml'.";
 		assert red != null : "fx:id=\"red\" was not injected: check your FXML file 'PlayersObjects.fxml'.";
 		assert yellow != null : "fx:id=\"yellow\" was not injected: check your FXML file 'PlayersObjects.fxml'.";
-
+		toggleMusicButton.setCursor(Cursor.HAND);
+		toggleMusicButton.setOnMouseEntered(event -> toggleMusicButton.setOpacity(0.8));
+		toggleMusicButton.setOnMouseExited(event -> toggleMusicButton.setOpacity(1.5));
 		applyMouseEffects(red);
 		applyMouseEffects(blue);
 		applyMouseEffects(green);
@@ -103,7 +113,7 @@ public class PlayerObject {
 
 			break;
 		case "hard":
-			for (Player player : hardGame.getGameplayers()) {
+			for (Player player : hardGame.getGamePlayers()) {
 				// System.out.println("getGameplayers size :" + easyGame.getGameplayers());
 				playerNames.add(player.getName());
 			}
@@ -112,13 +122,6 @@ public class PlayerObject {
 			showAlert("Invalid Difficulty", "The selected difficulty level is not valid.");
 			return;
 		}
-		for (Player player : easyGame.getGameplayers()) {
-
-			playerNames.add(player.getName());
-
-		}
-
-
 		updatePlayerNameLabel();
 		currentPlayerIndex++;
 

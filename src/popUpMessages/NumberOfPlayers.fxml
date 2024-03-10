@@ -185,5 +185,10 @@
             <Font name="Bauhaus 93" size="26.0" />
          </font>
       </Label>
+      <ImageView fx:id="toggleMusicButton" fitHeight="61.0" fitWidth="64.0" layoutX="361.0" layoutY="14.0" onMouseClicked="#handleToggleMusic" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/soundButton.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

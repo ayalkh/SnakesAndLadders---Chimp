@@ -52,7 +52,16 @@ public class addQuestiosPageController {
 
 	@FXML
 	private ComboBox<Integer> CorrectAnswer;
+	@FXML
+	ImageView toggleMusicButton;
 
+	@FXML
+	void handleToggleMusic(MouseEvent event) {
+		BackgroundMusicPlayer.getInstance().toggleMusic();
+
+	}
+
+	// Add the button to your scene or layout
 	// At the top of the addQuestiosPageController file
 	@FunctionalInterface
 	interface QuestionAddedCallback {
@@ -198,6 +207,10 @@ public class addQuestiosPageController {
 		addButton.setCursor(Cursor.HAND);
 		addButton.setOnMouseEntered(event -> addButton.setOpacity(0.8));
 		addButton.setOnMouseExited(event -> addButton.setOpacity(1.5));
+
+		toggleMusicButton.setCursor(Cursor.HAND);
+		toggleMusicButton.setOnMouseEntered(event -> toggleMusicButton.setOpacity(0.8));
+		toggleMusicButton.setOnMouseExited(event -> toggleMusicButton.setOpacity(1.5));
 
 	}
 

@@ -24,6 +24,14 @@ public class HistoryBoardController {
 
 	@FXML
 	private ImageView homeButton1;
+	@FXML
+	ImageView toggleMusicButton;
+
+	@FXML
+	void handleToggleMusic(MouseEvent event) {
+		BackgroundMusicPlayer.getInstance().toggleMusic();
+
+	}
 
 	@FXML
 	void handleHomeButton(MouseEvent event) {
@@ -48,14 +56,16 @@ public class HistoryBoardController {
 	void initialize() {
 		assert homeButton1 != null : "fx:id=\"homeButton\" was not injected: check your FXML file 'HistoryBoard.fxml'.";
 		homeButton1.setCursor(Cursor.HAND);
-
-		// Set opacity effects for 'start'
 		homeButton1.setOnMouseEntered(event -> homeButton1.setOpacity(0.8));
 		homeButton1.setOnMouseExited(event -> homeButton1.setOpacity(1.5));
-		
+
 		backButton.setCursor(Cursor.HAND);
 		backButton.setOnMouseEntered(event -> backButton.setOpacity(0.8));
 		backButton.setOnMouseExited(event -> backButton.setOpacity(1.5));
+
+		toggleMusicButton.setCursor(Cursor.HAND);
+		toggleMusicButton.setOnMouseEntered(event -> toggleMusicButton.setOpacity(0.8));
+		toggleMusicButton.setOnMouseExited(event -> toggleMusicButton.setOpacity(1.5));
 	}
 
 }

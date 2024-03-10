@@ -48,6 +48,13 @@ public class NumberOfPlayersController {
 
 	@FXML
 	private ImageView backButton;
+	@FXML
+	ImageView toggleMusicButton;
+
+	@FXML
+	void handleToggleMusic(MouseEvent event) {
+		BackgroundMusicPlayer.getInstance().toggleMusic();
+	}
 
 	@FXML
 	void whenClickButtonHome(MouseEvent event) {
@@ -109,9 +116,9 @@ public class NumberOfPlayersController {
 	@FXML
 	void initialize() {
 		easyGame = EasyGame.getInstance();
-		mediumGame= MediumGame.getInstance();
-		hardGame= HardGame.getInstance();
-		
+		mediumGame = MediumGame.getInstance();
+		hardGame = HardGame.getInstance();
+
 		homeButton.setCursor(Cursor.HAND);
 		homeButton.setOnMouseEntered(event -> homeButton.setOpacity(0.8));
 		homeButton.setOnMouseExited(event -> homeButton.setOpacity(1.5));
@@ -119,6 +126,10 @@ public class NumberOfPlayersController {
 		backButton.setCursor(Cursor.HAND);
 		backButton.setOnMouseEntered(event -> backButton.setOpacity(0.8));
 		backButton.setOnMouseExited(event -> backButton.setOpacity(1.5));
+
+		toggleMusicButton.setCursor(Cursor.HAND);
+		toggleMusicButton.setOnMouseEntered(event -> toggleMusicButton.setOpacity(0.8));
+		toggleMusicButton.setOnMouseExited(event -> toggleMusicButton.setOpacity(1.5));
 
 		assert group1 != null : "fx:id=\"group1\" was not injected: check your FXML file 'NumberOfPlayers.fxml'.";
 		assert group2 != null : "fx:id=\"group2\" was not injected: check your FXML file 'NumberOfPlayers.fxml'.";

@@ -96,7 +96,6 @@
          </children>
       </HBox>
       <AnchorPane fx:id="Overlay" layoutX="295.0" layoutY="118.0" prefHeight="315.0" prefWidth="315.0" />
-      <Button fx:id="diceButton" layoutX="503.0" layoutY="503.0" mnemonicParsing="false" onAction="#rollDiceAndMove" text="ROLL DICE" />
       <ImageView fx:id="redObject" fitHeight="20.0" fitWidth="20.0" layoutX="242.0" layoutY="417.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/RED.png" />
@@ -127,7 +126,7 @@
             <Image url="@../images/PURPLE.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="86.0" fitWidth="102.0" layoutX="402.0" layoutY="481.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="rollDiceImage" fitHeight="86.0" fitWidth="102.0" layoutX="429.0" layoutY="481.0" onMouseClicked="#rollDiceAndMove" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/dice4.png" />
          </image>
@@ -160,6 +159,11 @@
       <ImageView fx:id="greyAvatar" fitHeight="136.0" fitWidth="136.0" layoutX="126.0" layoutY="308.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/grey-removebg-preview.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="toggleMusicButton" fitHeight="100.0" fitWidth="100.0" layoutX="785.0" layoutY="20.0" onMouseClicked="#handleToggleMusic" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/soundButton.png" />
          </image>
       </ImageView>
    </children>

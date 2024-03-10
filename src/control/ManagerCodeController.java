@@ -31,6 +31,14 @@ public class ManagerCodeController {
 	private ImageView backButton;
 
 	@FXML
+	ImageView toggleMusicButton;
+
+	@FXML
+	void handleToggleMusic(MouseEvent event) {
+		BackgroundMusicPlayer.getInstance().toggleMusic();
+	}
+
+	@FXML
 	void clickOnEnterButton(MouseEvent event) {
 		String password = passCode.getText();
 		if (password.equals("123")) {
@@ -110,6 +118,9 @@ public class ManagerCodeController {
 		backButton.setOnMouseEntered(event -> backButton.setOpacity(0.8));
 		backButton.setOnMouseExited(event -> backButton.setOpacity(1.5));
 
+		toggleMusicButton.setCursor(Cursor.HAND);
+		toggleMusicButton.setOnMouseEntered(event -> toggleMusicButton.setOpacity(0.8));
+		toggleMusicButton.setOnMouseExited(event -> toggleMusicButton.setOpacity(1.5));
 	}
 
 }

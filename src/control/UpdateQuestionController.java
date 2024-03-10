@@ -45,6 +45,13 @@ public class UpdateQuestionController {
 
 	@FXML
 	private TextArea questionText;
+	@FXML
+	ImageView toggleMusicButton;
+
+	@FXML
+	void handleToggleMusic(MouseEvent event) {
+		BackgroundMusicPlayer.getInstance().toggleMusic();
+	}
 
 	@FXML
 	private ImageView updateButton;
@@ -139,6 +146,10 @@ public class UpdateQuestionController {
 		updateButton.setCursor(Cursor.HAND);
 		updateButton.setOnMouseEntered(event -> updateButton.setOpacity(0.8));
 		updateButton.setOnMouseExited(event -> updateButton.setOpacity(1.5));
+
+		toggleMusicButton.setCursor(Cursor.HAND);
+		toggleMusicButton.setOnMouseEntered(event -> toggleMusicButton.setOpacity(0.8));
+		toggleMusicButton.setOnMouseExited(event -> toggleMusicButton.setOpacity(1.5));
 //		diffLevel.getItems().addAll(1, 2, 3);
 //
 //		CorrectAnswer.getItems().addAll(1, 2, 3, 4);

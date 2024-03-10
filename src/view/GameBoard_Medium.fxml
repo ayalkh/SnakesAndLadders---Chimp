@@ -8,9 +8,9 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1200.0" styleClass="MeduimBoard.css" stylesheets="@MeduimBoard.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.GameBoardMediumController">
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="932.0" prefWidth="1006.0" styleClass="MeduimBoard.css" stylesheets="@MeduimBoard.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="control.GameBoardMediumController">
    <children>
-      <ImageView fitHeight="926.0" fitWidth="1096.0" layoutX="134.0" layoutY="49.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="134.0" AnchorPane.rightAnchor="37.111083984375" AnchorPane.topAnchor="49.0">
+      <ImageView fitHeight="1000.0" fitWidth="1164.0" layoutX="-41.6" layoutY="-24.8" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="-42.0" AnchorPane.rightAnchor="78.0" AnchorPane.topAnchor="-25.0">
          <image>
             <Image url="@../images/MediumBackGround.png" />
          </image>
@@ -18,7 +18,7 @@
             <Rectangle2D />
          </viewport>
       </ImageView>
-      <HBox layoutX="310.0" layoutY="752.0" prefHeight="45.0" prefWidth="315.0" styleClass="hbox">
+      <HBox layoutX="203.0" layoutY="676.0" prefHeight="45.0" prefWidth="315.0" styleClass="hbox">
          <children>
             <Button fx:id="i0j0" alignment="BOTTOM_LEFT" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="1" textOverrun="CLIP">
                <font>
@@ -36,7 +36,7 @@
             <Button fx:id="i0j9" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="10" />
          </children>
       </HBox>
-      <HBox layoutX="310.0" layoutY="692.0" prefHeight="45.0" prefWidth="315.0" styleClass="hbox">
+      <HBox layoutX="203.0" layoutY="616.0" prefHeight="45.0" prefWidth="315.0" styleClass="hbox">
          <children>
             <Button fx:id="i1j0" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="20" />
             <Button fx:id="i1j1" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="19" />
@@ -50,7 +50,7 @@
             <Button fx:id="i1j9" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="11" />
          </children>
       </HBox>
-      <HBox layoutX="310.0" layoutY="632.0" prefHeight="45.0" prefWidth="315.0" styleClass="hbox">
+      <HBox layoutX="203.0" layoutY="556.0" prefHeight="45.0" prefWidth="315.0" styleClass="hbox">
          <children>
             <Button fx:id="i2j0" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="21" />
             <Button fx:id="i2j1" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="22" />
@@ -64,7 +64,7 @@
             <Button fx:id="i2j9" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="30" />
          </children>
       </HBox>
-      <HBox layoutX="310.0" layoutY="572.0" prefHeight="45.0" prefWidth="315.0" styleClass="hbox">
+      <HBox layoutX="203.0" layoutY="496.0" prefHeight="45.0" prefWidth="315.0" styleClass="hbox">
          <children>
             <Button fx:id="i3j0" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="40" />
             <Button fx:id="i3j1" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="39" />
@@ -78,7 +78,7 @@
             <Button fx:id="i3j9" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="31" />
          </children>
       </HBox>
-      <HBox layoutX="310.0" layoutY="512.0" prefHeight="45.0" prefWidth="315.0" styleClass="hbox">
+      <HBox layoutX="203.0" layoutY="436.0" prefHeight="45.0" prefWidth="315.0" styleClass="hbox">
          <children>
             <Button fx:id="i4j0" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="41" />
             <Button fx:id="i4j1" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="42" />
@@ -92,7 +92,7 @@
             <Button fx:id="i4j9" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="50" />
          </children>
       </HBox>
-      <HBox layoutX="310.0" layoutY="458.0" prefHeight="45.0" prefWidth="315.0" styleClass="hbox">
+      <HBox layoutX="203.0" layoutY="376.0" prefHeight="45.0" prefWidth="315.0" styleClass="hbox">
          <children>
             <Button fx:id="i5j0" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="60" />
             <Button fx:id="i5j1" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="59" />
@@ -106,7 +106,7 @@
             <Button fx:id="i5j9" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="51" />
          </children>
       </HBox>
-      <HBox layoutX="310.0" layoutY="398.0" prefHeight="45.0" prefWidth="315.0" styleClass="hbox">
+      <HBox layoutX="203.0" layoutY="316.0" prefHeight="45.0" prefWidth="315.0" styleClass="hbox">
          <children>
             <Button fx:id="i6j0" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="61" />
             <Button fx:id="i6j1" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="62" />
@@ -120,7 +120,7 @@
             <Button fx:id="i6j9" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="70" />
          </children>
       </HBox>
-            <HBox layoutX="310.0" layoutY="340.0" prefHeight="45.0" prefWidth="315.0" styleClass="hbox">
+            <HBox layoutX="203.0" layoutY="256.0" prefHeight="45.0" prefWidth="315.0" styleClass="hbox">
          <children>
             <Button fx:id="i7j0" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="80" />
             <Button fx:id="i7j1" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="79" />
@@ -134,7 +134,7 @@
             <Button fx:id="i7j9" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="71" />
          </children>
       </HBox>
-         <HBox layoutX="310.0" layoutY="280.0" prefHeight="45.0" prefWidth="315.0" styleClass="hbox">
+         <HBox layoutX="203.0" layoutY="196.0" prefHeight="45.0" prefWidth="315.0" styleClass="hbox">
          <children>
             <Button fx:id="i8j0" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="81" />
             <Button fx:id="i8j1" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="82" />
@@ -148,7 +148,7 @@
             <Button fx:id="i8j9" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="90" />
          </children>
       </HBox>
-          <HBox layoutX="310.0" layoutY="225.0" prefHeight="45.0" prefWidth="315.0" styleClass="hbox">
+          <HBox layoutX="203.0" layoutY="136.0" prefHeight="45.0" prefWidth="315.0" styleClass="hbox">
          <children>
             <Button fx:id="i9j0" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="100" />
             <Button fx:id="i9j1" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="99" />
@@ -162,63 +162,63 @@
             <Button fx:id="i9j9" mnemonicParsing="false" prefHeight="45.0" prefWidth="45.0" text="91" />
          </children>
       </HBox>
-      <AnchorPane fx:id="Overlay" layoutX="310.0" layoutY="215.0" prefHeight="600.0" prefWidth="600.0" />
-      <ImageView fx:id="redObject" fitHeight="20.0" fitWidth="20.0" layoutX="265.0" layoutY="782.0" pickOnBounds="true" preserveRatio="true">
+      <AnchorPane fx:id="Overlay" layoutX="203.0" layoutY="136.0" prefHeight="600.0" prefWidth="600.0" />
+      <ImageView fx:id="redObject" fitHeight="20.0" fitWidth="20.0" layoutX="128.0" layoutY="779.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/chessRed.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="yellowObject" fitHeight="20.0" fitWidth="20.0" layoutX="229.0" layoutY="792.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="yellowObject" fitHeight="20.0" fitWidth="20.0" layoutX="92.0" layoutY="789.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/chessYellow.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="greenObject" fitHeight="628.0" fitWidth="20.0" layoutX="245.0" layoutY="782.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="greenObject" fitHeight="628.0" fitWidth="20.0" layoutX="108.0" layoutY="779.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/chessGreen.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="blueObject" fitHeight="20.0" fitWidth="20.0" layoutX="229.0" layoutY="762.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="blueObject" fitHeight="20.0" fitWidth="20.0" layoutX="92.0" layoutY="759.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/chessBlue.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="greyObject" fitHeight="20.0" fitWidth="20.0" layoutX="265.0" layoutY="812.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="greyObject" fitHeight="20.0" fitWidth="20.0" layoutX="128.0" layoutY="809.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/chessGrey.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="purpleObject" fitHeight="20.0" fitWidth="20.0" layoutX="255.0" layoutY="752.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="purpleObject" fitHeight="20.0" fitWidth="20.0" layoutX="118.0" layoutY="749.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/chessPurple.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="blueAvatar" fitHeight="100.0" fitWidth="100.0" layoutX="179.0" layoutY="270.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="blueAvatar" fitHeight="100.0" fitWidth="100.0" layoutX="42.0" layoutY="267.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/lueAvatar-removebg-preview.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="yellowAvatar" fitHeight="100.0" fitWidth="100.0" layoutX="179.0" layoutY="370.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="yellowAvatar" fitHeight="100.0" fitWidth="100.0" layoutX="42.0" layoutY="367.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/yelloAvatar-removebg-preview.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="greenAvatar" fitHeight="100.0" fitWidth="100.0" layoutX="175.0" layoutY="552.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="greenAvatar" fitHeight="100.0" fitWidth="100.0" layoutX="38.0" layoutY="549.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/greenAvatar-removebg-preview.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="purpleAvatar" fitHeight="100.0" fitWidth="100.0" layoutX="175.0" layoutY="652.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="purpleAvatar" fitHeight="100.0" fitWidth="100.0" layoutX="38.0" layoutY="649.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/purpleAvatar-removebg-preview.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="greyAvatar" fitHeight="100.0" fitWidth="100.0" layoutX="179.0" layoutY="462.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="greyAvatar" fitHeight="100.0" fitWidth="100.0" layoutX="42.0" layoutY="459.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/grey-removebg-preview.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="redAvatar" fitHeight="130.0" fitWidth="130.0" layoutX="164.0" layoutY="150.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="redAvatar" fitHeight="130.0" fitWidth="130.0" layoutX="27.0" layoutY="147.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../images/redAvatar-removebg-preview.png" />
          </image>
@@ -229,5 +229,10 @@
          </image>
       </ImageView>
       <Button fx:id="diceButton" layoutX="648.0" layoutY="858.0" mnemonicParsing="false" onAction="#rollDiceAndMove" prefHeight="31.0" prefWidth="147.0" styleClass="Roll-button" text="ROLL DICE" />
+      <ImageView fx:id="toggleMusicButton" fitHeight="100.0" fitWidth="100.0" layoutX="883.0" layoutY="38.0" onMouseClicked="#handleToggleMusic" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/soundButton.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

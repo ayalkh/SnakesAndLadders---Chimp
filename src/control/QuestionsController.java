@@ -16,6 +16,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import model.Question;
 
@@ -32,12 +33,23 @@ public class QuestionsController {
 	private ImageView back;
 	@FXML
 	private ImageView homeButton;
+	@FXML
+	ImageView toggleMusicButton;
+
+	@FXML
+	void handleToggleMusic(MouseEvent event) {
+		BackgroundMusicPlayer.getInstance().toggleMusic();
+	}
 
 	@FXML
 	public void initialize() {
 
 		loadQuestions();
 		populateListView();
+
+		toggleMusicButton.setCursor(Cursor.HAND);
+		toggleMusicButton.setOnMouseEntered(event -> toggleMusicButton.setOpacity(0.8));
+		toggleMusicButton.setOnMouseExited(event -> toggleMusicButton.setOpacity(1.5));
 
 		addButton.setCursor(Cursor.HAND);
 		addButton.setOnMouseEntered(event -> addButton.setOpacity(0.8));
